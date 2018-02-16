@@ -4,7 +4,6 @@ project(pdfio)
 set(CMAKE_CXX_STANDARD 17)
 
 enable_testing()
-
 add_subdirectory(test/googletest)
-
+include_directories("${PROJECT_SOURCE_DIR}/src")
 add_subdirectory(test/pdfio/pdf1_0)

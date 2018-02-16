@@ -7,6 +7,8 @@ namespace pdfio
 	
 namespace pdf1_0
 {
+	/*! \brief PDF name object.
+	 */
 	class Name
 	{
 	public:

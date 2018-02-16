@@ -14,7 +14,7 @@ namespace pdf1_0
 		/*! \brief Default constructor*/
 		Name() = default;
 		/*! \brief Initializes name by std::string value*/
-		inline Name(const std::string &value)
+		inline explicit Name(const std::string &value)
 		: value_(value)
 		{
 			
@@ -28,6 +28,12 @@ namespace pdf1_0
 		inline bool operator==(const Name &other)
 		{
 			return value_ == other.value_;
+		}
+		/*! \brief Assigns std::string value to name*/
+		inline Name &operator=(const std::string &value)
+		{
+			value_ = value;
+			return *this;
 		}
 		
 	private:

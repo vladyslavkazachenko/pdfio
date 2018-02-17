@@ -3,9 +3,7 @@
 #include <map>
 #include <memory>
 
-#include "name.h"
-#include "integer.h"
-#include "indirect_reference.h"
+#include "type_info.h"
 
 namespace pdfio
 {
@@ -45,38 +43,28 @@ namespace pdf1_0
 		class Entry
 		{
 		public:
-			enum ObjectType
-			{
-				kName,
-				kInteger,
-				kIndirectReference,
-			};
-			
-			template <typename T> 
-			static const ObjectType ObjectTypeMap;
-		
-			inline Entry(ObjectType objectType)
-			: objectType_(objectType)
+			inline Entry(TypeId typeId)
+			: typeId_(typeId)
 			{
 				
 			}
 			
 			virtual ~Entry() = default;
 			
-			ObjectType objectType() const
+			TypeId typeId() const
 			{
-				return objectType_;
+				return typeId_;
 			}
 			
 		private:
-			ObjectType objectType_;
+			TypeId typeId_;
 		};
 		
 		template <typename T> class EntryAdaptor: public Entry
 		{
 		public:
 			EntryAdaptor(const T &object)
-			: Entry(ObjectTypeMap<T>)
+			: Entry(TypeInfo<T>::Id())
 			, object_(object)
 			{
 				
@@ -98,16 +86,6 @@ namespace pdf1_0
 		
 		std::map<Name, std::shared_ptr<Entry>> entries_;
 	};
-	
-	template <>
-	const Dictionary::Entry::ObjectType Dictionary::Entry::ObjectTypeMap<Name> = 
-		Dictionary::Entry::kName;
-	template <>
-	const Dictionary::Entry::ObjectType Dictionary::Entry::ObjectTypeMap<Integer> = 
-		Dictionary::Entry::kInteger;
-	template <>
-	const Dictionary::Entry::ObjectType Dictionary::Entry::ObjectTypeMap<IndirectReference> = 
-		Dictionary::Entry::kIndirectReference;
 }
 
 }

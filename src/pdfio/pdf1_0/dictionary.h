@@ -15,7 +15,7 @@ namespace pdf1_0
 	{
 	public:
 		/*! \brief Checks whether the dictionary contains entry with key.*/
-		inline bool contains(const Name &key)
+		inline bool contains(const Name &key) const
 		{
 			return entries_.find(key) != entries_.end();
 		}

@@ -17,7 +17,7 @@ TEST(DictionaryTestSuite, defaultCtor)
 	EXPECT_FALSE(dictionary.contains(kName1));
 }
 
-TEST(DictionaryTestSuite, addName)
+TEST(DictionaryTestSuite, insertName)
 {
 	pdf1_0::Dictionary dictionary;
 	dictionary.insert(kName1, kName2);
@@ -29,7 +29,7 @@ TEST(DictionaryTestSuite, addName)
 	EXPECT_TRUE(kName1 == dictionary.get<pdf1_0::Name>(kName2));
 }
 
-TEST(DictionaryTestSuite, addInteger)
+TEST(DictionaryTestSuite, insertInteger)
 {
 	pdf1_0::Dictionary dictionary;
 	pdf1_0::Integer integer;
@@ -38,7 +38,7 @@ TEST(DictionaryTestSuite, addInteger)
 	EXPECT_TRUE(integer == dictionary.get<pdf1_0::Integer>(kName1));
 }
 
-TEST(DictionaryTestSuite, addIndirectReference)
+TEST(DictionaryTestSuite, insertIndirectReference)
 {
 	pdf1_0::Dictionary dictionary;
 	pdf1_0::IndirectReference indirectReference;

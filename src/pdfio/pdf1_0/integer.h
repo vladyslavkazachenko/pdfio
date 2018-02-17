@@ -18,12 +18,12 @@ namespace pdf1_0
 			
 		}
 		/*! \brief Compares integer with long long value.*/
-		inline bool operator==(long long value)
+		inline bool operator==(long long value) const
 		{
 			return value_ == value;
 		}
 		/*! \brief Compares integer with Integer value.*/
-		inline bool operator==(const Integer &other)
+		inline bool operator==(const Integer &other) const
 		{
 			return value_ == other.value_;
 		}

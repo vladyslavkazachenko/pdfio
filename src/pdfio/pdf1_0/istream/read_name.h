@@ -5,7 +5,7 @@
 #include "pdfio/pdf1_0/name.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
-/*! \brief Reads the Name from the istream*/
+/*! \brief Reads the name from the istream*/
 std::istream &operator>>(std::istream &istream, pdf1_0::Name &name)
 {
 	if(istream.peek() != '/')

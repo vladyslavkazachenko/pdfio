@@ -16,9 +16,17 @@ TEST(NameTestSuite, defaultCtor)
 
 TEST(NameTestSuite, ctor)
 {
-	pdf1_0::Name name(nameValue);
-	EXPECT_TRUE(name == nameValue);
-	EXPECT_FALSE(name == "");
+	pdf1_0::Name name1(nameValue);
+	EXPECT_TRUE(name1 == nameValue);
+	EXPECT_FALSE(name1 == "");
+	
+	pdf1_0::Name name2 = nameValue;
+	EXPECT_TRUE(name2 == nameValue);
+	EXPECT_FALSE(name2 == "");
+
+	pdf1_0::Name name3("name3");
+	EXPECT_TRUE(name3 == "name3");
+	EXPECT_FALSE(name3 == "");
 }
 
 TEST(NameTestSuite, copyCtor)

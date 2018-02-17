@@ -50,3 +50,13 @@ TEST(IndirectReferenceTestSuite, assignment)
 	EXPECT_EQ(kGenerationNumber, indirectReference2.objectNumber());
 	EXPECT_EQ(kObjectNumber, indirectReference2.generationNumber());
 }
+
+TEST(IndirectReferenceTestSuite, comparation)
+{
+	pdf1_0::IndirectReference indirectReference1(kObjectNumber, kGenerationNumber);
+	pdf1_0::IndirectReference indirectReference2(kObjectNumber, kGenerationNumber);
+	pdf1_0::IndirectReference indirectReference3;
+	EXPECT_TRUE(indirectReference1 == indirectReference2);
+	EXPECT_FALSE(indirectReference1 == indirectReference3);
+	EXPECT_FALSE(indirectReference2 == indirectReference3);
+}

@@ -38,6 +38,12 @@ namespace pdf1_0
 		{
 			return generationNumber_;
 		}
+		/*! \brief Checks whether the indirect reference equals to other.*/
+		inline bool operator==(const IndirectReference &other) const
+		{
+			return objectNumber_ == other.objectNumber_ && 
+				generationNumber_ == other.generationNumber_;
+		}
 		
 	private:
 		int objectNumber_ = 0;

@@ -6,7 +6,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the indirectReference from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::IndirectReference &indirectReference)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::IndirectReference &indirectReference)
 {
 	auto objNumBuffer = indirectReference.objectNumber();
 	if(istream >> objNumBuffer)

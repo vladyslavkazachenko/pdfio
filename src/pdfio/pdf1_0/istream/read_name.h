@@ -6,15 +6,16 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the name from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::Name &name)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::Name &name)
 {
-	if(istream.peek() != '/')
+	char slash = 0;
+	if(istream >> slash)
 	{
-		istream.setstate(std::ios_base::failbit);
-	}
-	else
-	{
-		if(istream.seekg(1, std::ios_base::cur))
+		if(slash != '/')
+		{
+			istream.setstate(std::ios_base::failbit);
+		}
+		else
 		{
 			std::string buffer;
 			if(istream >> buffer)

@@ -6,7 +6,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the integer from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::Integer &integer)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::Integer &integer)
 {
 	long long buffer;
 	if(istream >> buffer)

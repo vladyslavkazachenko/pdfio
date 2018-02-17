@@ -21,7 +21,7 @@ namespace pdf1_0
 		}
 		/*! \brief Inserts entry to the dictionary with key and value.*/
 		template <typename T>
-		inline void insert(const Name &key, const T &value)
+		inline void insert(const Name &key, const T &value = T())
 		{
 			entries_[key] = std::static_pointer_cast<Entry>(
 				std::make_shared<EntryAdaptor<T>>(value));
@@ -37,6 +37,11 @@ namespace pdf1_0
 		inline T &get(const Name &key)
 		{
 			return std::static_pointer_cast<EntryAdaptor<T>>(entries_[key])->get();
+		}
+		/*! \brief Returns value's type id by the key.*/
+		inline TypeId valueTypeId(const Name &key)
+		{
+			return entries_[key]->typeId();
 		}
 		
 	private:
@@ -57,7 +62,7 @@ namespace pdf1_0
 			}
 			
 		private:
-			TypeId typeId_;
+			const TypeId typeId_;
 		};
 		
 		template <typename T> class EntryAdaptor: public Entry

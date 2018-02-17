@@ -38,8 +38,4 @@ TEST(NameTestSuite, wrongName)
 	pdf1_0::Name name1;
 	std::istringstream istream1("name1");
 	EXPECT_FALSE(istream1 >> name1);
-	
-	pdf1_0::Name name2;
-	std::istringstream istream2(" /name2");
-	EXPECT_FALSE(istream2 >> name2);
 }

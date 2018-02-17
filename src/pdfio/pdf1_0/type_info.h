@@ -16,11 +16,7 @@ namespace pdf1_0
 		kIndirectReference,
 	};
 	/*! \brief Defines T type information.*/
-	template <typename T> struct TypeInfo
-	{
-		/*! \brief Identifies the T.*/
-		//static const TypeId Id;
-	};
+	template <typename T> struct TypeInfo{};
 	/*! \brief Defines Name type information.*/
 	template <> struct TypeInfo<Name>
 	{

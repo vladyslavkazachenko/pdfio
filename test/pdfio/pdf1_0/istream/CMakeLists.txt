@@ -5,6 +5,7 @@ add_executable(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream_unittest_app.cpp
 	pdf1_0_istream_dictionary_testsuite.cpp
 	pdf1_0_istream_file_trailer_testsuite.cpp
 	pdf1_0_istream_file_xref_testsuite.cpp
+	pdf1_0_istream_file_header_testsuite.cpp
 )
 target_link_libraries(pdfio_pdf1_0_istream_unittest_app gtest)
 add_test(NAME pdfio_pdf1_0_istream_unittest_app COMMAND pdfio_pdf1_0_istream_unittest_app)

@@ -8,7 +8,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the fileVersion from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileVersion &fileVersion)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileVersion &fileVersion)
 {
 	fileVersion.beginOffset() = istream.tellg();
 	if(istream >> fileVersion.xref())

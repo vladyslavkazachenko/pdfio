@@ -7,7 +7,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the fileHeader from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileHeader &fileHeader)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileHeader &fileHeader)
 {
 	std::string buffer;
 	if(istream >> buffer)

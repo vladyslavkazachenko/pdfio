@@ -1,5 +1,6 @@
 #pragma once
 
+#include "file_header.h"
 #include "file_version.h"
 
 namespace pdfio
@@ -21,8 +22,19 @@ namespace pdf1_0
 		{
 			return latestVersion_;
 		}
+		/*! \brief Returns header of the file.*/
+		inline const FileHeader &header() const
+		{
+			return header_;
+		}
+		/*! \brief Returns header of the file.*/
+		inline FileHeader &header()
+		{
+			return header_;
+		}
 		
 	private:
+		FileHeader header_;
 		FileVersion latestVersion_;
 	};
 }

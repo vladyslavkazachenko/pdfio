@@ -15,7 +15,7 @@ TEST(FileXrefTestSuite, addSubsection)
 	pdf1_0::FileXref::Subsection subsection1;
 	fileXref.section().subsections().push_back(subsection1);
 	EXPECT_TRUE(fileXref.section().subsections().size() == 1);
-	EXPECT_TRUE(fileXref.section().subsections()[0].objectNumber() == 0);
+	EXPECT_TRUE(fileXref.section().subsections()[0].objectNumber() == 0ll);
 	EXPECT_TRUE(fileXref.section().subsections()[0].entries().empty());
 	
 	pdf1_0::FileXref::Subsection subsection2;
@@ -32,7 +32,7 @@ TEST(FileXrefTestSuite, addEntry)
 	pdf1_0::FileXref::Subsection subsection;
 	subsection.entries().push_back(pdf1_0::FileXref::Entry());
 	EXPECT_TRUE(subsection.entries().size() == 1);
-	EXPECT_TRUE(subsection.entries()[0].byteOffset() == 0);
-	EXPECT_TRUE(subsection.entries()[0].generationNumber() == 0);
+	EXPECT_TRUE(subsection.entries()[0].byteOffset() == 0ll);
+	EXPECT_TRUE(subsection.entries()[0].generationNumber() == 0ll);
 	EXPECT_TRUE(subsection.entries()[0].isInUse());
 }

@@ -24,10 +24,10 @@ TEST(FileTrailerTestSuite, simpleTrailer)
 	pdf1_0::FileTrailer fileTrailer;
 	std::istringstream istream("trailer << /Size 123 /Root 234 1 R >> startxref 456 %%EOF");
 	EXPECT_TRUE(istream >> fileTrailer);
-	EXPECT_TRUE(fileTrailer.size() == 123);
+	EXPECT_TRUE(fileTrailer.size() == 123ll);
 	EXPECT_FALSE(fileTrailer.hasPrev());
-	EXPECT_TRUE(fileTrailer.root().objectNumber() == 234);
-	EXPECT_TRUE(fileTrailer.root().generationNumber() == 1);
+	EXPECT_TRUE(fileTrailer.root().objectNumber() == 234ll);
+	EXPECT_TRUE(fileTrailer.root().generationNumber() == 1ll);
 	EXPECT_FALSE(fileTrailer.hasInfo());
 }
 

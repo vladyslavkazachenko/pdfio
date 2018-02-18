@@ -33,6 +33,11 @@ namespace pdf1_0
 			value_ = value;
 			return *this;
 		}
+		/*! \brief Returns internal value.*/
+		inline operator long long() const
+		{
+			return value_;
+		}
 		
 	private:
 		long long value_ = 0;

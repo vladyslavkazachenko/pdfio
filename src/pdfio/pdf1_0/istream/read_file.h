@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 
 #include "pdfio/pdf1_0/file.h"
 #include "read_file_header.h"

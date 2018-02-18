@@ -7,13 +7,10 @@ TEST(FileTrailerTestSuite, defaultCtor)
 {
 	pdf1_0::FileTrailer fileTrailer;
 	EXPECT_TRUE(fileTrailer.size() == 0ll);
-	EXPECT_TRUE(fileTrailer.hasPrev());
-	EXPECT_TRUE(fileTrailer.prev() == 0ll);
+	EXPECT_FALSE(fileTrailer.hasPrev());
 	EXPECT_TRUE(fileTrailer.root().objectNumber() == 0ll);
 	EXPECT_TRUE(fileTrailer.root().generationNumber() == 0ll);
-	EXPECT_TRUE(fileTrailer.hasInfo());
-	EXPECT_TRUE(fileTrailer.info().objectNumber() == 0ll);
-	EXPECT_TRUE(fileTrailer.info().generationNumber() == 0ll);
+	EXPECT_FALSE(fileTrailer.hasInfo());
 }
 
 TEST(FileTrailerTestSuite, size)

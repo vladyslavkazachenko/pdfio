@@ -20,12 +20,10 @@ namespace pdf1_0
 	{
 	public:
 		/*! \brief Default constructor. Initializes internal dictionary with required and optional entries.*/
-		FileTrailer()
+		inline FileTrailer()
 		{
 			dictionary_.insert<Integer>(kSize);
-			dictionary_.insert<Integer>(kPrev);
 			dictionary_.insert<IndirectReference>(kRoot);
-			dictionary_.insert<IndirectReference>(kInfo);
 		}
 		/*! \brief Returns value by key "Size".*/
 		inline const Integer &size() const
@@ -50,6 +48,10 @@ namespace pdf1_0
 		/*! \brief Returns value by key "Prev".*/
 		inline Integer &prev()
 		{
+			if(!hasPrev())
+			{
+				dictionary_.insert<Integer>(kPrev);
+			}
 			return dictionary_.get<Integer>(kPrev);
 		}
 		/*! \brief Returns value by key "Root".*/
@@ -75,6 +77,10 @@ namespace pdf1_0
 		/*! \brief Returns value by key "Info".*/
 		inline IndirectReference &info()
 		{
+			if(!hasInfo())
+			{
+				dictionary_.insert<IndirectReference>(kInfo);
+			}
 			return dictionary_.get<IndirectReference>(kInfo);
 		}
 		/*! \brief Returns internal dictionary.*/

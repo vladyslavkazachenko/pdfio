@@ -1,8 +1,6 @@
 #pragma once
 
 #include "dictionary.h"
-#include "integer.h"
-#include "indirect_reference.h"
 
 namespace
 {

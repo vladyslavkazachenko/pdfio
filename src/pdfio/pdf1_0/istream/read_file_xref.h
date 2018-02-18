@@ -7,7 +7,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the entry from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Entry &entry)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Entry &entry)
 {
 	if(istream >> entry.byteOffset())
 	{
@@ -38,7 +38,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Entry &entry)
 	return istream;
 }
 /*! \brief Reads the subsection from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Subsection &subsection)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Subsection &subsection)
 {
 	if(istream >> subsection.objectNumber())
 	{
@@ -58,7 +58,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Subsection &su
 	return istream;
 }
 /*! \brief Reads the section from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Section &section)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Section &section)
 {
 	auto streamPosition = istream.tellg();
 	section.subsections().clear();
@@ -83,7 +83,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Section &secti
 	return istream;
 }
 /*! \brief Reads the fileXref from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::FileXref &fileXref)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::FileXref &fileXref)
 {
 	std::string buffer;
 	if(istream >> buffer)

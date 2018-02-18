@@ -79,6 +79,11 @@ namespace pdf1_0
 		{
 			return dictionary_.get<IndirectReference>(kInfo);
 		}
+		/*! \brief Returns internal dictionary.*/
+		inline Dictionary &dictionary()
+		{
+			return dictionary_;
+		}
 	private:
 		Dictionary dictionary_;
 	};	

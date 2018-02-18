@@ -43,7 +43,11 @@ namespace pdf1_0
 		{
 			return entries_[key]->typeId();
 		}
-		
+		/*! \brief Swaps the dictionary's content with the other.*/
+		inline void swap(Dictionary &other)
+		{
+			entries_.swap(other.entries_);
+		}
 	private:
 		class Entry
 		{

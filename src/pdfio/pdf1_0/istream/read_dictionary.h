@@ -9,7 +9,7 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the dictionary from the istream*/
-std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
+inline std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 {
 	std::string buffer;
 	if(istream >> buffer)
@@ -17,6 +17,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 		if(buffer == "<<")
 		{
 			auto streamPosition = istream.tellg();
+			pdf1_0::Dictionary tmp;
 			while(istream)
 			{
 				streamPosition = istream.tellg();
@@ -28,21 +29,42 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 						switch(dictionary.valueTypeId(name))
 						{
 						case pdf1_0::TypeId::kName:
-							if(!(istream >> dictionary.get<pdf1_0::Name>(name)))
 							{
-								std::cerr << __PRETTY_FUNCTION__ << ":failed to read name value\n" ;
+								pdf1_0::Name value;
+								if(!(istream >> value))
+								{
+									std::cerr << __PRETTY_FUNCTION__ << ":failed to read name value\n" ;
+								}
+								else
+								{
+									tmp.insert(name, value);
+								}
 							}
 							break;
 						case pdf1_0::TypeId::kInteger:
-							if(!(istream >> dictionary.get<pdf1_0::Integer>(name)))
 							{
-								std::cerr << __PRETTY_FUNCTION__ << ":failed to read integer value\n" ;
+								pdf1_0::Integer value;
+								if(!(istream >> value))
+								{
+									std::cerr << __PRETTY_FUNCTION__ << ":failed to integer name value\n" ;
+								}
+								else
+								{
+									tmp.insert(name, value);
+								}
 							}
 							break;
 						case pdf1_0::TypeId::kIndirectReference:
-							if(!(istream >> dictionary.get<pdf1_0::IndirectReference>(name)))
 							{
-								std::cerr << __PRETTY_FUNCTION__ << ":failed to read indirect reference value\n" ;
+								pdf1_0::IndirectReference value;
+								if(!(istream >> value))
+								{
+									std::cerr << __PRETTY_FUNCTION__ << ":failed to indirect reference name value\n" ;
+								}
+								else
+								{
+									tmp.insert(name, value);
+								}
 							}
 							break;
 						default:
@@ -69,6 +91,10 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 					{
 						std::cerr << __PRETTY_FUNCTION__ << ":failed to read second delimiter\n";
 						istream.setstate(std::ios_base::failbit);
+					}
+					else
+					{
+						dictionary.swap(tmp);
 					}
 				}
 			}

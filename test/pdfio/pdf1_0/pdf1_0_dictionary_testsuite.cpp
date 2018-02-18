@@ -50,3 +50,14 @@ TEST(DictionaryTestSuite, insertIndirectReference)
 	EXPECT_TRUE(pdf1_0::TypeId::kIndirectReference == dictionary.valueTypeId(kName1));
 	EXPECT_EQ(indirectReference, dictionary.get<pdf1_0::IndirectReference>(kName1));
 }
+
+TEST(DictionaryTestSuite, clear)
+{
+	pdf1_0::Dictionary dictionary1;
+	pdf1_0::IndirectReference indirectReference;
+	dictionary1.insert(kName1, indirectReference);
+	pdf1_0::Dictionary dictionary2;
+	dictionary1.swap(dictionary2);
+	EXPECT_FALSE(dictionary1.contains(kName1));
+	EXPECT_TRUE(dictionary2.contains(kName1));
+}

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "file_xref.h"
 #include "file_trailer.h"
 

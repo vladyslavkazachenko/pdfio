@@ -8,6 +8,7 @@ add_executable(pdfio_pdf1_0_unittest_app pdf1_0_unittest_app.cpp
 	pdf1_0_file_xref_testsuite.cpp
 	pdf1_0_file_header_testsuite.cpp
 	pdf1_0_file_version_testsuite.cpp
+	pdf1_0_file_testsuite.cpp
 )
 target_link_libraries(pdfio_pdf1_0_unittest_app gtest)
 add_test(NAME pdfio_pdf1_0_unittest_app COMMAND pdfio_pdf1_0_unittest_app)

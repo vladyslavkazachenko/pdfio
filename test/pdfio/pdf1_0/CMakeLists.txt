@@ -2,7 +2,7 @@ add_executable(pdfio_pdf1_0_unittest_app pdf1_0_unittest_app.cpp
 	pdf1_0_name_testsuite.cpp
 	pdf1_0_integer_testsuite.cpp
 	pdf1_0_indirect_reference_testsuite.cpp
-	pdf1_0_type_info_testsuite.cpp
+	pdf1_0_generic_object_testsuite.cpp
 	pdf1_0_dictionary_testsuite.cpp
 	pdf1_0_file_trailer_testsuite.cpp
 	pdf1_0_file_xref_testsuite.cpp

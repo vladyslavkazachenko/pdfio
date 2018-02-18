@@ -28,7 +28,7 @@ inline std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dicti
 					{
 						switch(dictionary.valueTypeId(name))
 						{
-						case pdf1_0::TypeId::kName:
+						case pdf1_0::GenericObject::TypeId::kName:
 							{
 								pdf1_0::Name value;
 								if(!(istream >> value))
@@ -41,7 +41,7 @@ inline std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dicti
 								}
 							}
 							break;
-						case pdf1_0::TypeId::kInteger:
+						case pdf1_0::GenericObject::TypeId::kInteger:
 							{
 								pdf1_0::Integer value;
 								if(!(istream >> value))
@@ -54,7 +54,7 @@ inline std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dicti
 								}
 							}
 							break;
-						case pdf1_0::TypeId::kIndirectReference:
+						case pdf1_0::GenericObject::TypeId::kIndirectReference:
 							{
 								pdf1_0::IndirectReference value;
 								if(!(istream >> value))

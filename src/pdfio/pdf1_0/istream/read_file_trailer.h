@@ -16,40 +16,56 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileTrailer &fileTrailer
 		{
 			if(istream >> fileTrailer.dictionary())
 			{
-				if(istream >> buffer)
+				if(fileTrailer.dictionary().contains(pdf1_0::Name("Size")) && 
+					fileTrailer.dictionary().contains(pdf1_0::Name("Root")))
 				{
-					if(buffer == "startxref")
+					if(istream >> buffer)
 					{
-						std::size_t xrefOffset;
-						if(istream >> xrefOffset)
+						if(buffer == "startxref")
 						{
-							if(istream >> buffer)
+							std::size_t xrefOffset;
+							if(istream >> xrefOffset)
 							{
-								if(buffer != "%%EOF")
+								if(istream >> buffer)
 								{
-									std::cerr << __PRETTY_FUNCTION__ << ":string is not \"%%OEF\"\n";
-									istream.setstate(std::ios_base::failbit);
+									if(buffer != "%%EOF")
+									{
+										std::cerr << __PRETTY_FUNCTION__ << ":string is not \"%%OEF\"\n";
+										istream.setstate(std::ios_base::failbit);
+									}
+								}
+								else
+								{
+									std::cerr << __PRETTY_FUNCTION__ << ":failed to read eof\n";
 								}
 							}
 							else
 							{
-								std::cerr << __PRETTY_FUNCTION__ << ":failed to read eof\n";
+								std::cerr << __PRETTY_FUNCTION__ << ":failed to read xref offset\n";
 							}
 						}
 						else
 						{
-							std::cerr << __PRETTY_FUNCTION__ << ":failed to read xref offset\n";
+							std::cerr << __PRETTY_FUNCTION__ << ":string is not \"startxref\"\n";
+							istream.setstate(std::ios_base::failbit);
 						}
 					}
 					else
 					{
-						std::cerr << __PRETTY_FUNCTION__ << ":string is not \"startxref\"\n";
+						std::cerr << __PRETTY_FUNCTION__ << ":failed to read \"startxref\"\n";
 						istream.setstate(std::ios_base::failbit);
 					}
 				}
 				else
 				{
-					std::cerr << __PRETTY_FUNCTION__ << ":failed to read \"startxref\"\n";
+					if(!fileTrailer.dictionary().contains(pdf1_0::Name("Size")))
+					{
+						std::cerr << __PRETTY_FUNCTION__ << ":\"Size\" is not found\n";
+					}
+					else
+					{
+						std::cerr << __PRETTY_FUNCTION__ << ":\"Root\" is not found\n";
+					}
 					istream.setstate(std::ios_base::failbit);
 				}
 			}

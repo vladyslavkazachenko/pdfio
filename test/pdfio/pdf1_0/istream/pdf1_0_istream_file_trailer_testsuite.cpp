@@ -63,3 +63,17 @@ TEST(FileTrailerTestSuite, wrongEOF)
 	std::istringstream istream2("trailer << /Size 123 /Root 234 1 R >> startxref 543 EOF");
 	EXPECT_FALSE(istream2 >> fileTrailer2);
 }
+
+TEST(FileTrailerTestSuite, noSize)
+{
+	pdf1_0::FileTrailer fileTrailer;
+	std::istringstream istream("trailer << /Root 234 1 R >> startxref 456 %%EOF");
+	EXPECT_FALSE(istream >> fileTrailer);
+}
+
+TEST(FileTrailerTestSuite, noRoot)
+{
+	pdf1_0::FileTrailer fileTrailer;
+	std::istringstream istream("trailer << /Size 123  >> startxref 456 %%EOF");
+	EXPECT_FALSE(istream >> fileTrailer);
+}

@@ -1,0 +1,1 @@
+add_library(pdfio_pdf1_0_istream OBJECT read_dictionary.cpp)

@@ -4,6 +4,7 @@
 #include "name.h"
 #include "integer.h"
 #include "indirect_reference.h"
+#include "dictionary.h"
 
 namespace pdfio
 {
@@ -15,6 +16,7 @@ namespace pdf1_0
 		kName,
 		kInteger,
 		kIndirectReference,
+		kDictionary,
 	};
 	/*! \brief Returns type id of Name.*/
 	template <> inline int GenericObject::TypeId<Name>()
@@ -30,6 +32,11 @@ namespace pdf1_0
 	template <> inline int GenericObject::TypeId<IndirectReference>()
 	{
 		return static_cast<int>(GenericObjectType::kIndirectReference);
+	}
+	/*! \brief Returns type id of Dictionary.*/
+	template <> inline int GenericObject::TypeId<Dictionary>()
+	{
+		return static_cast<int>(GenericObjectType::kDictionary);
 	}
 }
 	

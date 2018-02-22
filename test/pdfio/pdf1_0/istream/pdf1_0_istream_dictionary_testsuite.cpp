@@ -1,6 +1,9 @@
 #include <sstream>
 
 #include "pdfio/pdf1_0/istream/read_dictionary.h"
+#include "pdfio/pdf1_0/integer.h"
+#include "pdfio/pdf1_0/indirect_reference.h"
+#include "pdfio/pdf1_0/generic_object_type.h"
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
@@ -91,4 +94,19 @@ TEST(DictionaryTestSuite, dictionaryWith2IndirectReferences)
 	EXPECT_TRUE(dictionary.get<pdf1_0::IndirectReference>(std::string("key1")).generationNumber() == 2);
 	EXPECT_TRUE(dictionary.get<pdf1_0::IndirectReference>(std::string("key2")).objectNumber() == 2);
 	EXPECT_TRUE(dictionary.get<pdf1_0::IndirectReference>(std::string("key2")).generationNumber() == 3);
+}
+
+TEST(DictionaryTestSuite, dictionaryWithDictionary)
+{
+	pdf1_0::Dictionary dictionary1;
+	pdf1_0::Dictionary dictionary2;
+	dictionary2.insert<pdf1_0::IndirectReference>(pdf1_0::Name("key1"));
+	dictionary2.insert<pdf1_0::IndirectReference>(pdf1_0::Name("key2"));
+	dictionary1.insert(pdf1_0::Name("key3"), dictionary2);
+	std::istringstream istream("<< /key3 << /key1 1 2 R /key2 2 3 R >> >>");
+	EXPECT_TRUE(istream >> dictionary1);
+	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key1")).objectNumber() == 1);
+	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key1")).generationNumber() == 2);
+	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).objectNumber() == 2);
+	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).generationNumber() == 3);
 }

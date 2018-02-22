@@ -14,5 +14,6 @@ COMMENT "Generating documentation with Doxygen" VERBATIM
 enable_testing()
 add_subdirectory(test/googletest)
 include_directories("${PROJECT_SOURCE_DIR}/src")
+add_subdirectory(src/pdfio/pdf1_0/istream)
 add_subdirectory(test/pdfio/pdf1_0)
 add_subdirectory(test/pdfio/pdf1_0/istream)

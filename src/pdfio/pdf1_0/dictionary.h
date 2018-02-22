@@ -60,6 +60,11 @@ namespace pdf1_0
 		{
 			return static_cast<void>(entries_.erase(key));
 		}
+		/*! \brief Compares the dictionary with the other.*/
+		inline bool operator==(const Dictionary &other) const
+		{
+			return entries_ == other.entries_;
+		}
 	private:
 		std::map<Name, std::shared_ptr<GenericObject>> entries_;
 	};

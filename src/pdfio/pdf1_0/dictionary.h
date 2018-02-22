@@ -2,7 +2,9 @@
 
 #include <map>
 #include <memory>
+#include <set>
 
+#include "name.h"
 #include "generic_object.h"
 
 namespace pdfio
@@ -38,15 +40,25 @@ namespace pdf1_0
 		{
 			return std::static_pointer_cast<GenericObjectAdaptor<T>>(entries_[key])->object_;
 		}
-		/*! \brief Returns value's type id by the key.*/
-		inline GenericObject::TypeId valueTypeId(const Name &key)
+		/*! \brief Returns generic object by the key.*/
+		inline GenericObject &get(const Name &key)
 		{
-			return entries_[key]->typeId_;
+			return *(entries_[key]);
 		}
-		/*! \brief Swaps the dictionary's content with the other.*/
-		inline void swap(Dictionary &other)
+		/*! \brief Returns all the entries' keys.*/
+		inline std::set<Name> keys() const
 		{
-			entries_.swap(other.entries_);
+			std::set<Name> keys;
+			for(auto entry : entries_)
+			{
+				keys.insert(entry.first);
+			}
+			return keys;
+		}
+		/*! \brief Removes entry by the key.*/
+		inline void remove(const Name &key)
+		{
+			return static_cast<void>(entries_.erase(key));
 		}
 	private:
 		std::map<Name, std::shared_ptr<GenericObject>> entries_;

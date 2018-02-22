@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "pdfio/pdf1_0/file_xref.h"
-#include "read_dictionary.h"
+#include "read_integer.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 /*! \brief Reads the entry from the istream*/

@@ -1,6 +1,7 @@
 #include <sstream>
 
 #include "pdfio/pdf1_0/istream/read_generic_object.h"
+#include "pdfio/pdf1_0/name.h"
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

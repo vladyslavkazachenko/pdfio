@@ -1,8 +1,6 @@
 #include <sstream>
 
 #include "pdfio/pdf1_0/istream/read_dictionary.h"
-#include "pdfio/pdf1_0/integer.h"
-#include "pdfio/pdf1_0/indirect_reference.h"
 #include "pdfio/pdf1_0/generic_object_type.h"
 #include "gtest/gtest.h"
 

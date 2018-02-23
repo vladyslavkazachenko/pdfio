@@ -9,6 +9,7 @@ add_executable(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream_unittest_app.cpp
 	pdf1_0_istream_file_version_testsuite.cpp
 	pdf1_0_istream_file_testsuite.cpp
 	pdf1_0_istream_generic_object_testsuite.cpp
+	pdf1_0_istream_indirect_object_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_0_istream_unittest_app pdfio) 
 target_link_libraries(pdfio_pdf1_0_istream_unittest_app gtest pdfio)

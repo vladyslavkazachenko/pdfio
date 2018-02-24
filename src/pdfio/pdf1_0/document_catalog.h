@@ -69,6 +69,21 @@ public:
 		}
 		return object_.get<Dictionary>().get<Name>(Name("PageMode"));
 	}
+	/*! \brief Returns internal indirect object.*/
+	inline IndirectObject &object()
+	{
+		return object_;
+	}
+	/*! \brief Initializes internal dictionary with required and optional entries.*/
+	inline void prepare4Read()
+	{
+		Dictionary dictionary;
+		dictionary.insert<Name>(Name("Type"));
+		dictionary.insert<IndirectReference>(Name("Pages"));
+		dictionary.insert<IndirectReference>(Name("Outlines"));
+		dictionary.insert<Name>(Name("PageMode"));
+		object_.set(dictionary);
+	}
 private:
 	IndirectObject object_;
 };

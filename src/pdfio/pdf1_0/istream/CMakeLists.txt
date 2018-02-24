@@ -10,4 +10,5 @@ add_library(pdf1_0_istream OBJECT
 	read_file_version.cpp
 	read_file.cpp
 	read_indirect_object.cpp
+	read_document_catalog.cpp
 )

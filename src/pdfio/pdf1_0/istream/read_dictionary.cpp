@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "read_name.h"
+#include "pdfio/pdf1_0/generic_object_type.h"
 #include "read_generic_object.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

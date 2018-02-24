@@ -21,30 +21,15 @@ namespace pdf1_0
 		kIndirectObject,
 	};
 	/*! \brief Returns type id of Name.*/
-	template <> inline int GenericObject::TypeId<Name>()
-	{
-		return static_cast<int>(GenericObjectType::kName);
-	}
+	template <> int GenericObject::TypeId<Name>();
 	/*! \brief Returns type id of Integer.*/
-	template <> inline int GenericObject::TypeId<Integer>()
-	{
-		return static_cast<int>(GenericObjectType::kInteger);
-	}
+	template <> int GenericObject::TypeId<Integer>();
 	/*! \brief Returns type id of IndirectReference.*/
-	template <> inline int GenericObject::TypeId<IndirectReference>()
-	{
-		return static_cast<int>(GenericObjectType::kIndirectReference);
-	}
+	template <> int GenericObject::TypeId<IndirectReference>();
 	/*! \brief Returns type id of Dictionary.*/
-	template <> inline int GenericObject::TypeId<Dictionary>()
-	{
-		return static_cast<int>(GenericObjectType::kDictionary);
-	}
+	template <> int GenericObject::TypeId<Dictionary>();
 	/*! \brief Returns type id of IndirectObject.*/
-	template <> inline int GenericObject::TypeId<IndirectObject>()
-	{
-		return static_cast<int>(GenericObjectType::kIndirectObject);
-	}
+	template <> int GenericObject::TypeId<IndirectObject>();
 }
 	
 }

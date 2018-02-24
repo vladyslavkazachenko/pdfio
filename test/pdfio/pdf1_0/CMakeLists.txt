@@ -12,5 +12,6 @@ add_executable(pdfio_pdf1_0_unittest_app pdf1_0_unittest_app.cpp
 	pdf1_0_indirect_object_testsuite.cpp
 	pdf1_0_document_catalog_testsuite.cpp
 )
-target_link_libraries(pdfio_pdf1_0_unittest_app gtest)
+add_dependencies(pdfio_pdf1_0_unittest_app pdf1_0)
+target_link_libraries(pdfio_pdf1_0_unittest_app gtest $<TARGET_OBJECTS:pdf1_0>)
 add_test(NAME pdfio_pdf1_0_unittest_app COMMAND pdfio_pdf1_0_unittest_app)

@@ -1,0 +1,1 @@
+add_library(pdf1_0 OBJECT generic_object_type.cpp)

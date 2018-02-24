@@ -1,6 +1,5 @@
 #include "read_document_catalog.h"
 
-#include "pdfio/pdf1_0/generic_object_type.h"
 #include "read_indirect_object.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

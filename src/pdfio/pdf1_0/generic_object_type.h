@@ -12,24 +12,26 @@ namespace pdfio
 	
 namespace pdf1_0
 {
-	enum class GenericObjectType
-	{
-		kName,
-		kInteger,
-		kIndirectReference,
-		kDictionary,
-		kIndirectObject,
-	};
-	/*! \brief Returns type id of Name.*/
-	template <> int GenericObject::TypeId<Name>();
-	/*! \brief Returns type id of Integer.*/
-	template <> int GenericObject::TypeId<Integer>();
-	/*! \brief Returns type id of IndirectReference.*/
-	template <> int GenericObject::TypeId<IndirectReference>();
-	/*! \brief Returns type id of Dictionary.*/
-	template <> int GenericObject::TypeId<Dictionary>();
-	/*! \brief Returns type id of IndirectObject.*/
-	template <> int GenericObject::TypeId<IndirectObject>();
+	
+enum class GenericObjectType
+{
+	kName,
+	kInteger,
+	kIndirectReference,
+	kDictionary,
+	kIndirectObject,
+};
+/*! \brief Returns type id of Name.*/
+template <> int GenericObject::TypeId<Name>();
+/*! \brief Returns type id of Integer.*/
+template <> int GenericObject::TypeId<Integer>();
+/*! \brief Returns type id of IndirectReference.*/
+template <> int GenericObject::TypeId<IndirectReference>();
+/*! \brief Returns type id of Dictionary.*/
+template <> int GenericObject::TypeId<Dictionary>();
+/*! \brief Returns type id of IndirectObject.*/
+template <> int GenericObject::TypeId<IndirectObject>();
+
 }
 	
 }

@@ -8,35 +8,37 @@ namespace pdfio
 	
 namespace pdf1_0
 {
-	/*! \brief PDF file.*/
-	class File
+	
+/*! \brief PDF file.*/
+class File
+{
+public:
+	/*! \brief Returns latest version of the file.*/
+	inline const FileVersion &latestVersion() const
 	{
-	public:
-		/*! \brief Returns latest version of the file.*/
-		inline const FileVersion &latestVersion() const
-		{
-			return latestVersion_;
-		}
-		/*! \brief Returns latest version of the file.*/
-		inline FileVersion &latestVersion()
-		{
-			return latestVersion_;
-		}
-		/*! \brief Returns header of the file.*/
-		inline const FileHeader &header() const
-		{
-			return header_;
-		}
-		/*! \brief Returns header of the file.*/
-		inline FileHeader &header()
-		{
-			return header_;
-		}
-		
-	private:
-		FileHeader header_;
-		FileVersion latestVersion_;
-	};
+		return latestVersion_;
+	}
+	/*! \brief Returns latest version of the file.*/
+	inline FileVersion &latestVersion()
+	{
+		return latestVersion_;
+	}
+	/*! \brief Returns header of the file.*/
+	inline const FileHeader &header() const
+	{
+		return header_;
+	}
+	/*! \brief Returns header of the file.*/
+	inline FileHeader &header()
+	{
+		return header_;
+	}
+	
+private:
+	FileHeader header_;
+	FileVersion latestVersion_;
+};
+
 }
 
 }

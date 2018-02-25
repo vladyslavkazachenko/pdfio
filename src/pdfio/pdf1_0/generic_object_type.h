@@ -6,6 +6,7 @@
 #include "indirect_reference.h"
 #include "dictionary.h"
 #include "indirect_object.h"
+#include "array.h"
 
 namespace pdfio
 {
@@ -20,6 +21,7 @@ enum class GenericObjectType
 	kIndirectReference,
 	kDictionary,
 	kIndirectObject,
+	kArrayIndirectReference,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -31,6 +33,8 @@ template <> int GenericObject::TypeId<IndirectReference>();
 template <> int GenericObject::TypeId<Dictionary>();
 /*! \brief Returns type id of IndirectObject.*/
 template <> int GenericObject::TypeId<IndirectObject>();
+/*! \brief Returns type id of Array.*/
+template <> int GenericObject::TypeId<Array<IndirectReference>>();
 
 }
 	

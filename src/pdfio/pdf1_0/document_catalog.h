@@ -11,7 +11,7 @@ namespace pdf1_0
 {
 	
 /*! \brief PDF catalog.*/
-class DocumentCatalog
+class DocumentCatalog: public IndirectObject
 {
 public:
 	/*! \brief Default constructor. Initializes internal dictionary with required entries.*/
@@ -19,60 +19,55 @@ public:
 	{
 		Dictionary dictionary;
 		dictionary.insert<IndirectReference>(Name("Pages"));
-		object_.set(dictionary);
+		set(dictionary);
 	}
 	/*! \brief Returns value by key "Pages".*/
 	inline const IndirectReference &pages() const
 	{
-		return object_.get<Dictionary>().get<IndirectReference>(Name("Pages"));
+		return get<Dictionary>().get<IndirectReference>(Name("Pages"));
 	}
 	/*! \brief Returns value by key "Pages".*/
 	inline IndirectReference &pages()
 	{
-		return object_.get<Dictionary>().get<IndirectReference>(Name("Pages"));
+		return get<Dictionary>().get<IndirectReference>(Name("Pages"));
 	}
 	/*! \brief Checks whether internal dictionary contains entry with key "Outlines".*/
 	inline bool hasOutlines() const
 	{
-		return object_.get<Dictionary>().contains(Name("Outlines"));
+		return get<Dictionary>().contains(Name("Outlines"));
 	}
 	/*! \brief Returns value by key "Outlines".*/
 	inline const IndirectReference &outlines() const
 	{
-		return object_.get<Dictionary>().get<IndirectReference>(Name("Outlines"));
+		return get<Dictionary>().get<IndirectReference>(Name("Outlines"));
 	}
 	/*! \brief Returns value by key "Outlines".*/
 	inline IndirectReference &outlines()
 	{
 		if(!hasOutlines())
 		{
-			object_.get<Dictionary>().insert<IndirectReference>(Name("Outlines"));
+			get<Dictionary>().insert<IndirectReference>(Name("Outlines"));
 		}
-		return object_.get<Dictionary>().get<IndirectReference>(Name("Outlines"));
+		return get<Dictionary>().get<IndirectReference>(Name("Outlines"));
 	}
 	/*! \brief Checks whether internal dictionary contains entry with key "PageMode".*/
 	inline bool hasPageMode() const
 	{
-		return object_.get<Dictionary>().contains(Name("PageMode"));
+		return get<Dictionary>().contains(Name("PageMode"));
 	}
 	/*! \brief Returns value by key "PageMode".*/
 	inline const Name &pageMode() const
 	{
-		return object_.get<Dictionary>().get<Name>(Name("PageMode"));
+		return get<Dictionary>().get<Name>(Name("PageMode"));
 	}
 	/*! \brief Returns value by key "PageMode".*/
 	inline Name &pageMode()
 	{
 		if(!hasPageMode())
 		{
-			object_.get<Dictionary>().insert<Name>(Name("PageMode"));
+			get<Dictionary>().insert<Name>(Name("PageMode"));
 		}
-		return object_.get<Dictionary>().get<Name>(Name("PageMode"));
-	}
-	/*! \brief Returns internal indirect object.*/
-	inline IndirectObject &object()
-	{
-		return object_;
+		return get<Dictionary>().get<Name>(Name("PageMode"));
 	}
 	/*! \brief Initializes internal dictionary with required and optional entries.*/
 	inline void prepare4Read()
@@ -82,10 +77,8 @@ public:
 		dictionary.insert<IndirectReference>(Name("Pages"));
 		dictionary.insert<IndirectReference>(Name("Outlines"));
 		dictionary.insert<Name>(Name("PageMode"));
-		object_.set(dictionary);
+		set(dictionary);
 	}
-private:
-	IndirectObject object_;
 };
 	
 }

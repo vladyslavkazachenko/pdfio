@@ -17,8 +17,8 @@ TEST(DocumentCatalogTestSuite, simpleCatalog)
 	pdf1_0::DocumentCatalog catalog;
 	std::istringstream istream("1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj");
 	EXPECT_TRUE(istream >> catalog);
-	EXPECT_TRUE(catalog.object().objectNumber() == 1ll);
-	EXPECT_TRUE(catalog.object().generationNumber() == 0ll);
+	EXPECT_TRUE(catalog.objectNumber() == 1ll);
+	EXPECT_TRUE(catalog.generationNumber() == 0ll);
 	EXPECT_TRUE(catalog.pages().objectNumber() == 2ll);
 	EXPECT_TRUE(catalog.pages().generationNumber() == 0ll);
 	EXPECT_FALSE(catalog.hasOutlines());
@@ -38,8 +38,8 @@ TEST(DocumentCatalogTestSuite, fullCatalog)
 >>\r\n\
 endobj");
 	EXPECT_TRUE(istream >> catalog);
-	EXPECT_TRUE(catalog.object().objectNumber() == 1ll);
-	EXPECT_TRUE(catalog.object().generationNumber() == 0ll);
+	EXPECT_TRUE(catalog.objectNumber() == 1ll);
+	EXPECT_TRUE(catalog.generationNumber() == 0ll);
 	EXPECT_TRUE(catalog.pages().objectNumber() == 2ll);
 	EXPECT_TRUE(catalog.pages().generationNumber() == 0ll);
 	EXPECT_TRUE(catalog.hasOutlines());

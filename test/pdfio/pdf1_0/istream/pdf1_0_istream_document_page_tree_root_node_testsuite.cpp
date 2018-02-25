@@ -24,8 +24,8 @@ TEST(DocumentPageTreeRootNodeTestSuite, ok)
 >>\r\
 endobj");
 	EXPECT_TRUE(istream >> root);
-	EXPECT_TRUE(root.object().objectNumber() == 2ll);
-	EXPECT_TRUE(root.object().generationNumber() == 0ll);
+	EXPECT_TRUE(root.objectNumber() == 2ll);
+	EXPECT_TRUE(root.generationNumber() == 0ll);
 	EXPECT_EQ(3, root.kids().size());
 	EXPECT_TRUE(root.kids()[0].objectNumber() == 4ll);
 	EXPECT_TRUE(root.kids()[0].generationNumber() == 0ll);

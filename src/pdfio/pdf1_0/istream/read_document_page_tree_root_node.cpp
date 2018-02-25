@@ -6,9 +6,9 @@ namespace pdf1_0 = pdfio::pdf1_0;
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPageTreeRootNode &root)
 {
-	if(istream >> root.object())
+	if(istream >> static_cast<pdf1_0::IndirectObject &>(root))
 	{
-		const pdf1_0::Dictionary &dictionary = root.object().get<pdf1_0::Dictionary>();
+		const pdf1_0::Dictionary &dictionary = root.get<pdf1_0::Dictionary>();
 		if(dictionary.contains(pdf1_0::Name("Type")))
 		{
 			if(dictionary.get<pdf1_0::Name>(pdf1_0::Name("Type")) == "Pages")

@@ -12,5 +12,6 @@ add_library(pdf1_0_istream OBJECT
 	read_indirect_object.cpp
 	read_document_catalog.cpp
 	read_document_page_tree_root_node.cpp
+	read_stream.cpp
 )
 add_dependencies(pdf1_0_istream pdf1_0)

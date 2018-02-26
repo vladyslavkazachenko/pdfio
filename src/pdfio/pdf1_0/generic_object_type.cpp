@@ -52,4 +52,9 @@ template <> int GenericObject::TypeId<DocumentCatalog>()
 {
 	return static_cast<int>(GenericObjectType::kDocumentCatalog);
 }
+
+template <> int GenericObject::TypeId<DocumentPageTreeRootNode>()
+{
+	return static_cast<int>(GenericObjectType::kDocumentPageTreeRootNode);
+}
 #endif //DOXYGEN_SHOULD_SKIP_THIS

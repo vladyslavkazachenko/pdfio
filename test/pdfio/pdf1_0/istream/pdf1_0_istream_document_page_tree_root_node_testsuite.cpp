@@ -1,20 +1,21 @@
 #include <sstream>
 
-#include "pdfio/pdf1_0/istream/read_document_page_tree_root_node.h"
+#include "pdfio/pdf1_0/document_page_tree_root_node.h"
+#include "pdfio/pdf1_0/istream/read_indirect_object.h"
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
 TEST(DocumentPageTreeRootNodeTestSuite, emptyStream)
 {
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream;
 	EXPECT_FALSE(istream >> root);
 }
 
 TEST(DocumentPageTreeRootNodeTestSuite, ok)
 {
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream(
 "2 0 obj\r\
 <<\r\
@@ -26,19 +27,19 @@ endobj");
 	EXPECT_TRUE(istream >> root);
 	EXPECT_TRUE(root.objectNumber() == 2ll);
 	EXPECT_TRUE(root.generationNumber() == 0ll);
-	EXPECT_EQ(3, root.kids().size());
-	EXPECT_TRUE(root.kids()[0].objectNumber() == 4ll);
-	EXPECT_TRUE(root.kids()[0].generationNumber() == 0ll);
-	EXPECT_TRUE(root.kids()[1].objectNumber() == 10ll);
-	EXPECT_TRUE(root.kids()[1].generationNumber() == 0ll);
-	EXPECT_TRUE(root.kids()[2].objectNumber() == 24ll);
-	EXPECT_TRUE(root.kids()[2].generationNumber() == 0ll);
-	EXPECT_TRUE(root.count() == 3ll);
+	EXPECT_EQ(3, root.get<pdf1_0::DocumentPageTreeRootNode>().kids().size());
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].objectNumber() == 4ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].generationNumber() == 0ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].objectNumber() == 10ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].generationNumber() == 0ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].objectNumber() == 24ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].generationNumber() == 0ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().count() == 3ll);
 }
 
 TEST(DocumentPageTreeRootNodeTestSuite, noType)
 {
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream(
 "2 0 obj\r\
 <<\r\
@@ -51,7 +52,7 @@ endobj");
 
 TEST(DocumentPageTreeRootNodeTestSuite, wrongType)
 {	
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream(
 "2 0 obj\r\
 <<\r\
@@ -65,7 +66,7 @@ endobj");
 
 TEST(DocumentPageTreeRootNodeTestSuite, noKids)
 {
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream(
 "2 0 obj\r\
 <<\r\
@@ -78,7 +79,7 @@ endobj");
 
 TEST(DocumentPageTreeRootNodeTestSuite, noCount)
 {
-	pdf1_0::DocumentPageTreeRootNode root;
+	pdf1_0::IndirectObject root{pdf1_0::DocumentPageTreeRootNode()};
 	std::istringstream istream(
 "2 0 obj\r\
 <<\r\

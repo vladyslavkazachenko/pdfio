@@ -33,7 +33,6 @@ TEST(DocumentPageTestSuite, assignment)
 	page.resources().insert(pdf1_0::Name("whatever"), pdf1_0::Name("whatever"));
 	page.contents().objectNumber() = 41ll;
 	page.contents().generationNumber() = 1ll;
-	EXPECT_TRUE(page.mediaBox().size() == 4);
 	EXPECT_TRUE(page.mediaBox()[0] == 1ll);
 	EXPECT_TRUE(page.mediaBox()[1] == 1ll);
 	EXPECT_TRUE(page.mediaBox()[2] == 100ll);

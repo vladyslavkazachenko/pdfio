@@ -22,6 +22,7 @@ enum class GenericObjectType
 	kDictionary,
 	kIndirectObject,
 	kArrayIndirectReference,
+	kArrayInteger,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -33,8 +34,10 @@ template <> int GenericObject::TypeId<IndirectReference>();
 template <> int GenericObject::TypeId<Dictionary>();
 /*! \brief Returns type id of IndirectObject.*/
 template <> int GenericObject::TypeId<IndirectObject>();
-/*! \brief Returns type id of Array.*/
+/*! \brief Returns type id of Array<IndirectReference>.*/
 template <> int GenericObject::TypeId<Array<IndirectReference>>();
+/*! \brief Returns type id of Array<Integer>.*/
+template <> int GenericObject::TypeId<Array<Integer>>();
 
 }
 	

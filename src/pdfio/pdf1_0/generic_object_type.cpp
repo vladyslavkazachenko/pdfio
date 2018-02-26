@@ -33,4 +33,9 @@ template <> int GenericObject::TypeId<Array<IndirectReference>>()
 	return static_cast<int>(GenericObjectType::kArrayIndirectReference);
 }
 
+template <> int GenericObject::TypeId<Array<Integer>>()
+{
+	return static_cast<int>(GenericObjectType::kArrayInteger);
+}
+
 #endif //DOXYGEN_SHOULD_SKIP_THIS

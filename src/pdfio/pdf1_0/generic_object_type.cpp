@@ -38,4 +38,13 @@ template <> int GenericObject::TypeId<Array<Integer>>()
 	return static_cast<int>(GenericObjectType::kArrayInteger);
 }
 
+template <> int GenericObject::TypeId<DocumentPage::ResourceDictionary>()
+{
+	return static_cast<int>(GenericObjectType::kDocumentPageResourceDictionary);
+}
+
+template <> int GenericObject::TypeId<DocumentPage::Resources>()
+{
+	return static_cast<int>(GenericObjectType::kDocumentPageResources);
+}
 #endif //DOXYGEN_SHOULD_SKIP_THIS

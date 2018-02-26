@@ -7,6 +7,7 @@
 #include "dictionary.h"
 #include "indirect_object.h"
 #include "array.h"
+#include "document_page.h"
 
 namespace pdfio
 {
@@ -23,6 +24,8 @@ enum class GenericObjectType
 	kIndirectObject,
 	kArrayIndirectReference,
 	kArrayInteger,
+	kDocumentPageResources,
+	kDocumentPageResourceDictionary,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -38,6 +41,10 @@ template <> int GenericObject::TypeId<IndirectObject>();
 template <> int GenericObject::TypeId<Array<IndirectReference>>();
 /*! \brief Returns type id of Array<Integer>.*/
 template <> int GenericObject::TypeId<Array<Integer>>();
+/*! \brief Returns type id of DocumentPage::ResourceDictionary.*/
+template <> int GenericObject::TypeId<DocumentPage::ResourceDictionary>();
+/*! \brief Returns type id of DocumentPage::Resources.*/
+template <> int GenericObject::TypeId<DocumentPage::Resources>();
 
 }
 	

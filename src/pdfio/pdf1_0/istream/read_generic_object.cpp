@@ -6,6 +6,7 @@
 #include "pdfio/pdf1_0/istream/read_indirect_reference.h"
 #include "pdfio/pdf1_0/istream/read_dictionary.h"
 #include "pdfio/pdf1_0/istream/read_array.h"
+#include "pdfio/pdf1_0/istream/read_document_page.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -27,6 +28,15 @@ std::istream &operator>>(std::istream &istream, pdf1_0::GenericObject &object)
 		break;
 	case static_cast<int>(pdf1_0::GenericObjectType::kArrayIndirectReference):
 		istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Array<pdf1_0::IndirectReference>> &>(object).object_;
+		break;
+	case static_cast<int>(pdf1_0::GenericObjectType::kArrayInteger):
+		istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Array<pdf1_0::Integer>> &>(object).object_;
+		break;
+	case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResourceDictionary):
+		istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::DocumentPage::ResourceDictionary> &>(object).object_;
+		break;
+	case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResources):
+		istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::DocumentPage::Resources> &>(object).object_;
 		break;
 	default:
 		istream.setstate(std::ios_base::failbit);

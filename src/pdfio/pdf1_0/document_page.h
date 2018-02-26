@@ -15,13 +15,41 @@ namespace pdf1_0
 class DocumentPage: public Dictionary
 {
 public:
+	/*! \brief Page resource "dictionary" for Font, Encoding, FontDescriptor, ColorSpace, XObject.*/
+	typedef std::map<Name, IndirectReference> ResourceDictionary;
+	/*! \brief Page resources.*/
+	class Resources: public Dictionary
+	{
+	public:
+		/*! \brief Checks whether the resources has "Font".*/
+		inline bool hasFonts() const
+		{
+			return contains(Name("Font"));
+		}
+		/*! \brief Returns value of the resources' "Font".*/
+		inline const ResourceDictionary &fonts() const
+		{
+			return get<ResourceDictionary>(Name("Font"));
+		}
+		/*! \brief Returns value of the resources' "Font".*/
+		inline ResourceDictionary &fonts()
+		{
+			return get<ResourceDictionary>(Name("Font"));
+		}
+		/*! \brief Initializes base dictionar.*/
+		inline void prepare4Read()
+		{
+			insert<ResourceDictionary>(Name("Font"));
+		}
+	};
 	/*! \brief Constructs the page initializing base dictionary.*/
 	inline DocumentPage()
 	{
+		insert<Name>(Name("Type"));
 		insert<Array<Integer>>(Name("MediaBox"));
 		get<Array<Integer>>(Name("MediaBox")).resize(4);
 		insert<IndirectReference>(Name("Parent"));
-		insert<Dictionary>(Name("Resources"));
+		insert<Resources>(Name("Resources"));
 	}
 	/*! \brief Returns value of the page's "MediaBox".*/
 	inline const Array<Integer> &mediaBox() const
@@ -44,14 +72,14 @@ public:
 		return get<IndirectReference>(Name("Parent"));
 	}
 	/*! \brief Returns value of the page's "Resources".*/
-	inline const Dictionary &resources() const
+	inline const Resources &resources() const
 	{
-		return get<Dictionary>(Name("Resources"));
+		return get<Resources>(Name("Resources"));
 	}
 	/*! \brief Returns value of the page's "Resources".*/
-	inline Dictionary &resources()
+	inline Resources &resources()
 	{
-		return get<Dictionary>(Name("Resources"));
+		return get<Resources>(Name("Resources"));
 	}
 	/*! \brief Checks whether the page has "Contents".*/
 	inline bool hasContents() const
@@ -85,12 +113,52 @@ public:
 	/*! \brief Checks whether the page has "Thumb".*/
 	inline bool hasThumb() const
 	{
-		return false;
+		return contains(Name("Thumb"));
+	}
+	/*! \brief Returns value of the page's "Thumb".*/
+	inline const IndirectReference &thumb() const
+	{
+		return get<IndirectReference>(Name("Thumb"));
+	}
+	/*! \brief Returns value of the page's "Thumb".*/
+	inline IndirectReference &thumb()
+	{
+		if(!hasThumb())
+		{
+			insert<IndirectReference>(Name("Thumb"));
+		}
+		return get<IndirectReference>(Name("Thumb"));
 	}
 	/*! \brief Checks whether the page has "Annots".*/
 	inline bool hasAnnots() const
 	{
-		return false;
+		return contains(Name("Annots"));
+	}
+	/*! \brief Returns value of the page's "Annots".*/
+	inline const Array<IndirectReference> &annots() const
+	{
+		return get<Array<IndirectReference>>(Name("Annots"));
+	}
+	/*! \brief Returns value of the page's "Annots".*/
+	inline Array<IndirectReference> &annots()
+	{
+		if(!hasAnnots())
+		{
+			insert<Array<IndirectReference>>(Name("Annots"));
+		}
+		return get<Array<IndirectReference>>(Name("Annots"));
+	}
+	/*! \brief Initializes base dictionary with required and optional entries.*/
+	inline bool prepare4Read()
+	{
+		insert<Name>(Name("Type"));
+		insert<Array<Integer>>(Name("MediaBox"));
+		get<Array<Integer>>(Name("MediaBox")).resize(4);
+		insert<IndirectReference>(Name("Parent"));
+		insert<Resources>(Name("Resources"));
+		insert<IndirectReference>(Name("Contents"));
+		insert<IndirectReference>(Name("Thumb"));
+		insert<Array<IndirectReference>>(Name("Annots"));
 	}
 };
 

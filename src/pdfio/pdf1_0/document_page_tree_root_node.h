@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dictionary.h"
+#include "document_page_tree_node.h"
 #include "array.h"
 #include "indirect_reference.h"
 #include "integer.h"
@@ -12,13 +12,13 @@ namespace pdf1_0
 {
 	
 /*! \brief PDF root pages object.*/
-class DocumentPageTreeRootNode: public Dictionary
+class DocumentPageTreeRootNode: public DocumentPageTreeNode
 {
 public:
 	/*! \brief Contructs the object initializing the base object.*/
 	DocumentPageTreeRootNode()
+	: DocumentPageTreeNode(Name("Pages"))
 	{
-		insert<Name>(Name("Type"));
 		insert<Array<IndirectReference>>(Name("Kids"));
 		insert<Integer>(Name("Count"));
 	}

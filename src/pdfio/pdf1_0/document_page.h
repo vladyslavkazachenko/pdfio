@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dictionary.h"
+#include "document_page_tree_node.h"
 #include "array.h"
 #include "integer.h"
 #include "indirect_reference.h"
@@ -12,7 +12,7 @@ namespace pdf1_0
 {
 	
 /*! \brief PDF page object.*/
-class DocumentPage: public Dictionary
+class DocumentPage: public DocumentPageTreeNode
 {
 public:
 	/*! \brief Page resource "dictionary" for Font, Encoding, FontDescriptor, ColorSpace, XObject.*/
@@ -44,8 +44,8 @@ public:
 	};
 	/*! \brief Constructs the page initializing base dictionary.*/
 	inline DocumentPage()
+	: DocumentPageTreeNode(Name("Page"))
 	{
-		insert<Name>(Name("Type"));
 		insert<Array<Integer>>(Name("MediaBox"));
 		get<Array<Integer>>(Name("MediaBox")).resize(4);
 		insert<IndirectReference>(Name("Parent"));

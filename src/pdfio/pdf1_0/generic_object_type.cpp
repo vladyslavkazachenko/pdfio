@@ -47,4 +47,9 @@ template <> int GenericObject::TypeId<DocumentPage::Resources>()
 {
 	return static_cast<int>(GenericObjectType::kDocumentPageResources);
 }
+
+template <> int GenericObject::TypeId<DocumentCatalog>()
+{
+	return static_cast<int>(GenericObjectType::kDocumentCatalog);
+}
 #endif //DOXYGEN_SHOULD_SKIP_THIS

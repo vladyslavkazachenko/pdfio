@@ -15,6 +15,16 @@ namespace pdf1_0
 class IndirectObject
 {
 public:
+	/*! \brief Constructs the indirect object.*/
+	IndirectObject() = default;
+	/*! \brief Constructs the indirect object with the object.*/
+	template <typename T>
+	IndirectObject(const T &object = T())
+	: object_(std::static_pointer_cast<GenericObject>(
+		std::make_shared<GenericObjectAdaptor<T>>(object)))
+	{
+		
+	}
 	/*! \brief Returns the indirect object's object number.*/
 	inline const Integer &objectNumber() const
 	{

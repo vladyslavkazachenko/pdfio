@@ -1,0 +1,45 @@
+/*! \mainpage pdfio Documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * pdfio is a C++ library for reading/writing PDF files using std::istream/std::ostream. 
+ * The library is designed so that any object may be used with C++ standard I/O as any standard type.
+ * This means that any object is always in valid state 
+ * and whether reading from std::istream or writing to std::ostream was successful is indicated by the stream state.
+ * This allows first to create an object and to read it from the stream afterwards 
+ * and in turn allows to avoid explicit dynamic memory management. 
+   @code
+   AnyPDFObject object;
+   std::istream &istream = ...;
+   if(istream >> object) {}
+   else {}
+   @endcode
+ * Whenever dynamic memory is used standard containers are utilized.
+ * For each type the type itself, operator>> and operator<< are all defined separately 
+ * so the type doesn't depend on any I/O operation and "PDF reader" and "PDF writer" do not depend on each other.
+   @code
+   //anypdfobject.h
+   class AnyPDFObject{};
+   @endcode
+   @code
+   //read_anypdfobject.h
+   #include <istream>
+   
+   #include "<path>/anypdfobject.h"
+   std::istream &operator>>(std::istream &, AnyPDFObject &);
+   @endcode
+   @code
+   //write_anypdfobject.h
+   #include <ostream>
+   
+   #include "<path>/anypdfobject.h"
+   std::ostream &operator<<(std::ostream &, AnyPDFObject &);
+   @endcode
+ * Also PDF versions are supported separately so that a client can choose target version.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */

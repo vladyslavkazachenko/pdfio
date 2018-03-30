@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-#include "read_dictionary.h"
 #include "read_name.h"
 #include "read_indirect_reference.h"
+#include "read_dictionary.h"
+#include "read_array.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -73,4 +74,9 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ResourceDi
 		}
 	}
 	return istream;
+}
+
+std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ProcSet &procSet)
+{
+  return istream >> static_cast<pdf1_0::Array<pdf1_0::Name> &>(procSet);
 }

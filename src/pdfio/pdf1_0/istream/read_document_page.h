@@ -9,3 +9,5 @@ std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::DocumentPage &pag
 std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::DocumentPage::Resources &resources);
 /*! \brief Reads the resource from the istream*/
 std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::DocumentPage::ResourceDictionary &resource);
+/*! \brief Reads the procSet from the istream*/
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::DocumentPage::ProcSet &procSet);

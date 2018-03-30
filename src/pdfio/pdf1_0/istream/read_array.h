@@ -7,7 +7,7 @@
 
 /*! \brief Reads the array from the istream*/
 template <typename T>
-inline std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::Array<T> &array)
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::Array<T> &array)
 {
 	std::string buffer;
 	if(istream >> buffer)

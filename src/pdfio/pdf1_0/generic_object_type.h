@@ -13,23 +13,24 @@
 
 namespace pdfio
 {
-	
+  
 namespace pdf1_0
 {
-	
+  
 enum class GenericObjectType
 {
-	kName,
-	kInteger,
-	kIndirectReference,
-	kDictionary,
-	kIndirectObject,
-	kArrayIndirectReference,
-	kArrayInteger,
-	kDocumentPageResources,
-	kDocumentPageResourceDictionary,
-	kDocumentCatalog,
-	kDocumentPageTreeRootNode,
+  kName,
+  kInteger,
+  kIndirectReference,
+  kDictionary,
+  kIndirectObject,
+  kArrayIndirectReference,
+  kArrayInteger,
+  kDocumentPageResources,
+  kDocumentPageResourceDictionary,
+  kDocumentPageProcSet,
+  kDocumentCatalog,
+  kDocumentPageTreeRootNode,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -45,15 +46,17 @@ template <> int GenericObject::TypeId<IndirectObject>();
 template <> int GenericObject::TypeId<Array<IndirectReference>>();
 /*! \brief Returns type id of Array<Integer>.*/
 template <> int GenericObject::TypeId<Array<Integer>>();
-/*! \brief Returns type id of DocumentPage::ResourceDictionary.*/
-template <> int GenericObject::TypeId<DocumentPage::ResourceDictionary>();
 /*! \brief Returns type id of DocumentPage::Resources.*/
 template <> int GenericObject::TypeId<DocumentPage::Resources>();
+/*! \brief Returns type id of DocumentPage::ResourceDictionary.*/
+template <> int GenericObject::TypeId<DocumentPage::ResourceDictionary>();
+/*! \brief Returns type id of DocumentPage::ProcSet.*/
+template <> int GenericObject::TypeId<DocumentPage::ProcSet>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<DocumentCatalog>();
 /*! \brief Returns type id of DocumentPageTreeRootNode.*/
 template <> int GenericObject::TypeId<DocumentPageTreeRootNode>();
 
 }
-	
+  
 }

@@ -19,27 +19,21 @@
  * so the type doesn't depend on any I/O operation and "PDF reader" and "PDF writer" do not depend on each other.
    @code
    //anypdfobject.h
-   class AnyPDFObject{};
+   class AnyPDFObject{...};
    @endcode
    @code
    //read_anypdfobject.h
    #include <istream>
    
-   #include "<path>/anypdfobject.h"
+   #include ".../anypdfobject.h"
    std::istream &operator>>(std::istream &, AnyPDFObject &);
    @endcode
    @code
    //write_anypdfobject.h
    #include <ostream>
    
-   #include "<path>/anypdfobject.h"
+   #include ".../anypdfobject.h"
    std::ostream &operator<<(std::ostream &, AnyPDFObject &);
    @endcode
  * Also PDF versions are supported separately so that a client can choose target version.
- *
- * \section install_sec Installation
- *
- * \subsection step1 Step 1: Opening the box
- *
- * etc...
  */

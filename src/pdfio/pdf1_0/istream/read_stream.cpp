@@ -12,68 +12,59 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Stream &pdfStream)
 	{
 		if(pdfStream.contains(pdf1_0::Name("Length")))
 		{
-			char tmp[256];
-			if(istream.getline(tmp, 256))
+			std::string buffer;
+			if(istream >> buffer)
 			{
-				std::stringstream sstream(tmp);
-				std::string buffer;
-				if(sstream >> buffer)
+				if(buffer == "stream")
 				{
-					if(buffer == "stream")
+					if(istream.good())
 					{
-						if(istream.good())
+						auto streamPos = istream.tellg();
+						if(istream.seekg(static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length")), std::ios_base::cur))
 						{
-							auto streamPos = istream.tellg();
-							if(istream.seekg(static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length")), std::ios_base::cur))
+							if(istream >> buffer)
 							{
-								if(istream >> buffer)
+								if(buffer == "endstream")
 								{
-									if(buffer == "endstream")
+									istream.clear();
+									char *streamData = new char[static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))];
+									auto newStreamPos = istream.tellg();
+									if(istream.seekg(streamPos))
 									{
-										istream.clear();
-										char *streamData = new char[static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))];
-										auto newStreamPos = istream.tellg();
-										if(istream.seekg(streamPos))
+										if(istream.read(streamData, static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
 										{
-											if(istream.read(streamData, static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
+											if(!pdfStream.iostream().write(streamData, static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
 											{
-												if(!pdfStream.write(streamData, static_cast<pdf1_0::Dictionary &>(pdfStream).get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
-												{
-													istream.setstate(std::ios_base::failbit);
-												}
-												else
-												{
-													if(!istream.seekg(newStreamPos))
-													{
-														istream.setstate(std::ios_base::failbit);
-													}
-												}
+												istream.setstate(std::ios_base::failbit);
 											}
 											else
 											{
-												istream.setstate(std::ios_base::failbit);
+												if(!istream.seekg(newStreamPos))
+												{
+													istream.setstate(std::ios_base::failbit);
+												}
 											}
 										}
 										else
 										{
 											istream.setstate(std::ios_base::failbit);
 										}
-										delete [] streamData;
 									}
 									else
 									{
 										istream.setstate(std::ios_base::failbit);
 									}
+									delete [] streamData;
 								}
 								else
 								{
 									istream.setstate(std::ios_base::failbit);
 								}
 							}
-						}
-						else
-						{
-							istream.setstate(std::ios_base::failbit);
+							else
+							{
+								istream.setstate(std::ios_base::failbit);
+							}
 						}
 					}
 					else
@@ -85,6 +76,10 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Stream &pdfStream)
 				{
 					istream.setstate(std::ios_base::failbit);
 				}
+			}
+			else
+			{
+				istream.setstate(std::ios_base::failbit);
 			}
 		}
 		else

@@ -18,7 +18,7 @@ public:
   /*! \brief Page resource "dictionary" for Font, Encoding, FontDescriptor, ColorSpace, XObject.*/
   typedef std::map<Name, IndirectReference> ResourceDictionary;
   /*! \brief Page ProcSet resources.*/
-  class ProcSet: public Array<Name>{};
+  class ProcSet: public IndirectReference{};//public Array<IndirectReference>{};
   /*! \brief Page resources.*/
   class Resources: public Dictionary
   {

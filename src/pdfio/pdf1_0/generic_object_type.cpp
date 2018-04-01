@@ -63,4 +63,14 @@ template <> int GenericObject::TypeId<DocumentPageTreeRootNode>()
   return static_cast<int>(GenericObjectType::kDocumentPageTreeRootNode);
 }
 
+template <> int GenericObject::TypeId<DocumentPage>()
+{
+	return static_cast<int>(GenericObjectType::kDocumentPage);
+}
+
+template <> int GenericObject::TypeId<Stream>()
+{
+	return static_cast<int>(GenericObjectType::kStream);
+}
+
 #endif //DOXYGEN_SHOULD_SKIP_THIS

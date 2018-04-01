@@ -78,5 +78,5 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ResourceDi
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ProcSet &procSet)
 {
-  return istream >> static_cast<pdf1_0::Array<pdf1_0::Name> &>(procSet);
+  return istream >> static_cast</*pdf1_0::Array<pdf1_0::IndirectReference>*/pdf1_0::IndirectReference &>(procSet);
 }

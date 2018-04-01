@@ -1,14 +1,15 @@
 #include "read_generic_object.h"
 
 #include "pdfio/pdf1_0/generic_object_type.h"
-#include "pdfio/pdf1_0/istream/read_name.h"
-#include "pdfio/pdf1_0/istream/read_integer.h"
-#include "pdfio/pdf1_0/istream/read_indirect_reference.h"
-#include "pdfio/pdf1_0/istream/read_dictionary.h"
-#include "pdfio/pdf1_0/istream/read_array.h"
-#include "pdfio/pdf1_0/istream/read_document_page.h"
-#include "pdfio/pdf1_0/istream/read_document_catalog.h"
-#include "pdfio/pdf1_0/istream/read_document_page_tree_root_node.h"
+#include "read_name.h"
+#include "read_integer.h"
+#include "read_indirect_reference.h"
+#include "read_dictionary.h"
+#include "read_array.h"
+#include "read_document_page.h"
+#include "read_document_catalog.h"
+#include "read_document_page_tree_root_node.h"
+#include "read_stream.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -48,6 +49,12 @@ std::istream &operator>>(std::istream &istream, pdf1_0::GenericObject &object)
     break;
   case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageTreeRootNode):
     istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::DocumentPageTreeRootNode> &>(object).object_;
+    break;
+case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPage):
+    istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::DocumentPage> &>(object).object_;
+    break;
+case static_cast<int>(pdf1_0::GenericObjectType::kStream):
+    istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Stream> &>(object).object_;
     break;
   default:
     istream.setstate(std::ios_base::failbit);

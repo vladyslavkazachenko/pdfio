@@ -10,6 +10,7 @@
 #include "document_page.h"
 #include "document_catalog.h"
 #include "document_page_tree_root_node.h"
+#include "stream.h"
 
 namespace pdfio
 {
@@ -31,6 +32,8 @@ enum class GenericObjectType
   kDocumentPageProcSet,
   kDocumentCatalog,
   kDocumentPageTreeRootNode,
+  kDocumentPage,
+  kStream,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -56,6 +59,10 @@ template <> int GenericObject::TypeId<DocumentPage::ProcSet>();
 template <> int GenericObject::TypeId<DocumentCatalog>();
 /*! \brief Returns type id of DocumentPageTreeRootNode.*/
 template <> int GenericObject::TypeId<DocumentPageTreeRootNode>();
+/*! \brief Returns type id of DocumentPage.*/
+template <> int GenericObject::TypeId<DocumentPage>();
+/*! \brief Returns type id of Stream.*/
+template <> int GenericObject::TypeId<Stream>();
 
 }
   

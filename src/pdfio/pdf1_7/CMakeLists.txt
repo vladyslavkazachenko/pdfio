@@ -1,0 +1,1 @@
+add_library(pdf1_7 OBJECT pdf.cpp)

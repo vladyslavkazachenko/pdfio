@@ -38,6 +38,11 @@ template <> int GenericObject::TypeId<Array<Integer>>()
   return static_cast<int>(GenericObjectType::kArrayInteger);
 }
 
+template <> int GenericObject::TypeId<Array<HexString>>()
+{
+	return static_cast<int>(GenericObjectType::kArrayHexString);
+}
+
 template <> int GenericObject::TypeId<DocumentPage::Resources>()
 {
   return static_cast<int>(GenericObjectType::kDocumentPageResources);

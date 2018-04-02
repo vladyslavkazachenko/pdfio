@@ -11,6 +11,7 @@
 #include "document_catalog.h"
 #include "document_page_tree_root_node.h"
 #include "stream.h"
+#include "hexstring.h"
 
 namespace pdfio
 {
@@ -27,6 +28,7 @@ enum class GenericObjectType
   kIndirectObject,
   kArrayIndirectReference,
   kArrayInteger,
+  kArrayHexString,
   kDocumentPageResources,
   kDocumentPageResourceDictionary,
   kDocumentPageProcSet,
@@ -34,6 +36,7 @@ enum class GenericObjectType
   kDocumentPageTreeRootNode,
   kDocumentPage,
   kStream,
+  kHexString,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -49,6 +52,8 @@ template <> int GenericObject::TypeId<IndirectObject>();
 template <> int GenericObject::TypeId<Array<IndirectReference>>();
 /*! \brief Returns type id of Array<Integer>.*/
 template <> int GenericObject::TypeId<Array<Integer>>();
+/*! \brief Returns type id of Array<HexString>.*/
+template <> int GenericObject::TypeId<Array<HexString>>();
 /*! \brief Returns type id of DocumentPage::Resources.*/
 template <> int GenericObject::TypeId<DocumentPage::Resources>();
 /*! \brief Returns type id of DocumentPage::ResourceDictionary.*/

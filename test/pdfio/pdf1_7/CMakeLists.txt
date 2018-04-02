@@ -1,7 +1,6 @@
 add_executable(pdfio_pdf1_7_unittest_app pdf1_7_unittest_app.cpp
 	pdf1_7_pdf_testsuite.cpp
 	pdf1_7_integer_testsuite.cpp
-	pdf1_7_hexstring_testsuite.cpp
 	pdf1_7_file_trailer_testsuite.cpp
 	pdf1_7_array_testsuite.cpp
 )

@@ -11,4 +11,14 @@ TEST(FileTrailerTestSuite, defaultCtor)
 	EXPECT_TRUE(fileTrailer.root().objectNumber() == 0ll);
 	EXPECT_TRUE(fileTrailer.root().generationNumber() == 0ll);
 	EXPECT_FALSE(fileTrailer.hasInfo());
+	EXPECT_FALSE(fileTrailer.hasID());
+}
+
+TEST(FileTrailerTestSuite, id)
+{
+	pdf1_7::FileTrailer fileTrailer;
+	fileTrailer.id()[0] = "3456";
+	fileTrailer.id()[1] = "5678";
+	EXPECT_EQ(fileTrailer.id()[0], "3456");
+	EXPECT_EQ(fileTrailer.id()[1], "5678");
 }

@@ -10,6 +10,7 @@
 #include "read_document_catalog.h"
 #include "read_document_page_tree_root_node.h"
 #include "read_stream.h"
+#include "read_hexstring.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -34,6 +35,9 @@ std::istream &operator>>(std::istream &istream, pdf1_0::GenericObject &object)
     break;
   case static_cast<int>(pdf1_0::GenericObjectType::kArrayInteger):
     istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Array<pdf1_0::Integer>> &>(object).object_;
+    break;
+  case static_cast<int>(pdf1_0::GenericObjectType::kArrayHexString):
+    istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Array<pdf1_0::HexString>> &>(object).object_;
     break;
   case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResources):
     istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::DocumentPage::Resources> &>(object).object_;

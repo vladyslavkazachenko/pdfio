@@ -108,3 +108,12 @@ TEST(DictionaryTestSuite, dictionaryWithDictionary)
 	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).objectNumber() == 2);
 	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).generationNumber() == 3);
 }
+
+TEST(DictionaryTestSuite, dictionaryWithHexStringArray)
+{
+	pdf1_0::Dictionary dictionary;
+	dictionary.insert<pdf1_0::Array<pdf1_0::HexString>>(pdf1_0::Name("ID"));
+	std::istringstream istream("<< /ID [ < 81b14aafa313db63dbd6f981e49f94f4 > < 81b14aafa313db63dbd6f981e49f94f4 > ] >>");
+	EXPECT_TRUE(istream >> dictionary);
+	EXPECT_TRUE(dictionary.get<pdf1_0::Array<pdf1_0::HexString>>(std::string("ID")).size() == 2);
+}

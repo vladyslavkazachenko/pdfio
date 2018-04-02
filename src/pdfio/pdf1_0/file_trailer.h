@@ -96,6 +96,11 @@ public:
 	{
 		return dictionary_;
 	}
+	
+	inline void prepare4Reading()
+	{
+		dictionary_.insert<IndirectReference>(kInfo);
+	}
 private:
 	Dictionary dictionary_;
 };

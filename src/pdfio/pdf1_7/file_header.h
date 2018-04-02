@@ -8,7 +8,10 @@ namespace pdfio
 namespace pdf1_7
 {
 	
-using pdf1_0::FileHeader;
+class FileHeader : public pdf1_0::FileHeader
+{
+	
+};
 	
 }
 

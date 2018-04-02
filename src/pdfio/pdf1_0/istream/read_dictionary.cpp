@@ -30,6 +30,10 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 							keys.erase(name);
 							streamPosition = istream.tellg();
 						}
+						else
+						{
+							std::cerr << "failed to read " << std::string(name) << "\n";
+						}
 					}
 					else
 					{

@@ -47,7 +47,10 @@ public:
 	{
 		return value_ < other.value_;
 	}
-		
+	inline operator std::string()
+	{
+		return value_;
+	}
 private:
 	std::string value_;
 };

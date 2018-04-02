@@ -34,6 +34,12 @@ public:
 		}
 		return dictionary().get<pdf1_7::Array<pdf1_7::HexString>>(pdf1_0::Name("ID"));
 	}
+	inline void prepare4Reading()
+	{
+		pdf1_0::FileTrailer::prepare4Reading();
+		pdf1_7::Array<pdf1_7::HexString> id(2);
+		dictionary().insert<pdf1_7::Array<pdf1_7::HexString>>(pdf1_0::Name("ID"), id);
+	}
 };
 	
 }

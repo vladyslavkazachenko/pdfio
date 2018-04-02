@@ -15,5 +15,6 @@ add_library(pdf1_0_istream OBJECT
 	read_stream.cpp
 	read_document_page.cpp
 	read_document_page_description.cpp
+	read_hexstring.cpp
 )
 add_dependencies(pdf1_0_istream pdf1_0)

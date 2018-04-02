@@ -91,6 +91,11 @@ public:
 	{
 		return dictionary_;
 	}
+	/*! \brief Returns internal dictionary.*/
+	inline const Dictionary &dictionary() const
+	{
+		return dictionary_;
+	}
 private:
 	Dictionary dictionary_;
 };

@@ -11,6 +11,7 @@
 #include "read_document_page_tree_root_node.h"
 #include "read_stream.h"
 #include "read_hexstring.h"
+#include "read_real.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -59,6 +60,9 @@ case static_cast<int>(pdf1_0::GenericObjectType::kDocumentPage):
     break;
 case static_cast<int>(pdf1_0::GenericObjectType::kStream):
     istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Stream> &>(object).object_;
+    break;
+case static_cast<int>(pdf1_0::GenericObjectType::kReal):
+    istream >> static_cast<pdf1_0::GenericObjectAdaptor<pdf1_0::Real> &>(object).object_;
     break;
   default:
     istream.setstate(std::ios_base::failbit);

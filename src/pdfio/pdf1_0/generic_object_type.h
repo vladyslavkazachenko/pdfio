@@ -12,6 +12,7 @@
 #include "document_page_tree_root_node.h"
 #include "stream.h"
 #include "hexstring.h"
+#include "real.h"
 
 namespace pdfio
 {
@@ -37,6 +38,7 @@ enum class GenericObjectType
   kDocumentPage,
   kStream,
   kHexString,
+  kReal,
 };
 /*! \brief Returns type id of Name.*/
 template <> int GenericObject::TypeId<Name>();
@@ -68,6 +70,8 @@ template <> int GenericObject::TypeId<DocumentPageTreeRootNode>();
 template <> int GenericObject::TypeId<DocumentPage>();
 /*! \brief Returns type id of Stream.*/
 template <> int GenericObject::TypeId<Stream>();
+/*! \brief Returns type id of Real.*/
+template <> int GenericObject::TypeId<Real>();
 
 }
   

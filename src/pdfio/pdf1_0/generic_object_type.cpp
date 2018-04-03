@@ -40,7 +40,7 @@ template <> int GenericObject::TypeId<Array<Integer>>()
 
 template <> int GenericObject::TypeId<Array<HexString>>()
 {
-	return static_cast<int>(GenericObjectType::kArrayHexString);
+  return static_cast<int>(GenericObjectType::kArrayHexString);
 }
 
 template <> int GenericObject::TypeId<DocumentPage::Resources>()
@@ -70,12 +70,17 @@ template <> int GenericObject::TypeId<DocumentPageTreeRootNode>()
 
 template <> int GenericObject::TypeId<DocumentPage>()
 {
-	return static_cast<int>(GenericObjectType::kDocumentPage);
+  return static_cast<int>(GenericObjectType::kDocumentPage);
 }
 
 template <> int GenericObject::TypeId<Stream>()
 {
-	return static_cast<int>(GenericObjectType::kStream);
+  return static_cast<int>(GenericObjectType::kStream);
+}
+
+template <> int GenericObject::TypeId<Real>()
+{
+  return static_cast<int>(GenericObjectType::kReal);
 }
 
 #endif //DOXYGEN_SHOULD_SKIP_THIS

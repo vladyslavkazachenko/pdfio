@@ -18,18 +18,18 @@ TEST(ArrayTestSuite, ctor)
 	EXPECT_EQ(5, array.size());
 	for(std::size_t i = 0; i < array.size(); ++i)
 	{
-		EXPECT_TRUE(array[i].objectNumber() == 0ll);
-		EXPECT_TRUE(array[i].generationNumber() == 0ll);
+		EXPECT_TRUE(array[i].objectNumber() == 0);
+		EXPECT_TRUE(array[i].generationNumber() == 0);
 	}
 }
 
 TEST(ArrayTestSuite, assignment)
 {
 	pdf1_0::Array<pdf1_0::IndirectReference> array(1);
-	array[0].objectNumber() = 45ll;
-	array[0].generationNumber() = 1ll;
-	EXPECT_TRUE(array[0].objectNumber() == 45ll);
-	EXPECT_TRUE(array[0].generationNumber() == 1ll);
+	array[0].objectNumber() = 45;
+	array[0].generationNumber() = 1;
+	EXPECT_TRUE(array[0].objectNumber() == 45);
+	EXPECT_TRUE(array[0].generationNumber() == 1);
 }
 
 TEST(ArrayTestSuite, resize)
@@ -38,8 +38,8 @@ TEST(ArrayTestSuite, resize)
 	array.resize(1);
 	EXPECT_FALSE(array.empty());
 	EXPECT_EQ(1, array.size());
-	array[0].objectNumber() = 45ll;
-	array[0].generationNumber() = 1ll;
-	EXPECT_TRUE(array[0].objectNumber() == 45ll);
-	EXPECT_TRUE(array[0].generationNumber() == 1ll);
+	array[0].objectNumber() = 45;
+	array[0].generationNumber() = 1;
+	EXPECT_TRUE(array[0].objectNumber() == 45);
+	EXPECT_TRUE(array[0].generationNumber() == 1);
 }

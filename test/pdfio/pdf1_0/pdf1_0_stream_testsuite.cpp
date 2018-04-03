@@ -6,7 +6,7 @@ namespace pdf1_0 = pdfio::pdf1_0;
 TEST(StreamTestSuite, defaultCtor)
 {
 	pdf1_0::Stream stream;
-	EXPECT_TRUE(stream.length() == 0ll);
+	EXPECT_TRUE(stream.length() == 0);
 	char buffer[256];
 	EXPECT_FALSE(stream.iostream().getline(buffer, 256));
 	EXPECT_EQ(0, stream.iostream().gcount());
@@ -15,9 +15,9 @@ TEST(StreamTestSuite, defaultCtor)
 TEST(StreamTestSuite, assingment)
 {
 	pdf1_0::Stream stream;
-	stream.length() = 10ll;
+	stream.length() = 10;
 	EXPECT_TRUE(stream << "whatever");
-	EXPECT_TRUE(stream.length() == 10ll);
+	EXPECT_TRUE(stream.length() == 10);
 	char buffer[256];
 	EXPECT_TRUE(stream.iostream().getline(buffer, 256));
 	EXPECT_EQ(8, stream.iostream().gcount());

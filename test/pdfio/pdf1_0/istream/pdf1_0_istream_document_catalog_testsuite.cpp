@@ -18,10 +18,10 @@ TEST(DocumentCatalogTestSuite, simpleCatalog)
 	pdf1_0::IndirectObject catalog{pdf1_0::DocumentCatalog()};
 	std::istringstream istream("1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj");
 	EXPECT_TRUE(istream >> catalog);
-	EXPECT_TRUE(catalog.objectNumber() == 1ll);
-	EXPECT_TRUE(catalog.generationNumber() == 0ll);
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().objectNumber() == 2ll);
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().generationNumber() == 0ll);
+	EXPECT_TRUE(catalog.objectNumber() == 1);
+	EXPECT_TRUE(catalog.generationNumber() == 0);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().objectNumber() == 2);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().generationNumber() == 0);
 	EXPECT_FALSE(catalog.get<pdf1_0::DocumentCatalog>().hasOutlines());
 	EXPECT_FALSE(catalog.get<pdf1_0::DocumentCatalog>().hasPageMode());
 }
@@ -39,13 +39,13 @@ TEST(DocumentCatalogTestSuite, fullCatalog)
 >>\r\n\
 endobj");
 	EXPECT_TRUE(istream >> catalog);
-	EXPECT_TRUE(catalog.objectNumber() == 1ll);
-	EXPECT_TRUE(catalog.generationNumber() == 0ll);
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().objectNumber() == 2ll);
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().generationNumber() == 0ll);
+	EXPECT_TRUE(catalog.objectNumber() == 1);
+	EXPECT_TRUE(catalog.generationNumber() == 0);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().objectNumber() == 2);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pages().generationNumber() == 0);
 	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().hasOutlines());
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().outlines().objectNumber() == 3ll);
-	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().outlines().generationNumber() == 0ll);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().outlines().objectNumber() == 3);
+	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().outlines().generationNumber() == 0);
 	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().hasPageMode());
 	EXPECT_TRUE(catalog.get<pdf1_0::DocumentCatalog>().pageMode() == "UseOutlines");
 }

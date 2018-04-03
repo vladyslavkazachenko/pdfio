@@ -50,7 +50,7 @@ TEST(DictionaryTestSuite, dictionaryWithInteger)
 	dictionary.insert<pdf1_0::Integer>(pdf1_0::Name("key"));
 	std::istringstream istream("<< /key 12345 >>");
 	EXPECT_TRUE(istream >> dictionary);
-	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key")) == 12345ll);
+	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key")) == 12345);
 }
 
 TEST(DictionaryTestSuite, dictionaryWith2Integers)
@@ -60,8 +60,8 @@ TEST(DictionaryTestSuite, dictionaryWith2Integers)
 	dictionary.insert<pdf1_0::Integer>(pdf1_0::Name("key2"));
 	std::istringstream istream("<< /key1 12345 /key2 -56789>>");
 	EXPECT_TRUE(istream >> dictionary);
-	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key1")) == 12345ll);
-	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key2")) == -56789ll);
+	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key1")) == 12345);
+	EXPECT_TRUE(dictionary.get<pdf1_0::Integer>(std::string("key2")) == -56789);
 }
 
 TEST(DictionaryTestSuite, wrong2ndDelimiter)

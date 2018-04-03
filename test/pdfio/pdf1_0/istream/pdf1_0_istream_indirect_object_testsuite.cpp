@@ -66,9 +66,9 @@ TEST(IndirectObjectTestSuite, integer)
 	indirectObject2.set<pdf1_0::Integer>();
 	std::istringstream istream2("23 1 obj 678 endobj");
 	EXPECT_TRUE(istream2 >> indirectObject2);
-	EXPECT_TRUE(indirectObject2.objectNumber() == 23ll);
-	EXPECT_TRUE(indirectObject2.generationNumber() == 1ll);
-	EXPECT_TRUE(indirectObject2.get<pdf1_0::Integer>() == 678ll);
+	EXPECT_TRUE(indirectObject2.objectNumber() == 23);
+	EXPECT_TRUE(indirectObject2.generationNumber() == 1);
+	EXPECT_TRUE(indirectObject2.get<pdf1_0::Integer>() == 678);
 }
 
 TEST(IndirectObjectTestSuite, name)
@@ -82,8 +82,8 @@ TEST(IndirectObjectTestSuite, name)
 	indirectObject2.set<pdf1_0::Name>();
 	std::istringstream istream2("23 1 obj /name endobj");
 	EXPECT_TRUE(istream2 >> indirectObject2);
-	EXPECT_TRUE(indirectObject2.objectNumber() == 23ll);
-	EXPECT_TRUE(indirectObject2.generationNumber() == 1ll);
+	EXPECT_TRUE(indirectObject2.objectNumber() == 23);
+	EXPECT_TRUE(indirectObject2.generationNumber() == 1);
 	EXPECT_TRUE(indirectObject2.get<pdf1_0::Name>() == "name");
 }
 
@@ -98,10 +98,10 @@ TEST(IndirectObjectTestSuite, indirectReference)
 	indirectObject2.set<pdf1_0::IndirectReference>();
 	std::istringstream istream2("23 1 obj 543 3 R endobj");
 	EXPECT_TRUE(istream2 >> indirectObject2);
-	EXPECT_TRUE(indirectObject2.objectNumber() == 23ll);
-	EXPECT_TRUE(indirectObject2.generationNumber() == 1ll);
-	EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().objectNumber() == 543ll);
-	EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().generationNumber() == 3ll);
+	EXPECT_TRUE(indirectObject2.objectNumber() == 23);
+	EXPECT_TRUE(indirectObject2.generationNumber() == 1);
+	EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().objectNumber() == 543);
+	EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().generationNumber() == 3);
 }
 
 TEST(IndirectObjectTestSuite, dictionary)
@@ -118,7 +118,7 @@ TEST(IndirectObjectTestSuite, dictionary)
 	indirectObject2.set(dictionary2);
 	std::istringstream istream2("23 1 obj << /key /value >> endobj");
 	EXPECT_TRUE(istream2 >> indirectObject2);
-	EXPECT_TRUE(indirectObject2.objectNumber() == 23ll);
-	EXPECT_TRUE(indirectObject2.generationNumber() == 1ll);
+	EXPECT_TRUE(indirectObject2.objectNumber() == 23);
+	EXPECT_TRUE(indirectObject2.generationNumber() == 1);
 	EXPECT_TRUE(indirectObject2.get<pdf1_0::Dictionary>().get<pdf1_0::Name>(pdf1_0::Name("key")) == "value");
 }

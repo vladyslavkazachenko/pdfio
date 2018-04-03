@@ -24,13 +24,13 @@ TEST(FileTrailerTestSuite, simpleTrailer)
 	pdf1_7::FileTrailer fileTrailer;
 	std::istringstream istream("trailer << /Size 22 /Root 2 0 R /Info 1 0 R /ID [ < 81b14aafa313db63dbd6f981e49f94f4 > < 81b14aafa313db63dbd6f981e49f94f4 > ] >> startxref 18799 %%EOF");
 	EXPECT_TRUE(istream >> fileTrailer);
-	EXPECT_TRUE(fileTrailer.size() == 22ll);
+	EXPECT_TRUE(fileTrailer.size() == 22);
 	EXPECT_FALSE(fileTrailer.hasPrev());
-	EXPECT_TRUE(fileTrailer.root().objectNumber() == 2ll);
-	EXPECT_TRUE(fileTrailer.root().generationNumber() == 0ll);
+	EXPECT_TRUE(fileTrailer.root().objectNumber() == 2);
+	EXPECT_TRUE(fileTrailer.root().generationNumber() == 0);
 	EXPECT_TRUE(fileTrailer.hasInfo());
-	EXPECT_TRUE(fileTrailer.info().objectNumber() == 1ll);
-	EXPECT_TRUE(fileTrailer.info().generationNumber() == 0ll);
+	EXPECT_TRUE(fileTrailer.info().objectNumber() == 1);
+	EXPECT_TRUE(fileTrailer.info().generationNumber() == 0);
 	EXPECT_TRUE(fileTrailer.hasID());
 	EXPECT_TRUE(fileTrailer.id().size() == 2);
 	EXPECT_TRUE(fileTrailer.id()[0] == "81b14aafa313db63dbd6f981e49f94f4");

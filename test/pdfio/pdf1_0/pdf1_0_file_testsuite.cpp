@@ -9,9 +9,9 @@ TEST(FileTestSuite, defaultCtor)
 	EXPECT_EQ(0, file.latestVersion().beginOffset());
 	EXPECT_EQ(0, file.latestVersion().endOffset());
 	EXPECT_TRUE(file.latestVersion().xref().section().subsections().empty());
-	EXPECT_TRUE(file.latestVersion().trailer().size() == 0ll);
+	EXPECT_TRUE(file.latestVersion().trailer().size() == 0);
 	EXPECT_FALSE(file.latestVersion().trailer().hasPrev());
-	EXPECT_TRUE(file.latestVersion().trailer().root().objectNumber() == 0ll);
-	EXPECT_TRUE(file.latestVersion().trailer().root().generationNumber() == 0ll);
+	EXPECT_TRUE(file.latestVersion().trailer().root().objectNumber() == 0);
+	EXPECT_TRUE(file.latestVersion().trailer().root().generationNumber() == 0);
 	EXPECT_FALSE(file.latestVersion().trailer().hasInfo());
 }

@@ -19,17 +19,17 @@ TEST(ArrayTestSuite, simpleArray)
 	std::istringstream istream1("[ 234 3 R ]");
 	EXPECT_TRUE(istream1 >> array1);
 	EXPECT_EQ(1, array1.size());
-	EXPECT_TRUE(array1[0].objectNumber() == 234ll);
-	EXPECT_TRUE(array1[0].generationNumber() == 3ll);
+	EXPECT_TRUE(array1[0].objectNumber() == 234);
+	EXPECT_TRUE(array1[0].generationNumber() == 3);
 	
 	pdf1_0::Array<pdf1_0::IndirectReference> array2;
 	std::istringstream istream2("[ 234 3 R 432 0 R ]");
 	EXPECT_TRUE(istream2 >> array2);
 	EXPECT_EQ(2, array2.size());
-	EXPECT_TRUE(array2[0].objectNumber() == 234ll);
-	EXPECT_TRUE(array2[0].generationNumber() == 3ll);
-	EXPECT_TRUE(array2[1].objectNumber() == 432ll);
-	EXPECT_TRUE(array2[1].generationNumber() == 0ll);
+	EXPECT_TRUE(array2[0].objectNumber() == 234);
+	EXPECT_TRUE(array2[0].generationNumber() == 3);
+	EXPECT_TRUE(array2[1].objectNumber() == 432);
+	EXPECT_TRUE(array2[1].generationNumber() == 0);
 }
 
 TEST(ArrayTestSuite, wrong1stDelimiter)

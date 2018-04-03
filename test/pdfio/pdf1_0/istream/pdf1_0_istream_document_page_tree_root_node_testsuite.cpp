@@ -25,16 +25,16 @@ TEST(DocumentPageTreeRootNodeTestSuite, ok)
 >>\r\
 endobj");
 	EXPECT_TRUE(istream >> root);
-	EXPECT_TRUE(root.objectNumber() == 2ll);
-	EXPECT_TRUE(root.generationNumber() == 0ll);
+	EXPECT_TRUE(root.objectNumber() == 2);
+	EXPECT_TRUE(root.generationNumber() == 0);
 	EXPECT_EQ(3, root.get<pdf1_0::DocumentPageTreeRootNode>().kids().size());
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].objectNumber() == 4ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].generationNumber() == 0ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].objectNumber() == 10ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].generationNumber() == 0ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].objectNumber() == 24ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].generationNumber() == 0ll);
-	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().count() == 3ll);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].objectNumber() == 4);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[0].generationNumber() == 0);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].objectNumber() == 10);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[1].generationNumber() == 0);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].objectNumber() == 24);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().kids()[2].generationNumber() == 0);
+	EXPECT_TRUE(root.get<pdf1_0::DocumentPageTreeRootNode>().count() == 3);
 }
 
 TEST(DocumentPageTreeRootNodeTestSuite, noType)

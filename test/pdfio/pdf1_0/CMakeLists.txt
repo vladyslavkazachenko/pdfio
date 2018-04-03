@@ -15,6 +15,7 @@ add_executable(pdfio_pdf1_0_unittest_app pdf1_0_unittest_app.cpp
 	pdf1_0_stream_testsuite.cpp
 	pdf1_0_document_page_testsuite.cpp
 	pdf1_0_hexstring_testsuite.cpp
+  pdf1_0_real_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_0_unittest_app pdf1_0)
 target_link_libraries(pdfio_pdf1_0_unittest_app gtest $<TARGET_OBJECTS:pdf1_0>)

@@ -2,6 +2,7 @@ add_executable(pdfio_pdf1_7_istream_unittest_app pdf1_7_istream_unittest_app.cpp
 	pdf1_7_istream_file_header_testsuite.cpp
 	pdf1_7_istream_file_trailer_testsuite.cpp
 	pdf1_7_istream_array_testsuite.cpp
+	pdf1_7_istream_file_structure_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_7_istream_unittest_app pdf1_7_istream pdf1_7) 
 target_link_libraries(pdfio_pdf1_7_istream_unittest_app gtest 

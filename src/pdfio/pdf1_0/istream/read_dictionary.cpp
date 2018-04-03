@@ -11,14 +11,26 @@ namespace pdf1_0 = pdfio::pdf1_0;
 std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 {
 	std::string buffer;
-	if(istream >> buffer)
+	while(istream && std::isspace(istream.peek()))
 	{
-		if(buffer == "<<")
+		static_cast<void>(istream.get());
+	}
+	if(istream)
+	{
+		char tmp[3] = {0, 0, 0};
+		if(istream.read(tmp, 2))
 		{
+			buffer = tmp;
+		}
+	}
+	if(istream)
+	{std::cerr << "aaaaaaaaaaaa1\n";
+		if(buffer == "<<")
+		{std::cerr << "aaaaaaaaaaaa2\n";
 			auto streamPosition = istream.tellg();
 			std::set<pdf1_0::Name> keys = dictionary.keys();
 			while(istream)
-			{
+			{std::cerr << "aaaaaaaaaaaax\n";
 				streamPosition = istream.tellg();
 				pdf1_0::Name name;
 				if(istream >> name)
@@ -37,7 +49,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 					}
 					else
 					{
-						std::cerr << __PRETTY_FUNCTION__ << ":unknown name\n" ;
+						std::cerr << __PRETTY_FUNCTION__ << ":unknown name " << std::string(name) << "\n" ;
 						istream.setstate(std::ios_base::failbit);
 					}
 				}

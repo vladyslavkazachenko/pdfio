@@ -75,9 +75,7 @@ startxref\r\n\
 	istream.seekg(0, std::ios_base::end);
 	auto endPosition = istream.tellg();
 	istream.seekg(0, std::ios_base::beg);
-	auto beginPosition = istream.tellg();
 	EXPECT_TRUE(istream >> file);
-	//EXPECT_EQ(beginPosition, file.latestVersion().beginOffset());
 	EXPECT_EQ(endPosition, file.latestVersion().endOffset());
 	EXPECT_TRUE(file.latestVersion().xref().section().subsections().size() == 1);
 	EXPECT_TRUE(file.latestVersion().xref().section().subsections()[0].objectNumber() == 0);

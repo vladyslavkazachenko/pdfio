@@ -16,7 +16,6 @@ TEST(GenericObjectTestSuite, unknownType)
 TEST(GenericObjectTestSuite, name)
 {
 	pdf1_0::GenericObjectAdaptor<pdf1_0::Name> name{pdf1_0::Name()};
-	pdf1_0::GenericObject &object = name;
 	std::istringstream istream("/name");
 	EXPECT_TRUE(istream >> name);
 	EXPECT_TRUE(name.object_ == std::string("name"));

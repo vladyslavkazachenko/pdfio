@@ -167,7 +167,7 @@ public:
     return get<Array<IndirectReference>>(Name("Annots"));
   }
   /*! \brief Initializes base dictionary with required and optional entries.*/
-  inline bool prepare4Read()
+  inline void prepare4Read()
   {
     insert<Name>(Name("Type"));
     insert<Array<Integer>>(Name("MediaBox"));

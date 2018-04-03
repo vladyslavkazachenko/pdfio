@@ -2,7 +2,7 @@
 
 namespace pdf1_7 = pdfio::pdf1_7;
 
-std::istream &operator>>(std::istream &istream, pdf1_7::FileHeader &fileHeader)
+std::istream &operator>>(std::istream &istream, pdf1_7::FileHeader &)
 {
 	std::string buffer;
 	if(istream >> buffer)

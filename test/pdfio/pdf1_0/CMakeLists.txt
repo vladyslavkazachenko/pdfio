@@ -6,7 +6,6 @@ add_executable(pdfio_pdf1_0_unittest_app pdf1_0_unittest_app.cpp
 	pdf1_0_dictionary_testsuite.cpp
 	pdf1_0_file_trailer_testsuite.cpp
 	pdf1_0_file_xref_testsuite.cpp
-	pdf1_0_file_header_testsuite.cpp
 	pdf1_0_file_version_testsuite.cpp
 	pdf1_0_file_testsuite.cpp
 	pdf1_0_indirect_object_testsuite.cpp

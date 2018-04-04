@@ -15,6 +15,7 @@ extern std::function<void(const std::string &msg)> gLogDebugHandler;
 #define LOG(msg, logHandler) {std::stringstream logStream; logStream << msg;\
   if(logHandler){logHandler(logStream.str());}}
 #define LOG_DEBUG(msg) LOG(msg, pdfio::gLogDebugHandler)
+#define LOG_ERROR(msg) LOG(msg, pdfio::gLogErrorHandler)
   
 }
 

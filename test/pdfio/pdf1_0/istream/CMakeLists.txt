@@ -18,6 +18,7 @@ add_executable(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream_unittest_app.cpp
   pdf1_0_istream_hexstring_testsuite.cpp
   pdf1_0_istream_real_testsuite.cpp
   pdf1_0_istream_literalstring_testsuite.cpp
+  pdf1_0_istream_file_structure_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream pdf1_0) 
 target_link_libraries(pdfio_pdf1_0_istream_unittest_app gtest 

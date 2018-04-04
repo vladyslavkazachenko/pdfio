@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "pdfio/pdf1_0/file_structure.h"
 #include "integer.h"
 #include "dictionary.h"
 #include "indirect_reference.h"
@@ -59,36 +60,7 @@ struct FileStructure
 	private:
 		std::string version_;
 	};
-	/*! \brief PDF File Cross-Reference Subsection Entry.*/
-	struct XrefEntry
-	{
-		Integer offset_ = 0;
-		Integer generation_ = 0;
-		bool inUseFlag_ = true;
-	};
-	/*! \brief PDF File Cross-Reference Subsection.*/
-	struct XrefSubsection
-	{
-		Integer firstObjectNumber_ = 0;
-		std::vector<XrefEntry> entries_;
-	};
-	/*! \brief PDF File Cross-Reference Section.*/
-	class XrefSection
-	{
-	public:
-		const std::vector<XrefSubsection> &subsections() const
-		{
-			return subsections_;
-		}
-		bool add(const XrefSubsection &subsection)
-		{
-			subsections_.push_back(subsection);
-			return true;
-		}
-		
-	private:
-		std::vector<XrefSubsection> subsections_;
-	};
+
 	/*! \brief PDF File Trailer.*/
 	class Trailer
 	{
@@ -208,7 +180,7 @@ struct FileStructure
 	/*! \brief PDF File Version.*/
 	struct Version
 	{
-		XrefSection xrefSection_;
+		pdf1_0::FileStructure::XrefSection xrefSection_;
 		Trailer trailer_;
 	};
 

@@ -5,12 +5,12 @@
 #include "read_integer.h"
 #include "read_indirect_reference.h"
 #include "read_dictionary.h"
+#include "read_hexstring.h"
 #include "read_array.h"
 #include "read_document_page.h"
 #include "read_document_catalog.h"
 #include "read_document_page_tree_root_node.h"
 #include "read_stream.h"
-#include "read_hexstring.h"
 #include "read_real.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

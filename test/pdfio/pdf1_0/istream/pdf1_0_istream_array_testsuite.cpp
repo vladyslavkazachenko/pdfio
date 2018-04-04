@@ -1,8 +1,8 @@
 #include <sstream>
 
 #include "pdfio/pdf1_0/indirect_reference.h"
-#include "pdfio/pdf1_0/istream/read_array.h"
 #include "pdfio/pdf1_0/istream/read_hexstring.h"
+#include "pdfio/pdf1_0/istream/read_array.h"
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

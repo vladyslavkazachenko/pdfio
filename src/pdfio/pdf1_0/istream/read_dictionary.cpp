@@ -5,11 +5,14 @@
 #include "read_name.h"
 #include "pdfio/pdf1_0/generic_object_type.h"
 #include "read_generic_object.h"
+#include "pdfio/log.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
 std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 {
+  LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary=" << std::hex << std::showbase << 
+    reinterpret_cast<unsigned long>(&dictionary) << "\n");
 	std::string buffer;
 	while(istream && std::isspace(istream.peek()))
 	{

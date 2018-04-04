@@ -17,7 +17,8 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
   std::string buffer;
   while(istream && std::isspace(istream.peek()))
   {
-    LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << istream.get() << "\n");
+    LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << istream.peek() << "\n");
+	static_cast<void>(istream.get());
   }
   if(istream)
   {

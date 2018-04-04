@@ -107,6 +107,14 @@ TEST(DictionaryTestSuite, dictionaryWithDictionary)
 	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key1")).generationNumber() == 2);
 	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).objectNumber() == 2);
 	EXPECT_TRUE(dictionary1.get<pdf1_0::Dictionary>(std::string("key3")).get<pdf1_0::IndirectReference>(std::string("key2")).generationNumber() == 3);
+	
+	pdf1_0::Dictionary dictionary3;
+	pdf1_0::Dictionary dictionary4;
+	dictionary4.insert<pdf1_0::Integer>(pdf1_0::Name("Columns"));
+	dictionary4.insert<pdf1_0::Integer>(pdf1_0::Name("Predictor"));
+	dictionary3.insert(pdf1_0::Name("DecodeParms"), dictionary4);
+	std::istringstream istream2("<</DecodeParms<</Columns 5/Predictor 12>>>>");
+	EXPECT_TRUE(istream2 >> dictionary3);
 }
 
 TEST(DictionaryTestSuite, dictionaryWithHexStringArray)
@@ -130,4 +138,13 @@ TEST(DictionaryTestSuite, dictionaryWithHexStringArray)
   EXPECT_TRUE(dictionary2.contains(pdf1_0::Name("Prev")));
   EXPECT_EQ(1513589, dictionary2.get<pdf1_0::Integer>(pdf1_0::Name("Prev")));
 	EXPECT_TRUE(dictionary2.get<pdf1_0::Array<pdf1_0::HexString>>(std::string("ID")).size() == 2);
+}
+
+TEST(DictionaryTestSuite, dictionaryWithIndirectReferenceAndInteger)
+{
+	pdf1_0::Dictionary dictionary;
+	dictionary.insert<pdf1_0::IndirectReference>(pdf1_0::Name("Info"));
+	dictionary.insert<pdf1_0::Integer>(pdf1_0::Name("Length"));
+	std::istringstream istream("<</Info 8453 0 R/Length 135>>");
+	EXPECT_TRUE(istream >> dictionary);
 }

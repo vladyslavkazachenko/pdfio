@@ -6,6 +6,9 @@
 
 #include "integer.h"
 #include "dictionary.h"
+#include "array.h"
+#include "hexstring.h"
+#include "indirect_reference.h"
 
 namespace pdfio
 {
@@ -13,6 +16,16 @@ namespace pdfio
 namespace pdf1_0
 {
 	
+namespace
+{
+	const Name kDecodeParms = Name("DecodeParms");
+	const Name kColumns = Name("Columns");
+	const Name kPredictor = Name("Predictor");
+	const Name kFilter = Name("Filter");
+	const Name kId = Name("ID");
+	const Name kIndex = Name("Index");
+	const Name kInfo = Name("Info");
+}
 /*! \brief PDF stream object.*/
 class Stream: public Dictionary
 {
@@ -50,6 +63,18 @@ public:
 	std::ostream &operator<<(T &value)
 	{
 		return (*iostream_) << value;
+	}
+	
+	inline void prepare4Reading()
+	{
+		Dictionary decodeParms;
+		decodeParms.insert<Integer>(kColumns);
+		decodeParms.insert<Integer>(kPredictor);
+		insert(kDecodeParms, decodeParms);
+		insert<Name>(kFilter);
+		insert<Array<HexString>>(kId);
+		insert<Array<Integer>>(kIndex);
+		insert<IndirectReference>(kInfo);
 	}
 	
 private:

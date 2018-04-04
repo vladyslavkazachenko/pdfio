@@ -54,4 +54,10 @@ TEST(IndirectReferenceTestSuite, ok)
 	EXPECT_TRUE(istream2 >> indirectReference2);
 	EXPECT_EQ(45, indirectReference2.objectNumber());
 	EXPECT_EQ(2, indirectReference2.generationNumber());
+	
+	pdf1_0::IndirectReference indirectReference3;
+	std::istringstream istream3("8453 0 R/Length");
+	EXPECT_TRUE(istream3 >> indirectReference3);
+	EXPECT_EQ(8453, indirectReference3.objectNumber());
+	EXPECT_EQ(0, indirectReference3.generationNumber());
 }

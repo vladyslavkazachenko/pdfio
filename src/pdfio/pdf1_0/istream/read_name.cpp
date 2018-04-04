@@ -4,7 +4,7 @@ namespace pdf1_0 = pdfio::pdf1_0;
 
 static bool isDelimiter(char ch)
 {
-  return std::isspace(ch) || ch == '[';
+  return std::isspace(ch) || ch == '[' || ch == '<' || ch == '/';
 }
 
 std::istream &operator>>(std::istream &istream, pdf1_0::Name &name)

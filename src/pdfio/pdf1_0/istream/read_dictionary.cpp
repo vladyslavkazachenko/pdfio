@@ -7,16 +7,17 @@
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+  ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+  "],dictionary[" << reinterpret_cast<unsigned long>(&dictionary) << "]:"
+
 std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 {
-  LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-    reinterpret_cast<unsigned long>(&dictionary) << "]:enter\n");
+  LOG_DEBUG(LOG_PREFIX << "enter\n");
   std::string buffer;
   while(istream && std::isspace(istream.peek()))
   {
-    LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-    reinterpret_cast<unsigned long>(&dictionary) << "]:skipping space character:" << std::hex << std::showbase << 
-    reinterpret_cast<int>(istream.get()) << "\n");
+    LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << istream.get() << "\n");
   }
   if(istream)
   {
@@ -24,79 +25,90 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
     if(istream.read(tmp, 2))
     {
       buffer = tmp;
-      LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-        reinterpret_cast<unsigned long>(&dictionary) << "]:1st delimiter is " << buffer << "\n");
-    }
-  }
-  if(istream)
-  {
-    if(buffer == "<<")
-    {
-      auto streamPosition = istream.tellg();
-      std::set<pdf1_0::Name> keys = dictionary.keys();
-      while(istream)
+      LOG_DEBUG(LOG_PREFIX << "1st delimiter is " << buffer << "\n");
+      if(buffer == "<<")
       {
-        streamPosition = istream.tellg();
-        pdf1_0::Name name;
-        if(istream >> name)
+        auto streamPosition = istream.tellg();
+        std::set<pdf1_0::Name> keys = dictionary.keys();
+        while(istream)
         {
-          LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-            reinterpret_cast<unsigned long>(&dictionary) << "]:key is " << std::string(name) << "\n");
-          if(dictionary.contains(name))
+          streamPosition = istream.tellg();
+          pdf1_0::Name name;
+          if(istream >> name)
           {
-            if(istream >> dictionary.get(name))
+            LOG_DEBUG(LOG_PREFIX << "key is " << std::string(name) << "\n");
+            if(dictionary.contains(name))
             {
-              keys.erase(name);
-              streamPosition = istream.tellg();
+              if(istream >> dictionary.get(name))
+              {
+                keys.erase(name);
+                streamPosition = istream.tellg();
+              }
+              else
+              {
+                LOG_ERROR(LOG_PREFIX << "failed to read value for key " << std::string(name) << "\n");
+              }
             }
             else
             {
-              std::cerr << "failed to read " << std::string(name) << "\n";
+              LOG_ERROR(LOG_PREFIX << "unknown key " << std::string(name) << "\n");
+              istream.setstate(std::ios_base::failbit);
             }
           }
           else
           {
-            std::cerr << __PRETTY_FUNCTION__ << ":unknown name " << std::string(name) << "\n" ;
-            istream.setstate(std::ios_base::failbit);
+            LOG_DEBUG(LOG_PREFIX << "token is not a name\n");
+            istream.clear();
+            break;
           }
         }
-        else
+        if(istream)
         {
-          LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-            reinterpret_cast<unsigned long>(&dictionary) << "]:token is not a name\n");
+          if(istream.seekg(streamPosition))
+          {
+            if(istream >> buffer)
+            {
+              LOG_DEBUG(LOG_PREFIX << "2nd delimiter is " << buffer << "\n");
+              if(buffer != ">>")
+              {
+                LOG_ERROR(LOG_PREFIX << "invalid 2nd delimiter: " << buffer << "\n");
+                istream.setstate(std::ios_base::failbit);
+              }
+              else
+              {
+                for(auto key : keys)
+                {
+                  LOG_DEBUG(LOG_PREFIX << "removing key " << std::string(key) << "\n");
+                  dictionary.remove(key);
+                }
+              }
+            }
+            else
+            {
+              LOG_ERROR(LOG_PREFIX << "failed to read 2nd delimiter");
+            }
+          }
+          else
+          {
+            LOG_ERROR(LOG_PREFIX << "cannot read 2nd delimiter, stream state is " << istream.rdstate());
+          }
         }
       }
-      istream.clear();
-      if(istream.seekg(streamPosition))
+      else
       {
-        if(istream >> buffer)
-        {
-          if(buffer != ">>")
-          {
-            std::cerr << __PRETTY_FUNCTION__ << ":failed to read second delimiter\n";
-            istream.setstate(std::ios_base::failbit);
-          }
-          else
-          {
-            for(auto key : keys)
-            {
-              dictionary.remove(key);
-            }
-          }
-        }
+        LOG_ERROR(LOG_PREFIX << "invalid 1st delimiter: " << buffer << "\n");
+        istream.setstate(std::ios_base::failbit);
       }
     }
     else
     {
-      std::cerr << __PRETTY_FUNCTION__ << ":invalid first delimiter\n";
-      istream.setstate(std::ios_base::failbit);
+      LOG_ERROR(LOG_PREFIX << "failed to read 1st delimiter");
     }
   }
   else
   {
-    std::cerr << __PRETTY_FUNCTION__ << ":failed to read first delimiter\n";
+    LOG_ERROR(LOG_PREFIX << "cannot read 1st delimiter, stream state is " << istream.rdstate());
   }
-  LOG_DEBUG(__PRETTY_FUNCTION__ << ":dictionary[" << std::hex << std::showbase << 
-    reinterpret_cast<unsigned long>(&dictionary) << "]:leave\n");
+  LOG_DEBUG(LOG_PREFIX << "leave\n");
   return istream;
 }

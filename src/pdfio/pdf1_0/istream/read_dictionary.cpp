@@ -112,3 +112,5 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
   LOG_DEBUG(LOG_PREFIX << "leave\n");
   return istream;
 }
+
+#undef LOG_PREFIX

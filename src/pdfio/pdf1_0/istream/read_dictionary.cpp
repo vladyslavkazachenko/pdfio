@@ -24,13 +24,13 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 		}
 	}
 	if(istream)
-	{std::cerr << "aaaaaaaaaaaa1\n";
+	{
 		if(buffer == "<<")
-		{std::cerr << "aaaaaaaaaaaa2\n";
+		{
 			auto streamPosition = istream.tellg();
 			std::set<pdf1_0::Name> keys = dictionary.keys();
 			while(istream)
-			{std::cerr << "aaaaaaaaaaaax\n";
+			{
 				streamPosition = istream.tellg();
 				pdf1_0::Name name;
 				if(istream >> name)

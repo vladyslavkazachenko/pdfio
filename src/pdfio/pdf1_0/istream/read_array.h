@@ -9,46 +9,46 @@
 template <typename T>
 std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::Array<T> &array)
 {
-	std::string buffer;
-	if(istream >> buffer)
-	{
-		if(buffer == "[")
-		{
-			std::vector<T> elements;
-			auto streamPos = istream.tellg();
-			while(istream)
-			{
-				T tmp;
-				if(istream >> tmp)
-				{
-					elements.push_back(tmp);
-					streamPos = istream.tellg();
-				}
-			}
-			istream.clear();
-			if(istream.seekg(streamPos))
-			{
-				if(istream >> buffer)
-				{
-					if(buffer == "]")
-					{
-						array.resize(elements.size());
-						for(std::size_t i = 0; i < elements.size(); ++i)
-						{
-							array[i] = elements[i];
-						}
-					}
-					else
-					{
-						istream.setstate(std::ios_base::failbit);
-					}
-				}
-			}
-		}
-		else
-		{
-			istream.setstate(std::ios_base::failbit);
-		}
-	}
-	return istream;
+  char ch;
+  if(istream >> ch)
+  {
+    if(ch == '[')
+    {
+      std::vector<T> elements;
+      auto streamPos = istream.tellg();
+      while(istream)
+      {
+        T tmp;
+        if(istream >> tmp)
+        {
+          elements.push_back(tmp);
+          streamPos = istream.tellg();
+        }
+      }
+      istream.clear();
+      if(istream.seekg(streamPos))
+      {
+        if(istream >> ch)
+        {
+          if(ch == ']')
+          {
+            array.resize(elements.size());
+            for(std::size_t i = 0; i < elements.size(); ++i)
+            {
+              array[i] = elements[i];
+            }
+          }
+          else
+          {
+            istream.setstate(std::ios_base::failbit);
+          }
+        }
+      }
+    }
+    else
+    {
+      istream.setstate(std::ios_base::failbit);
+    }
+  }
+  return istream;
 }

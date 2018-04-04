@@ -39,3 +39,11 @@ TEST(NameTestSuite, wrongName)
 	std::istringstream istream1("name1");
 	EXPECT_FALSE(istream1 >> name1);
 }
+
+TEST(NameTestSuite, nameBeforeDelimiter)
+{
+	pdf1_0::Name name1;
+	std::istringstream istream1("/name1[");
+	EXPECT_TRUE(istream1 >> name1);
+	EXPECT_TRUE(name1 == "name1");
+}

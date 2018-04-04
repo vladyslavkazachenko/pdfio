@@ -111,9 +111,23 @@ TEST(DictionaryTestSuite, dictionaryWithDictionary)
 
 TEST(DictionaryTestSuite, dictionaryWithHexStringArray)
 {
-	pdf1_0::Dictionary dictionary;
-	dictionary.insert<pdf1_0::Array<pdf1_0::HexString>>(pdf1_0::Name("ID"));
-	std::istringstream istream("<< /ID [ < 81b14aafa313db63dbd6f981e49f94f4 > < 81b14aafa313db63dbd6f981e49f94f4 > ] >>");
-	EXPECT_TRUE(istream >> dictionary);
-	EXPECT_TRUE(dictionary.get<pdf1_0::Array<pdf1_0::HexString>>(std::string("ID")).size() == 2);
+	pdf1_0::Dictionary dictionary1;
+	dictionary1.insert<pdf1_0::Array<pdf1_0::HexString>>(pdf1_0::Name("ID"));
+	std::istringstream istream1("<< /ID [ < 81b14aafa313db63dbd6f981e49f94f4 > < 81b14aafa313db63dbd6f981e49f94f4 > ] >>");
+	EXPECT_TRUE(istream1 >> dictionary1);
+	EXPECT_TRUE(dictionary1.get<pdf1_0::Array<pdf1_0::HexString>>(std::string("ID")).size() == 2);
+  
+  pdf1_0::Dictionary dictionary2;
+  dictionary2.insert<pdf1_0::Integer>(pdf1_0::Name("Size"));
+  dictionary2.insert<pdf1_0::Integer>(pdf1_0::Name("Prev"));
+  dictionary2.insert<pdf1_0::IndirectReference>(pdf1_0::Name("Root"));
+  dictionary2.insert<pdf1_0::IndirectReference>(pdf1_0::Name("Info"));
+	dictionary2.insert<pdf1_0::Array<pdf1_0::HexString>>(pdf1_0::Name("ID"));
+	std::istringstream istream2("<</Size 4963/Prev 1513589/Root 1047 0 R/Info 1045 0 R"
+    "/ID[<B0DCFF11815D46D2A0723B8B6A07897C><CB01C436D5674A45A3942939551EB0ED>]>>");
+	EXPECT_TRUE(istream2 >> dictionary2);
+  EXPECT_EQ(4963, dictionary2.get<pdf1_0::Integer>(pdf1_0::Name("Size")));
+  EXPECT_TRUE(dictionary2.contains(pdf1_0::Name("Prev")));
+  EXPECT_EQ(1513589, dictionary2.get<pdf1_0::Integer>(pdf1_0::Name("Prev")));
+	EXPECT_TRUE(dictionary2.get<pdf1_0::Array<pdf1_0::HexString>>(std::string("ID")).size() == 2);
 }

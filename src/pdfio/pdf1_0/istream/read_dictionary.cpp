@@ -2,7 +2,7 @@
 
 #include "read_name.h"
 #include "pdfio/pdf1_0/generic_object_type.h"
-#include "read_generic_object.h"
+#include "pdfio/read_generic_object.h"
 #include "pdfio/log.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
@@ -96,13 +96,13 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 							}
 							else
 							{
-								LOG_ERROR(LOG_PREFIX << "failed to read 2nd delimiter");
+								LOG_ERROR(LOG_PREFIX << "failed to read 2nd delimiter\n");
 							}
 						}
 						else
 						{
 							LOG_ERROR(LOG_PREFIX << "cannot read 2nd delimiter, stream state is " << 
-								istream.rdstate());
+								istream.rdstate() << "\n");
 						}
 					}
 				}
@@ -115,12 +115,12 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 		}
 		else
 		{
-			LOG_ERROR(LOG_PREFIX << "failed to read 1st delimiter");
+			LOG_ERROR(LOG_PREFIX << "failed to read 1st delimiter\n");
 		}
 	}
 	else
 	{
-		LOG_ERROR(LOG_PREFIX << "cannot read 1st delimiter, stream state is " << istream.rdstate());
+		LOG_ERROR(LOG_PREFIX << "cannot read 1st delimiter, stream state is " << istream.rdstate() << "\n");
 	}
 	LOG_DEBUG(LOG_PREFIX << "leave\n");
 	return istream;

@@ -1,1 +1,1 @@
-add_library(log OBJECT log.cpp)
+add_library(pdfio_common OBJECT log.cpp read_generic_object.cpp)

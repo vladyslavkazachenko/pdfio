@@ -26,6 +26,6 @@ target_link_libraries(pdfio_pdf1_0_istream_unittest_app gtest
   $<TARGET_OBJECTS:pdf1_0>
 )
 if(DEFINED PDF_LOG)
-	target_link_libraries(pdfio_pdf1_0_istream_unittest_app $<TARGET_OBJECTS:log>)
+	target_link_libraries(pdfio_pdf1_0_istream_unittest_app $<TARGET_OBJECTS:pdfio_common>)
 endif(DEFINED PDF_LOG)
 add_test(NAME pdfio_pdf1_0_istream_unittest_app COMMAND pdfio_pdf1_0_istream_unittest_app)

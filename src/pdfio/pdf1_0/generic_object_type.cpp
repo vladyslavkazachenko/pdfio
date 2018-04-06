@@ -1,86 +1,86 @@
 #include "generic_object_type.h"
 
-using namespace pdfio::pdf1_0;
+using namespace pdfio;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-template <> int GenericObject::TypeId<Name>()
+template <> int GenericObject::TypeId<pdf1_0::Name>()
 {
-  return static_cast<int>(GenericObjectType::kName);
+  return static_cast<int>(pdf1_0::GenericObjectType::kName);
 }
 
-template <> int GenericObject::TypeId<Integer>()
+template <> int GenericObject::TypeId<pdf1_0::Integer>()
 {
-  return static_cast<int>(GenericObjectType::kInteger);
+  return static_cast<int>(pdf1_0::GenericObjectType::kInteger);
 }
 
-template <> int GenericObject::TypeId<IndirectReference>()
+template <> int GenericObject::TypeId<pdf1_0::IndirectReference>()
 {
-  return static_cast<int>(GenericObjectType::kIndirectReference);
+  return static_cast<int>(pdf1_0::GenericObjectType::kIndirectReference);
 }
 
-template <> int GenericObject::TypeId<Dictionary>()
+template <> int GenericObject::TypeId<pdf1_0::Dictionary>()
 {
-  return static_cast<int>(GenericObjectType::kDictionary);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDictionary);
 }
 
-template <> int GenericObject::TypeId<IndirectObject>()
+template <> int GenericObject::TypeId<pdf1_0::IndirectObject>()
 {
-  return static_cast<int>(GenericObjectType::kIndirectObject);
+  return static_cast<int>(pdf1_0::GenericObjectType::kIndirectObject);
 }
 
-template <> int GenericObject::TypeId<Array<IndirectReference>>()
+template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>()
 {
-  return static_cast<int>(GenericObjectType::kArrayIndirectReference);
+  return static_cast<int>(pdf1_0::GenericObjectType::kArrayIndirectReference);
 }
 
-template <> int GenericObject::TypeId<Array<Integer>>()
+template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Integer>>()
 {
-  return static_cast<int>(GenericObjectType::kArrayInteger);
+  return static_cast<int>(pdf1_0::GenericObjectType::kArrayInteger);
 }
 
-template <> int GenericObject::TypeId<Array<HexString>>()
+template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>()
 {
-  return static_cast<int>(GenericObjectType::kArrayHexString);
+  return static_cast<int>(pdf1_0::GenericObjectType::kArrayHexString);
 }
 
-template <> int GenericObject::TypeId<DocumentPage::Resources>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Resources>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentPageResources);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResources);
 }
 
-template <> int GenericObject::TypeId<DocumentPage::ResourceDictionary>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ResourceDictionary>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentPageResourceDictionary);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResourceDictionary);
 }
 
-template <> int GenericObject::TypeId<DocumentPage::ProcSet>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ProcSet>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentPageProcSet);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageProcSet);
 }
 
-template <> int GenericObject::TypeId<DocumentCatalog>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentCatalog);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentCatalog);
 }
 
-template <> int GenericObject::TypeId<DocumentPageTreeRootNode>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentPageTreeRootNode>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentPageTreeRootNode);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageTreeRootNode);
 }
 
-template <> int GenericObject::TypeId<DocumentPage>()
+template <> int GenericObject::TypeId<pdf1_0::DocumentPage>()
 {
-  return static_cast<int>(GenericObjectType::kDocumentPage);
+  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPage);
 }
 
-template <> int GenericObject::TypeId<Stream>()
+template <> int GenericObject::TypeId<pdf1_0::Stream>()
 {
-  return static_cast<int>(GenericObjectType::kStream);
+  return static_cast<int>(pdf1_0::GenericObjectType::kStream);
 }
 
-template <> int GenericObject::TypeId<Real>()
+template <> int GenericObject::TypeId<pdf1_0::Real>()
 {
-  return static_cast<int>(GenericObjectType::kReal);
+  return static_cast<int>(pdf1_0::GenericObjectType::kReal);
 }
 
 #endif //DOXYGEN_SHOULD_SKIP_THIS

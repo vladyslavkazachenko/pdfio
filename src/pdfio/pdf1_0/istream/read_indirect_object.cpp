@@ -1,7 +1,7 @@
 #include "read_indirect_object.h"
 
 #include "read_integer.h"
-#include "read_generic_object.h"
+#include "pdfio/read_generic_object.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 

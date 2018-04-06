@@ -19,13 +19,14 @@ void RegisterReadHandler(int type, std::function<void(std::istream &, GenericObj
 template <typename T> class ReadHandlerRegistrator
 {
 public:
+   /*! \brief Constructs the ReadHandlerRegistrator registering the readHandler as read handle for the T*/
    ReadHandlerRegistrator(std::function<void(std::istream &, GenericObject &)> readHandler)
    {
       if(GetCounter() == 0)
       {
          RegisterReadHandler(GenericObject::TypeId<T>(), readHandler);
+         ++GetCounter();
       }
-      ++GetCounter();
    }
    
 private:

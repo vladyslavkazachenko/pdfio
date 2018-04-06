@@ -3,13 +3,17 @@
 #include <map>
 #include <cassert>
 
+namespace
+{
+
 std::map<int, std::function<void(std::istream &, pdfio::GenericObject &)>> &GetReadHandlers()
 {
    static std::map<int, std::function<void(std::istream &, pdfio::GenericObject &)>> readHandlers;
    return readHandlers;
 }
 
-/*! \brief Reads the name from the istream*/
+}
+
 std::istream &operator>>(std::istream &istream, pdfio::GenericObject &object)
 {
    assert(GetReadHandlers().find(object.typeId_) != GetReadHandlers().end());

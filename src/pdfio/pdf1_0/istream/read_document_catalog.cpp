@@ -15,11 +15,12 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentCatalog &catalog
   catalog.prepare4Read();
   if(istream >> static_cast<pdf1_0::Dictionary &>(catalog))
   {
-    if(catalog.contains(pdf1_0::Name("Type")))
+    if(catalog.contains(pdf1_0::DocumentCatalog::kKeyType))
     {
-      if(catalog.get<pdf1_0::Name>(pdf1_0::Name("Type")) == "Catalog")
+      if(catalog.get<pdf1_0::Name>(
+			pdf1_0::DocumentCatalog::kKeyType) == pdf1_0::DocumentCatalog::kValueType)
       {
-        if(!catalog.contains(pdf1_0::Name("Pages")))
+        if(!catalog.contains(pdf1_0::DocumentCatalog::kKeyPages))
         {
           istream.setstate(std::ios_base::failbit);
         }

@@ -14,66 +14,31 @@ class DocumentCatalog: public Dictionary
 {
 public:
 	/*! \brief Default constructor. Initializes base dictionary with required entries.*/
-	DocumentCatalog()
-	{
-		insert<IndirectReference>(Name("Pages"));
-	}
+	DocumentCatalog();
 	/*! \brief Returns value by key "Pages".*/
-	inline const IndirectReference &pages() const
-	{
-		return get<IndirectReference>(Name("Pages"));
-	}
+	const IndirectReference &pages() const;
 	/*! \brief Returns value by key "Pages".*/
-	inline IndirectReference &pages()
-	{
-		return get<IndirectReference>(Name("Pages"));
-	}
+	IndirectReference &pages();
 	/*! \brief Checks whether internal dictionary contains entry with key "Outlines".*/
-	inline bool hasOutlines() const
-	{
-		return contains(Name("Outlines"));
-	}
+	bool hasOutlines() const;
 	/*! \brief Returns value by key "Outlines".*/
-	inline const IndirectReference &outlines() const
-	{
-		return get<IndirectReference>(Name("Outlines"));
-	}
+	const IndirectReference &outlines() const;
 	/*! \brief Returns value by key "Outlines".*/
-	inline IndirectReference &outlines()
-	{
-		if(!hasOutlines())
-		{
-			insert<IndirectReference>(Name("Outlines"));
-		}
-		return get<IndirectReference>(Name("Outlines"));
-	}
+	IndirectReference &outlines();
 	/*! \brief Checks whether internal dictionary contains entry with key "PageMode".*/
-	inline bool hasPageMode() const
-	{
-		return contains(Name("PageMode"));
-	}
+	bool hasPageMode() const;
 	/*! \brief Returns value by key "PageMode".*/
-	inline const Name &pageMode() const
-	{
-		return get<Name>(Name("PageMode"));
-	}
+	const Name &pageMode() const;
 	/*! \brief Returns value by key "PageMode".*/
-	inline Name &pageMode()
-	{
-		if(!hasPageMode())
-		{
-			insert<Name>(Name("PageMode"));
-		}
-		return get<Name>(Name("PageMode"));
-	}
+	Name &pageMode();
 	/*! \brief Initializes internal dictionary with required and optional entries.*/
-	inline void prepare4Read()
-	{
-		insert<Name>(Name("Type"));
-		insert<IndirectReference>(Name("Pages"));
-		insert<IndirectReference>(Name("Outlines"));
-		insert<Name>(Name("PageMode"));
-	}
+	void prepare4Read();
+	
+	static const Name kKeyType;
+	static const Name kValueType;
+	static const Name kKeyPages;
+	static const Name kKeyOutlines;
+	static const Name kKeyPageMode;
 };
 	
 }

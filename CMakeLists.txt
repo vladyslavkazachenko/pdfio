@@ -23,7 +23,9 @@ if(DEFINED PDF_VERSION)
 		add_subdirectory(test/pdfio/pdf1_7)
 		add_subdirectory(src/pdfio/pdf1_7/istream)
 		add_subdirectory(test/pdfio/pdf1_7/istream)
-		add_library(pdfio 
+		add_subdirectory(src/pdfio/pdf1_7/istream/file_reader)
+		add_library(pdfio
+			$<TARGET_OBJECTS:pdf1_7_istream_file_reader> 
 			$<TARGET_OBJECTS:pdf1_7_istream> 
 			$<TARGET_OBJECTS:pdf1_7> 
 			$<TARGET_OBJECTS:pdf1_0_istream>

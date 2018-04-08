@@ -1,0 +1,2 @@
+add_library(pdf1_7_istream_file_reader OBJECT file_reader.cpp)
+add_dependencies(pdf1_7_istream_file_reader pdf1_7_istream)

@@ -299,7 +299,7 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure &fileStruc
 									
 									//std::vector<char> bytes;
 									auto width = 
-										xrefStream.decodeParms().get<pdf1_7::Integer>(xrefStream.kColumns);
+										xrefStream.decodeParms().get<pdf1_7::Integer>(pdf1_7::FileStructure::XrefStream::kKeyColumns);
 									for(unsigned int i = 0; i < zInfo.total_out; i += (width + 1))
 									{
 										if(!i)

@@ -101,11 +101,14 @@ TEST(FileStructureTestSuite, xrefStream_ok)
 	EXPECT_EQ(18056, xrefStream.size());
 	EXPECT_EQ(36, xrefStream.length());
 	EXPECT_TRUE(xrefStream.hasDecodeParms());
-	EXPECT_TRUE(xrefStream.decodeParms().contains(xrefStream.kColumns));
-	EXPECT_EQ(6, xrefStream.decodeParms().get<pdf1_7::Integer>(xrefStream.kColumns));
-	EXPECT_EQ(12, xrefStream.decodeParms().get<pdf1_7::Integer>(xrefStream.kPredictor));
+	EXPECT_TRUE(xrefStream.decodeParms().contains(pdf1_7::FileStructure::XrefStream::kKeyColumns));
+	EXPECT_EQ(6, xrefStream.decodeParms().get<pdf1_7::Integer>(
+		pdf1_7::FileStructure::XrefStream::kKeyColumns));
+	EXPECT_EQ(12, xrefStream.decodeParms().get<pdf1_7::Integer>(
+		pdf1_7::FileStructure::XrefStream::kKeyPredictor));
 	EXPECT_TRUE(xrefStream.hasFilter());
-	EXPECT_TRUE(xrefStream.get<pdf1_7::Name>(xrefStream.kFilter) == "FlateDecode");
+	EXPECT_TRUE(xrefStream.get<pdf1_7::Name>(
+		pdf1_7::FileStructure::XrefStream::kKeyFilter) == "FlateDecode");
 	EXPECT_TRUE(xrefStream.hasId());
 	EXPECT_EQ(2, xrefStream.id().size());
 	EXPECT_TRUE(xrefStream.id()[0] == "E23D807206430E645C924B08884D70C7");

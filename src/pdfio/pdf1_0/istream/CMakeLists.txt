@@ -1,5 +1,4 @@
 add_library(pdf1_0_istream OBJECT
-   generic_object_readers.cpp
    read_name.cpp
    read_integer.cpp
    read_indirect_reference.cpp

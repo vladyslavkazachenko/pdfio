@@ -11,3 +11,5 @@ std::istream &operator>>(std::istream &istream,
 /*! \brief Reads the xrefSection from the istream*/
 std::istream &operator>>(std::istream &istream, 
 	pdfio::pdf1_0::FileStructure::XrefSection &xrefSection);
+/*! \brief Reads the trailer from the istream*/
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::FileStructure::Trailer &trailer);

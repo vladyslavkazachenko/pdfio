@@ -10,6 +10,8 @@
 #include "array.h"
 #include "hexstring.h"
 #include "dictionary.h"
+#include "stream.h"
+#include "name.h"
 
 namespace pdfio
 {
@@ -62,92 +64,29 @@ struct FileStructure
 	};
 
 	/*! \brief PDF File Trailer.*/
-	class Trailer
+	class Trailer : public pdf1_0::FileStructure::Trailer
 	{
 	public:
-		/*! \brief Constructs the Trailer by adding Integer value with key "Size"
-		 *into the dictionary_.*/
-		Trailer()
+		/*! \brief Assigns the other to the Trailer.*/
+		Trailer &operator=(const Trailer &other)
 		{
-			dictionary_.insert<Integer>(kSize);
+			dynamic_cast<Dictionary &>(*this) = dynamic_cast<const Dictionary &>(other);
+			return *this;
 		}
-		/*! \brief Returns value by key "Size".*/
-		inline const Integer &size() const
-		{
-			return dictionary_.get<Integer>(kSize);
-		}
-		/*! \brief Returns value by key "Size".*/
-		inline Integer &size()
-		{
-			return dictionary_.get<Integer>(kSize);
-		}
-		/*! \brief Checks whether internal dictionary contains entry with key "Prev".*/
-		inline bool hasPrev() const
-		{
-			return dictionary_.contains(kPrev);
-		}
-		/*! \brief Returns value by key "Prev".*/
-		inline const Integer &prev() const
-		{
-			return dictionary_.get<Integer>(kPrev);
-		}
-		/*! \brief Returns value by key "Prev".*/
-		inline Integer &prev()
-		{
-			if(!hasPrev())
-			{
-				dictionary_.insert<Integer>(kPrev);
-			}
-			return dictionary_.get<Integer>(kPrev);
-		}
-		/*! \brief Checks whether internal dictionary contains entry with key "Root".*/
-		inline bool hasRoot() const
-		{
-			return dictionary_.contains(kRoot);
-		}
-		/*! \brief Returns value by key "Root".*/
-		inline const IndirectReference &root() const
-		{
-			return dictionary_.get<IndirectReference>(kRoot);
-		}
-		/*! \brief Returns value by key "Root".*/
-		inline IndirectReference &root()
-		{
-			return dictionary_.get<IndirectReference>(kRoot);
-		}
-		/*! \brief Checks whether internal dictionary contains entry with key "Encrypt".*/
+		/*! \brief Checks whether parent Dictionary contains entry with key "Encrypt".*/
 		inline bool hasEncrypt() const
 		{
-			return dictionary_.contains(kEncrypt);
+			return contains(kEncrypt);
 		}
-		/*! \brief Checks whether internal dictionary contains entry with key "Info".*/
-		inline bool hasInfo() const
-		{
-			return dictionary_.contains(kInfo);
-		}
-		/*! \brief Returns value by key "Info".*/
-		inline const IndirectReference &info() const
-		{
-			return dictionary_.get<IndirectReference>(kInfo);
-		}
-		/*! \brief Returns value by key "Info".*/
-		inline IndirectReference &info()
-		{
-			if(!hasInfo())
-			{
-				dictionary_.insert<IndirectReference>(kInfo);
-			}
-			return dictionary_.get<IndirectReference>(kInfo);
-		}
-		/*! \brief Checks whether internal dictionary contains entry with key "ID".*/
+		/*! \brief Checks whether parent Dictionary contains entry with key "ID".*/
 		inline bool hasId() const
 		{
-			return dictionary_.contains(kId);
+			return contains(kId);
 		}
 		/*! \brief Returns value by key "ID".*/
 		inline const Array<HexString> &id() const
 		{
-			return dictionary_.get<pdf1_7::Array<pdf1_7::HexString>>(kId);
+			return get<pdf1_7::Array<pdf1_7::HexString>>(kId);
 		}
 		/*! \brief Returns value by key "ID".*/
 		inline Array<HexString> &id()
@@ -155,27 +94,88 @@ struct FileStructure
 			if(!hasId())
 			{
 				pdf1_7::Array<pdf1_7::HexString> id(2);
-				dictionary_.insert<pdf1_7::Array<pdf1_7::HexString>>(kId, id);
+				insert<pdf1_7::Array<pdf1_7::HexString>>(kId, id);
 			}
-			return dictionary_.get<pdf1_7::Array<pdf1_7::HexString>>(kId);
+			return get<pdf1_7::Array<pdf1_7::HexString>>(kId);
 		}
-		/*! \brief Returns the dictionary_.*/
-		inline Dictionary &dictionary()
-		{
-			return dictionary_;
-		}
-		/*! \brief Adds optional entries into the dictionary_.*/
+		/*! \brief Adds optional entries into the parent Dictionary.*/
 		inline void prepare4Reading()
 		{
-			dictionary_.insert<Integer>(kPrev);
-			dictionary_.insert<IndirectReference>(kRoot);
-			dictionary_.insert<Dictionary>(kEncrypt);
-			dictionary_.insert<IndirectReference>(kInfo);
-			dictionary().insert<pdf1_7::Array<pdf1_7::HexString>>(pdf1_0::Name("ID"));
+			pdf1_0::FileStructure::Trailer::prepare4Reading();
+			insert<Dictionary>(kEncrypt);
+			insert<Array<HexString>>(kID);
 		}
 		
 	private:
-		Dictionary dictionary_;
+		const std::string kID = "ID";
+	};
+	/*! \brief PDF Cross-Reference Stream.*/
+	class XrefStream: public Stream, public Trailer
+	{
+	public:
+		XrefStream()
+		: Dictionary()
+		, Stream()
+		, Trailer()
+		{
+			insert(kType, kXRef);
+			insert<Array<Integer>>(kW);
+		}
+		/*! \brief Returns value by key "Type".*/
+		inline const Name &type() const
+		{
+			return get<Name>(kType);
+		}
+		/*! \brief Returns value by key "Type".*/
+		inline Name &type()
+		{
+			return get<Name>(kType);
+		}
+		/*! \brief Checks whether the parent Dictionary contains entry with key "Index".*/
+		inline bool hasIndex() const
+		{
+			return contains(kIndex);
+		}
+		/*! \brief Returns value by key "Index".*/
+		inline const Array<Integer> &index() const
+		{
+			return get<Array<Integer>>(kIndex);
+		}
+		/*! \brief Returns value by key "Index".*/
+		inline Array<Integer> &index()
+		{
+			if(!hasIndex())
+			{
+				insert<Array<Integer>>(kIndex);
+			}
+			return get<Array<Integer>>(kIndex);
+		}
+		/*! \brief Returns value by key "W".*/
+		inline const Array<Integer> &w() const
+		{
+			return get<Array<Integer>>(kW);
+		}
+		/*! \brief Returns value by key "W".*/
+		inline Array<Integer> &w()
+		{
+			return get<Array<Integer>>(kW);
+		}
+		/*! \brief Adds optional entries into the parent Dictionary.*/
+		inline void prepare4Reading()
+		{
+			Stream::prepare4Reading();
+			Trailer::prepare4Reading();
+			insert<Array<Integer>>(kIndex);
+			insert<Integer>(kXRefStm);
+		}
+		
+		const Name kXRef = Name("XRef");
+		
+	private:
+		const Name kType = Name("Type");
+		const Name kW = Name("W");
+		const Name kIndex = Name("Index");
+		const Name kXRefStm = Name("XRefStm");
 	};
 	/*! \brief PDF File Version.*/
 	struct Version

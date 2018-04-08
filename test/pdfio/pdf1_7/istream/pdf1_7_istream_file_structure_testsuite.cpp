@@ -2,6 +2,8 @@
 
 #include "gtest/gtest.h"
 #include "pdfio/pdf1_7/istream/read_file_structure.h"
+#include "pdfio/pdf1_7/indirect_object.h"
+#include "pdfio/pdf1_7/istream/read_indirect_object.h"
 
 namespace pdf1_7 = pdfio::pdf1_7;
 
@@ -50,6 +52,90 @@ TEST(FileStructureTestSuite, trailer_ok)
     "%%EOF"
   );
   EXPECT_TRUE(istream2 >> trailer2);
+}
+
+TEST(FileStructureTestSuite, xrefStream_ok)
+{
+	pdf1_7::IndirectObject indirectObject;
+	indirectObject.set<pdf1_7::FileStructure::XrefStream>();
+	unsigned char data[] = {
+		0X31, 0X38, 0X30, 0X35, 0X35, 0X20,
+		0X30, 0X20, 0X6F, 0X62, 0X6A, 0X0A, 0X3C, 0X3C, 0X0A, 0X2F, 0X44, 0X65,
+		0X63, 0X6F, 0X64, 0X65, 0X50, 0X61, 0X72, 0X6D, 0X73, 0X20, 0X3C, 0X3C,
+		0X0A, 0X2F, 0X43, 0X6F, 0X6C, 0X75, 0X6D, 0X6E, 0X73, 0X20, 0X36, 0X0A,
+		0X2F, 0X50, 0X72, 0X65, 0X64, 0X69, 0X63, 0X74, 0X6F, 0X72, 0X20, 0X31,
+		0X32, 0X0A, 0X3E, 0X3E, 0X0A, 0X2F, 0X46, 0X69, 0X6C, 0X74, 0X65, 0X72,
+		0X20, 0X2F, 0X46, 0X6C, 0X61, 0X74, 0X65, 0X44, 0X65, 0X63, 0X6F, 0X64,
+		0X65, 0X0A, 0X2F, 0X49, 0X44, 0X20, 0X5B, 0X20, 0X3C, 0X45, 0X32, 0X33,
+		0X44, 0X38, 0X30, 0X37, 0X32, 0X30, 0X36, 0X34, 0X33, 0X30, 0X45, 0X36,
+		0X34, 0X35, 0X43, 0X39, 0X32, 0X34, 0X42, 0X30, 0X38, 0X38, 0X38, 0X34,
+		0X44, 0X37, 0X30, 0X43, 0X37, 0X3E, 0X20, 0X3C, 0X32, 0X31, 0X33, 0X45,
+		0X44, 0X43, 0X32, 0X45, 0X31, 0X35, 0X44, 0X33, 0X42, 0X30, 0X32, 0X31,
+		0X30, 0X34, 0X43, 0X42, 0X43, 0X44, 0X37, 0X42, 0X37, 0X35, 0X30, 0X43,
+		0X38, 0X35, 0X34, 0X39, 0X3E, 0X20, 0X5D, 0X0A, 0X2F, 0X49, 0X6E, 0X64,
+		0X65, 0X78, 0X20, 0X5B, 0X20, 0X38, 0X20, 0X31, 0X20, 0X31, 0X33, 0X39,
+		0X30, 0X39, 0X20, 0X31, 0X20, 0X31, 0X37, 0X36, 0X39, 0X32, 0X20, 0X31,
+		0X20, 0X31, 0X37, 0X36, 0X39, 0X37, 0X20, 0X31, 0X20, 0X31, 0X37, 0X36,
+		0X39, 0X39, 0X20, 0X31, 0X20, 0X31, 0X38, 0X30, 0X35, 0X35, 0X20, 0X31,
+		0X20, 0X5D, 0X0A, 0X2F, 0X49, 0X6E, 0X66, 0X6F, 0X20, 0X31, 0X37, 0X36,
+		0X39, 0X37, 0X20, 0X30, 0X20, 0X52, 0X0A, 0X2F, 0X4C, 0X65, 0X6E, 0X67,
+		0X74, 0X68, 0X20, 0X33, 0X36, 0X0A, 0X2F, 0X50, 0X72, 0X65, 0X76, 0X20,
+		0X32, 0X31, 0X30, 0X31, 0X38, 0X37, 0X38, 0X38, 0X0A, 0X2F, 0X52, 0X6F,
+		0X6F, 0X74, 0X20, 0X31, 0X37, 0X36, 0X39, 0X32, 0X20, 0X30, 0X20, 0X52,
+		0X0A, 0X2F, 0X53, 0X69, 0X7A, 0X65, 0X20, 0X31, 0X38, 0X30, 0X35, 0X36,
+		0X0A, 0X2F, 0X54, 0X79, 0X70, 0X65, 0X20, 0X2F, 0X58, 0X52, 0X65, 0X66,
+		0X0A, 0X2F, 0X57, 0X20, 0X5B, 0X20, 0X31, 0X20, 0X34, 0X20, 0X31, 0X20,
+		0X5D, 0X0A, 0X3E, 0X3E, 0X0A, 0X73, 0X74, 0X72, 0X65, 0X61, 0X6D, 0X0A,
+		0X78, 0XDA, 0X63, 0X62, 0X64, 0X74, 0XD8, 0XBD, 0X9D, 0X81, 0X89, 0X81,
+		0X81, 0X81, 0X71, 0X26, 0X98, 0X62, 0X82, 0XF0, 0XD8, 0XA3, 0XC1, 0XD4,
+		0X8F, 0X40, 0X30, 0XC5, 0XD5, 0XCC, 0X00, 0X00, 0X78, 0X18, 0X05, 0X4C,
+		0X0D, 0X65, 0X6E, 0X64, 0X73, 0X74, 0X72, 0X65, 0X61, 0X6D, 0X0A, 0X65,
+		0X6E, 0X64, 0X6F, 0X62, 0X6A, 0X0A, 0X0A, 0X73, 0X74, 0X61, 0X72, 0X74,
+		0X78, 0X72, 0X65, 0X66, 0X0A, 0X32, 0X31, 0X30, 0X32, 0X32, 0X35, 0X31,
+		0X38, 0X0A, 0X25, 0X25, 0X45, 0X4F, 0X46};
+	std::stringstream istream;
+	istream.write(reinterpret_cast<char *>(data), sizeof(data));
+	EXPECT_TRUE(istream >> indirectObject);
+	auto &xrefStream = indirectObject.get<pdf1_7::FileStructure::XrefStream>();
+	EXPECT_TRUE(xrefStream.type() == xrefStream.kXRef);
+	EXPECT_EQ(18056, xrefStream.size());
+	EXPECT_EQ(36, xrefStream.length());
+	EXPECT_TRUE(xrefStream.hasDecodeParms());
+	EXPECT_TRUE(xrefStream.decodeParms().contains(xrefStream.kColumns));
+	EXPECT_EQ(6, xrefStream.decodeParms().get<pdf1_7::Integer>(xrefStream.kColumns));
+	EXPECT_EQ(12, xrefStream.decodeParms().get<pdf1_7::Integer>(xrefStream.kPredictor));
+	EXPECT_TRUE(xrefStream.hasFilter());
+	EXPECT_TRUE(xrefStream.get<pdf1_7::Name>(xrefStream.kFilter) == "FlateDecode");
+	EXPECT_TRUE(xrefStream.hasId());
+	EXPECT_EQ(2, xrefStream.id().size());
+	EXPECT_TRUE(xrefStream.id()[0] == "E23D807206430E645C924B08884D70C7");
+	EXPECT_TRUE(xrefStream.id()[1] == "213EDC2E15D3B02104CBCD7B750C8549");
+	EXPECT_TRUE(xrefStream.hasIndex());
+	EXPECT_EQ(12, xrefStream.index().size());
+	EXPECT_EQ(8, xrefStream.index()[0]);
+	EXPECT_EQ(1, xrefStream.index()[1]);
+	EXPECT_EQ(13909, xrefStream.index()[2]);
+	EXPECT_EQ(1, xrefStream.index()[3]);
+	EXPECT_EQ(17692, xrefStream.index()[4]);
+	EXPECT_EQ(1, xrefStream.index()[5]);
+	EXPECT_EQ(17697, xrefStream.index()[6]);
+	EXPECT_EQ(1, xrefStream.index()[7]);
+	EXPECT_EQ(17699, xrefStream.index()[8]);
+	EXPECT_EQ(1, xrefStream.index()[9]);
+	EXPECT_EQ(18055, xrefStream.index()[10]);
+	EXPECT_EQ(1, xrefStream.index()[11]);
+	EXPECT_TRUE(xrefStream.hasInfo());
+	EXPECT_EQ(17697, xrefStream.info().objectNumber());
+	EXPECT_EQ(0, xrefStream.info().generationNumber());
+	EXPECT_TRUE(xrefStream.hasPrev());
+	EXPECT_EQ(21018788, xrefStream.prev());
+	EXPECT_TRUE(xrefStream.hasRoot());
+	EXPECT_EQ(17692, xrefStream.root().objectNumber());
+	EXPECT_EQ(0, xrefStream.root().generationNumber());
+	EXPECT_EQ(3, xrefStream.w().size());
+	EXPECT_EQ(1, xrefStream.w()[0]);
+	EXPECT_EQ(4, xrefStream.w()[1]);
+	EXPECT_EQ(1, xrefStream.w()[2]);
 }
 
 TEST(FileStructureTestSuite, emptyStream)

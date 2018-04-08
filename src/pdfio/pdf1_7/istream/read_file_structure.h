@@ -6,5 +6,7 @@
 
 /*! \brief Reads the trailer from the istream*/
 std::istream &operator>>(std::istream &istream, pdfio::pdf1_7::FileStructure::Trailer &trailer);
+/*! \brief Reads the xrefStream from the istream*/
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_7::FileStructure::XrefStream &xrefStream);
 /*! \brief Reads the fileStruct from the istream*/
 std::istream &operator>>(std::istream &istream, pdfio::pdf1_7::FileStructure &fileStruct);

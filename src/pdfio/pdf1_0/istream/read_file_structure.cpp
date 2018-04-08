@@ -2,6 +2,7 @@
 
 #include "pdfio/log.h"
 #include "read_integer.h"
+#include "read_dictionary.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -130,6 +131,59 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure::XrefSecti
 		LOG_ERROR(LOG_PREFIX << "failed to read xref: stream state " << istream.rdstate() << "\n");
 	}
 	LOG_DEBUG(LOG_PREFIX << "leave\n");
+	return istream;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+	":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+	"],trailer[" << reinterpret_cast<unsigned long>(&trailer) << "]:"
+
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::FileStructure::Trailer &trailer)
+{
+	LOG_DEBUG(LOG_PREFIX << "enter\n");
+	trailer.prepare4Reading();
+	std::string buffer;
+	if(istream >> buffer)
+	{
+		LOG_DEBUG(LOG_PREFIX << "trailer line is " << buffer << "\n");
+		if(buffer == "trailer")
+		{
+			if(istream >> static_cast<pdfio::pdf1_0::Dictionary &>(trailer))
+			{
+				if(!trailer.contains(pdfio::pdf1_0::Name("Size")) || 
+					!trailer.contains(pdfio::pdf1_0::Name("Root")))
+				{
+					if(!trailer.contains(pdfio::pdf1_0::Name("Size")))
+					{
+						LOG_ERROR(LOG_PREFIX << "\"Size\" is not found\n");
+					}
+					else
+					{
+						LOG_ERROR(LOG_PREFIX << "\"Root\" is not found\n");
+					}
+					istream.setstate(std::ios_base::failbit);
+				}
+			}
+			else
+			{
+				LOG_ERROR(LOG_PREFIX << "failed to read dictionary: stream state " << 
+					istream.rdstate() << "\n");
+			}
+		}
+		else
+		{
+			LOG_ERROR(LOG_PREFIX << "invalid trailer line: " << buffer << "\n");
+			istream.setstate(std::ios_base::failbit);
+		}
+	}
+	else
+	{
+		LOG_ERROR(LOG_PREFIX << "failed to read trailer line: stream state " << 
+			istream.rdstate() << "\n");
+	}
+	LOG_DEBUG(LOG_PREFIX << "\n");
 	return istream;
 }
 

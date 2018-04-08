@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "pdfio/log.h"
+#include "pdfio/pdf1_0/istream/include.h"
 
 int main(int argc, char **argv)
 {

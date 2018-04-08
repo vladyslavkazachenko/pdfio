@@ -15,19 +15,9 @@ namespace pdfio
 	
 namespace pdf1_0
 {
-	
-namespace
-{
-	const Name kDecodeParms = Name("DecodeParms");
-	const Name kColumns = Name("Columns");
-	const Name kPredictor = Name("Predictor");
-	const Name kFilter = Name("Filter");
-	const Name kId = Name("ID");
-	const Name kIndex = Name("Index");
-	const Name kInfo = Name("Info");
-}
+
 /*! \brief PDF stream object.*/
-class Stream: public Dictionary
+class Stream: public virtual Dictionary
 {
 public:
 	/*! \brief Constructs the stream initializing base std::istream and base dictionary.*/
@@ -35,17 +25,55 @@ public:
 	: buffer_(std::make_shared<std::stringbuf>())
 	, iostream_(std::make_shared<std::iostream>(buffer_.get()))
 	{
-		Dictionary::insert<Integer>(Name("Length"));
+		insert<Integer>(Name("Length"));
 	}
 	/*! \brief Returns value by key "Length".*/
 	inline const Integer &length() const
 	{
-		return Dictionary::get<Integer>(Name("Length"));
+		return get<Integer>(Name("Length"));
 	}
 	/*! \brief Returns value by key "Length".*/
 	inline Integer &length()
 	{
-		return Dictionary::get<Integer>(Name("Length"));
+		return get<Integer>(Name("Length"));
+	}
+	/*! \brief Checks whether the parent Dictionary contains entry with key "DecodeParms".*/
+	inline bool hasDecodeParms() const
+	{
+		return contains(kDecodeParms);
+	}
+	/*! \brief Returns value by key "DecodeParms".*/
+	inline const Dictionary &decodeParms() const
+	{
+		return get<Dictionary>(kDecodeParms);
+	}
+	/*! \brief Returns value by key "DecodeParms".*/
+	inline Dictionary &decodeParms()
+	{
+		if(!hasDecodeParms())
+		{
+			insert<Dictionary>(kDecodeParms);
+		}
+		return get<Dictionary>(kDecodeParms);
+	}
+	/*! \brief Checks whether the parent Dictionary contains entry with key "Filter".*/
+	inline bool hasFilter() const
+	{
+		return contains(kFilter);
+	}
+	/*! \brief Returns value by key "Filter".*/
+	inline const Name &filter() const
+	{
+		return get<Name>(kFilter);
+	}
+	/*! \brief Returns value by key "Filter".*/
+	inline Name &filter()
+	{
+		if(!hasDecodeParms())
+		{
+			insert<Name>(kFilter);
+		}
+		return get<Name>(kFilter);
 	}
 	
 	inline std::iostream& iostream()
@@ -72,10 +100,12 @@ public:
 		decodeParms.insert<Integer>(kPredictor);
 		insert(kDecodeParms, decodeParms);
 		insert<Name>(kFilter);
-		insert<Array<HexString>>(kId);
-		insert<Array<Integer>>(kIndex);
-		insert<IndirectReference>(kInfo);
 	}
+	
+	const Name kDecodeParms = Name("DecodeParms");
+	const Name kColumns = Name("Columns");
+	const Name kPredictor = Name("Predictor");
+	const Name kFilter = Name("Filter");
 	
 private:
 	std::shared_ptr<std::stringbuf> buffer_;

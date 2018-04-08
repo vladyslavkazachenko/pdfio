@@ -20,9 +20,16 @@ std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::IndirectObject &i
 		{
 			LOG_DEBUG(LOG_PREFIX << "generation number is " << 
 				indirectObject.generationNumber() << "\n");
-			std::string buffer;
-			if(istream >> buffer)
+			while(istream && std::isspace(istream.peek()))
 			{
+				LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << 
+					istream.peek() << "\n");
+				static_cast<void>(istream.get());
+			}
+			char tmp[4] = {'\0', '\0', '\0', '\0'};
+			if(istream.read(tmp, 3))
+			{
+				std::string buffer(tmp);
 				LOG_DEBUG(LOG_PREFIX << "obj line is " << buffer << "\n");
 				if(buffer == "obj")
 				{

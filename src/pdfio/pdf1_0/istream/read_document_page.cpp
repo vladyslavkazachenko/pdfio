@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "pdfio/log.h"
 #include "read_name.h"
 #include "read_indirect_reference.h"
 #include "read_dictionary.h"
@@ -76,7 +77,28 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ResourceDi
 	return istream;
 }
 
-std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ProcSet &procSet)
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+	":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+	"],contents[" << reinterpret_cast<unsigned long>(&contents) << "]:"
+
+std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::Contents &contents)
 {
-  return istream >> static_cast</*pdf1_0::Array<pdf1_0::IndirectReference>*/pdf1_0::IndirectReference &>(procSet);
+	LOG_DEBUG(LOG_PREFIX << "enter\n");
+	auto pos = istream.tellg();
+	pdf1_0::IndirectReference indirRef;
+	if(istream >> indirRef)
+	{
+		contents.resize(1);
+		contents[0] = indirRef;
+	}
+	else
+	{
+		istream.clear();
+		istream.seekg(pos);
+		istream >> static_cast<pdf1_0::Array<pdf1_0::IndirectReference> &>(contents);
+	}
+	LOG_DEBUG(LOG_PREFIX << "leave\n");
+	return istream;
 }
+
+#undef LOG_PREFIX

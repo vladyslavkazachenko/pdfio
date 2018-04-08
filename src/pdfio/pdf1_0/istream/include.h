@@ -79,9 +79,25 @@ ReadHandlerRegistrator<DocumentPage::ResourceDictionary> docPageResDictRegistrat
    {
       i >> static_cast<GenericObjectAdaptor<DocumentPage::ResourceDictionary> &>(o).object_;
    });
-   
-ReadHandlerRegistrator<DocumentPage::ProcSet> docPageProcsetRegistrator(
+	
+ReadHandlerRegistrator<Array<Real>> arrRealRegistrator([](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<Array<Real>> &>(o).object_;
+   });
+	
+ReadHandlerRegistrator<DocumentPage::Contents> docPageContentsRegistrator(
    [](std::istream &i, GenericObject &o)
    {
-      i >> static_cast<GenericObjectAdaptor<DocumentPage::ProcSet> &>(o).object_;
+      i >> static_cast<GenericObjectAdaptor<DocumentPage::Contents> &>(o).object_;
+   });
+	
+ReadHandlerRegistrator<Array<Name>> arrNameRegistrator([](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<Array<Name>> &>(o).object_;
+   });
+	
+ReadHandlerRegistrator<DocumentPage> docPageRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<DocumentPage> &>(o).object_;
    });

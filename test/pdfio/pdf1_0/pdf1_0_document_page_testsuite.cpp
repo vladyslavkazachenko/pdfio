@@ -31,8 +31,9 @@ TEST(DocumentPageTestSuite, assignment)
 	page.parent().objectNumber() = 40;
 	page.parent().generationNumber() = 1;
 	page.resources().insert(pdf1_0::Name("whatever"), pdf1_0::Name("whatever"));
-	page.contents().objectNumber() = 41;
-	page.contents().generationNumber() = 1;
+	page.contents().resize(1);
+	page.contents()[0].objectNumber() = 41;
+	page.contents()[0].generationNumber() = 1;
 	EXPECT_TRUE(page.mediaBox()[0] == 1);
 	EXPECT_TRUE(page.mediaBox()[1] == 1);
 	EXPECT_TRUE(page.mediaBox()[2] == 100);
@@ -42,6 +43,6 @@ TEST(DocumentPageTestSuite, assignment)
 	EXPECT_TRUE(page.resources().keys().size() == 1);
 	EXPECT_TRUE(page.resources().get<pdf1_0::Name>(pdf1_0::Name("whatever")) == "whatever");
 	EXPECT_TRUE(page.hasContents());
-	EXPECT_TRUE(page.contents().objectNumber() == 41);
-	EXPECT_TRUE(page.contents().generationNumber() == 1);
+	EXPECT_TRUE(page.contents()[0].objectNumber() == 41);
+	EXPECT_TRUE(page.contents()[0].generationNumber() == 1);
 }

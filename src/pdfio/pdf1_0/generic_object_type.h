@@ -30,9 +30,11 @@ enum class GenericObjectType
   kArrayIndirectReference,
   kArrayInteger,
   kArrayHexString,
+  kArrayReal,
+  kArrayName,
   kDocumentPageResources,
   kDocumentPageResourceDictionary,
-  kDocumentPageProcSet,
+  kDocumentPageContents,
   kDocumentCatalog,
   kDocumentPageTreeRootNode,
   kDocumentPage,
@@ -58,12 +60,16 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>(
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Integer>>();
 /*! \brief Returns type id of Array<HexString>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>();
+/*! \brief Returns type id of Array<Real>.*/
+template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
+/*! \brief Returns type id of Array<Name>.*/
+template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>();
 /*! \brief Returns type id of DocumentPage::Resources.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Resources>();
 /*! \brief Returns type id of DocumentPage::ResourceDictionary.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ResourceDictionary>();
-/*! \brief Returns type id of DocumentPage::ProcSet.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ProcSet>();
+/*! \brief Returns type id of DocumentPage::Contents.*/
+template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Contents>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>();
 /*! \brief Returns type id of DocumentPageTreeRootNode.*/

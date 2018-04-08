@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "read_integer.h"
+#include "read_real.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -24,6 +25,9 @@ namespace
 		kRgbStroke,
 		kDash,
 		kGrayFill,
+		kClip,
+		kSave,
+		kRestore,
 		kUnknown,
 	};
 	
@@ -76,6 +80,18 @@ namespace
 		if(str == "g")
 		{
 			return Cmd::kGrayFill;
+		}
+		if(str == "W")
+		{
+			return Cmd::kClip;
+		}
+		if(str == "q")
+		{
+			return Cmd::kSave;
+		}
+		if(str == "Q")
+		{
+			return Cmd::kRestore;
 		}
 		return Cmd::kUnknown;
 	}
@@ -178,19 +194,19 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPageDescription 
 				if(tokens.size() >= 4)
 				{
 					std::stringstream ssh(*(tokens.rbegin()));
-					pdf1_0::Integer h;
+					pdf1_0::Real h;
 					if(ssh >> h)
 					{
 						std::stringstream ssw(*(tokens.rbegin() + 1));
-						pdf1_0::Integer w;
+						pdf1_0::Real w;
 						if(ssw >> w)
 						{
 							std::stringstream ssy(*(tokens.rbegin() + 2));
-							pdf1_0::Integer y;
+							pdf1_0::Real y;
 							if(ssy >> y)
 							{
 								std::stringstream ssx(*(tokens.rbegin() + 3));
-								pdf1_0::Integer x;
+								pdf1_0::Real x;
 								if(ssx >> x)
 								{
 									description.rectangle(x, y, w, h);
@@ -327,6 +343,18 @@ std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPageDescription 
 						description.setgrayFill(gray);
 					}
 				}
+				tokens.clear();
+				break;
+			case Cmd::kClip:
+				description.clip();
+				tokens.clear();
+				break;
+			case Cmd::kSave:
+				description.save();
+				tokens.clear();
+				break;
+			case Cmd::kRestore:
+				description.restore();
 				tokens.clear();
 				break;
 			default:

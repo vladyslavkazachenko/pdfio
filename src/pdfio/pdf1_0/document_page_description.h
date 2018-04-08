@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "integer.h"
+#include "real.h"
 
 namespace pdfio
 {
@@ -19,7 +20,7 @@ struct DocumentPageDescription
 	std::function<void(Integer x, Integer y)> linetoHandler_;
 	std::function<void()> strokeHandler_;
 	std::function<void(Integer w)> setlinewidthHandler_;
-	std::function<void(Integer x, Integer y, Integer w, Integer h)> rectangleHandler_;
+	std::function<void(Real x, Real y, Real w, Real h)> rectangleHandler_;
 	std::function<void()> fillHandler_;
 	std::function<void()> fillAndStrokeHandler_;
 	std::function<void()> closepathFillAndStrokeHandler_;
@@ -28,6 +29,9 @@ struct DocumentPageDescription
 	std::function<void(double r, double g, double b)> setrgbcolorStrokeHandler_;
 	std::function<void(Integer phase, const std::vector<Integer> &array)> setdashHandler_;
 	std::function<void(double gray)> setgrayFillHandler_;
+	std::function<void()> clipHandler_;
+	std::function<void()> saveHandler_;
+	std::function<void()> restoreHandler_;
 	
 	inline void moveto(Integer x, Integer y)
 	{
@@ -49,7 +53,7 @@ struct DocumentPageDescription
 		assert(setlinewidthHandler_);
 		setlinewidthHandler_(w);
 	}
-	inline void rectangle(Integer x, Integer y, Integer w, Integer h)
+	inline void rectangle(Real x, Real y, Real w, Real h)
 	{
 		assert(rectangleHandler_);
 		rectangleHandler_(x, y, w, h);
@@ -93,6 +97,21 @@ struct DocumentPageDescription
 	{
 		assert(setgrayFillHandler_);
 		setgrayFillHandler_(gray);
+	}
+	inline void clip()
+	{
+		assert(clipHandler_);
+		clipHandler_();
+	}
+	inline void save()
+	{
+		assert(saveHandler_);
+		saveHandler_();
+	}
+	inline void restore()
+	{
+		assert(restoreHandler_);
+		restoreHandler_();
 	}
 };
 

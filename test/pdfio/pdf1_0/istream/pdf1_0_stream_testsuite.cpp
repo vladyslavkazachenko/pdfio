@@ -39,12 +39,12 @@ TEST(StreamTestSuite, emptyPDFStream)
 	pdf1_0::Stream pdfStream1;
 	std::istringstream istream1("<< /Length 0 >> stream\nendstream");
 	EXPECT_TRUE(istream1 >> pdfStream1);
-	std::string buffer;
-	EXPECT_FALSE(pdfStream1 >> buffer);
+	EXPECT_TRUE(pdfStream1.data() == "");
 	
 	pdf1_0::Stream pdfStream2;
 	std::istringstream istream2("<< /Length 0 >> stream\r\nendstream");
-	EXPECT_FALSE(pdfStream1 >> buffer);
+	EXPECT_TRUE(istream2 >> pdfStream2);
+	EXPECT_TRUE(pdfStream2.data() == "");
 }
 
 TEST(StreamTestSuite, wrongStream2ndDelimiter)
@@ -66,7 +66,8 @@ TEST(StreamTestSuite, ok)
 	pdf1_0::Stream pdfStream;
 	std::istringstream istream("<< /Length 9 >> stream\nwhatever\nendstream");
 	EXPECT_TRUE(istream >> pdfStream);
+	std::stringstream ss(pdfStream.data());
 	std::string buffer;
-	EXPECT_TRUE(pdfStream >> buffer);
+	ss >> buffer;
 	EXPECT_TRUE(buffer == "whatever");
 }

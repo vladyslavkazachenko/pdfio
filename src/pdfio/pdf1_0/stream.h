@@ -1,8 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
-#include <memory>
+#include <string>
 
 #include "integer.h"
 #include "dictionary.h"
@@ -38,23 +36,10 @@ public:
 	const Name &filter() const;
 	/*! \brief Returns value by key "Filter".*/
 	Name &filter();
-	
-	inline std::iostream& iostream()
-	{
-		return *iostream_;
-	}
-	
-	template <typename T>
-	std::istream &operator>>(T &value)
-	{
-		return (*iostream_) >> value;
-	}
-	
-	template <typename T>
-	std::ostream &operator<<(T &value)
-	{
-		return (*iostream_) << value;
-	}
+	/*! \brief Returns the Stream's data between "stream" and "endstream".*/
+	const std::string &data() const;
+	/*! \brief Returns the Stream's data between "stream" and "endstream".*/
+	std::string &data();
 	/*! \brief Inserts optianal entries to the parent Dictionary.*/
 	void prepare4Reading();
 	
@@ -65,8 +50,7 @@ public:
 	static const Name kKeyPredictor;
 	
 private:
-	std::shared_ptr<std::stringbuf> buffer_;
-	std::shared_ptr<std::iostream> iostream_;
+	std::string data_;
 };
 
 }

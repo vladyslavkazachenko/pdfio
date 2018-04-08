@@ -65,28 +65,18 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure::XrefStrea
 								if(buffer == "endstream")
 								{
 									istream.clear();
-									char *streamData = 
-										new char[xrefStream.get<pdf1_0::Integer>(pdf1_0::Name("Length"))];
+									auto streamLength = xrefStream.get<pdf1_0::Integer>(pdf1_0::Name("Length"));
+									char *streamData = new char[streamLength];
 									auto newStreamPos = istream.tellg();
 									if(istream.seekg(streamPos))
 									{
-										if(istream.read(streamData, 
-											xrefStream.get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
+										if(istream.read(streamData, streamLength))
 										{
-											if(!xrefStream.iostream().write(streamData, 
-												xrefStream.get<pdf1_0::Integer>(pdf1_0::Name("Length"))))
+											xrefStream.data() = "";
+											xrefStream.data().append(streamData, streamLength);
+											if(!istream.seekg(newStreamPos))
 											{
-												LOG_ERROR(LOG_PREFIX << 
-													"failed to seek to write the data, stream state is " << 
-													istream.rdstate() << "\n");
 												istream.setstate(std::ios_base::failbit);
-											}
-											else
-											{
-												if(!istream.seekg(newStreamPos))
-												{
-													istream.setstate(std::ios_base::failbit);
-												}
 											}
 										}
 										else
@@ -272,15 +262,12 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure &fileStruc
 								if(istream >> indirectObject)
 								{
 									auto &xrefStream = indirectObject.get<pdf1_7::FileStructure::XrefStream>();
-									char *cc = new char[xrefStream.length()];
-									xrefStream.iostream().read(cc, xrefStream.length());
-									
 									char c[1024];
 									memset(c, '\0', 1024);
 									z_stream zInfo;
-									zInfo.avail_in=  xrefStream.length();
+									zInfo.avail_in=  xrefStream.data().length();
 									zInfo.avail_out= 1024;
-									zInfo.next_in= (Bytef*)cc;
+									zInfo.next_in= (Bytef*)xrefStream.data().c_str();
 									zInfo.next_out= (Bytef *)c;
 									zInfo.zalloc = Z_NULL;
 									zInfo.zfree = Z_NULL;
@@ -313,7 +300,6 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure &fileStruc
 											LOG_DEBUG(LOG_PREFIX << "offset=" << c[i + 1] + c[i - width] << "\n");
 										}
 									}
-									delete[] cc;
 									
 								}
 							}

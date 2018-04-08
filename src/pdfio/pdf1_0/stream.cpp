@@ -13,8 +13,6 @@ const Name Stream::kKeyColumns = Name("Columns");
 const Name Stream::kKeyPredictor = Name("Predictor");
 	
 Stream::Stream()
-: buffer_(std::make_shared<std::stringbuf>())
-, iostream_(std::make_shared<std::iostream>(buffer_.get()))
 {
 	insert<Integer>(kKeyLength);
 }
@@ -65,6 +63,16 @@ Name &Stream::filter()
 		insert<Name>(kKeyFilter);
 	}
 	return get<Name>(kKeyFilter);
+}
+
+const std::string &Stream::data() const
+{
+	return data_;
+}
+
+std::string &Stream::data()
+{
+	return data_;
 }
 
 void Stream::prepare4Reading()

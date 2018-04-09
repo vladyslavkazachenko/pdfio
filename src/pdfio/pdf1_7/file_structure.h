@@ -102,7 +102,7 @@ struct FileStructure
 		inline void prepare4Reading()
 		{
 			pdf1_0::FileStructure::Trailer::prepare4Reading();
-			insert<Dictionary>(kEncrypt);
+			insert<IndirectReference>(kEncrypt);
 			insert<Array<HexString>>(kID);
 			insert<Integer>(kXrefStm);
 		}

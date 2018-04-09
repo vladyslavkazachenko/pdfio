@@ -12,48 +12,45 @@ namespace pdf1_0 = pdfio::pdf1_0;
 
 std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure::XrefEntry &xrefEntry)
 {
-	LOG_DEBUG(LOG_PREFIX << "enter\n");
-  if(istream >> xrefEntry.offset_)
-  {
-    if(istream >> xrefEntry.generation_)
-    {
-      char inUseFlag;
-      if(istream >> inUseFlag)
-      {
-        LOG_DEBUG(LOG_PREFIX << "in use flag: " << inUseFlag << "\n");
-        if(inUseFlag == 'n')
-        {
-          xrefEntry.inUseFlag_ = true;
-        }
-        else
-        {
-          if(inUseFlag == 'f')
-          {
-            xrefEntry.inUseFlag_ = false;
-          }
-          else
-          {
-            LOG_ERROR(LOG_PREFIX << "invalid in use flag: " << std::hex << std::showbase << 
-              static_cast<int>(inUseFlag) << "\n");
-            istream.setstate(std::ios_base::failbit);
-          }
-        }
-      }
-      else
-      {
-        LOG_ERROR(LOG_PREFIX << "failed to read in use flag: stream state " << istream.rdstate() << "\n");
-      }
-    }
-    else
-    {
-      LOG_ERROR(LOG_PREFIX << "failed to read generation: stream state " << istream.rdstate() << "\n");
-    }
-  }
-  else
-  {
-    LOG_ERROR(LOG_PREFIX << "failed to read offset: stream state " << istream.rdstate() << "\n");
-  }
-  LOG_DEBUG(LOG_PREFIX << "leave\n");
+	if(istream >> xrefEntry.offset_)
+	{
+		if(istream >> xrefEntry.generation_)
+		{
+			char inUseFlag;
+			if(istream >> inUseFlag)
+			{
+				if(inUseFlag == 'n')
+				{
+					xrefEntry.inUseFlag_ = true;
+				}
+				else
+				{
+					if(inUseFlag == 'f')
+					{
+						xrefEntry.inUseFlag_ = false;
+					}
+					else
+					{
+						LOG_ERROR(LOG_PREFIX << "invalid in use flag: " << std::hex << std::showbase << 
+							static_cast<int>(inUseFlag) << "\n");
+						istream.setstate(std::ios_base::failbit);
+					}
+				}
+			}
+			else
+			{
+				LOG_ERROR(LOG_PREFIX << "failed to read in use flag: stream state " << istream.rdstate() << "\n");
+			}
+		}
+		else
+		{
+			LOG_ERROR(LOG_PREFIX << "failed to read generation: stream state " << istream.rdstate() << "\n");
+		}
+	}
+	else
+	{
+		LOG_ERROR(LOG_PREFIX << "failed to read offset: stream state " << istream.rdstate() << "\n");
+	}
 	return istream;
 }
 
@@ -152,16 +149,11 @@ std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::FileStructure::Tr
 		{
 			if(istream >> static_cast<pdfio::pdf1_0::Dictionary &>(trailer))
 			{
-				if(!trailer.contains(pdfio::pdf1_0::Name("Size")) || 
-					!trailer.contains(pdfio::pdf1_0::Name("Root")))
+				if(!trailer.contains(pdfio::pdf1_0::Name("Size")))
 				{
 					if(!trailer.contains(pdfio::pdf1_0::Name("Size")))
 					{
 						LOG_ERROR(LOG_PREFIX << "\"Size\" is not found\n");
-					}
-					else
-					{
-						LOG_ERROR(LOG_PREFIX << "\"Root\" is not found\n");
 					}
 					istream.setstate(std::ios_base::failbit);
 				}

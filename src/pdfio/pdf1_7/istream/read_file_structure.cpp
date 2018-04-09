@@ -235,72 +235,82 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure &fileStruc
 						if(istream >> lastXrefOffset)
 						{
 							LOG_DEBUG(LOG_PREFIX << "last xref offset " << lastXrefOffset << "\n");
-							istream.seekg(int(lastXrefOffset));
-							while(std::isspace(istream.peek()))
+							auto xrefOffset = lastXrefOffset;
+							while(xrefOffset != -1)
 							{
-								static_cast<void>(istream.get());
-							}
-							pos = istream.tellg();
-							pdf1_0::FileStructure::XrefSection xrefSection;
-							if(istream >> xrefSection)
-							{
-								pdf1_7::FileStructure::Trailer trailer;
-								if(istream >> trailer)
+								istream.seekg(int(xrefOffset));
+								xrefOffset = -1;
+								while(std::isspace(istream.peek()))
 								{
-									pdf1_7::FileStructure::Version version;
-									version.xrefSection_ = xrefSection;
-									version.trailer_ = trailer;
-									fileStruct.versions_.push_back(version);
+									static_cast<void>(istream.get());
 								}
-							}
-							else
-							{
-								istream.clear();
-								istream.seekg(pos);
-								pdf1_7::IndirectObject indirectObject;
-								indirectObject.set<pdf1_7::FileStructure::XrefStream>();
-								if(istream >> indirectObject)
+								pos = istream.tellg();
+								pdf1_0::FileStructure::XrefSection xrefSection;
+								if(istream >> xrefSection)
 								{
-									auto &xrefStream = indirectObject.get<pdf1_7::FileStructure::XrefStream>();
-									char c[1024];
-									memset(c, '\0', 1024);
-									z_stream zInfo;
-									zInfo.avail_in=  xrefStream.data().length();
-									zInfo.avail_out= 1024;
-									zInfo.next_in= (Bytef*)xrefStream.data().c_str();
-									zInfo.next_out= (Bytef *)c;
-									zInfo.zalloc = Z_NULL;
-									zInfo.zfree = Z_NULL;
-									if(inflateInit(&zInfo) != Z_OK)
+									pdf1_7::FileStructure::Trailer trailer;
+									if(istream >> trailer)
 									{
-										LOG_ERROR(LOG_PREFIX << "inflateInit failed\n");
-									}
-									if(inflate(&zInfo, Z_FINISH) != Z_STREAM_END)
-									{
-										LOG_ERROR(LOG_PREFIX << "inflate failed\n");
-									}
-									if(inflateEnd(&zInfo) != Z_OK)
-									{
-										LOG_ERROR(LOG_PREFIX << "inflateEnd failed\n");
-									}
-									
-									//std::vector<char> bytes;
-									auto width = 
-										xrefStream.decodeParms().get<pdf1_7::Integer>(pdf1_7::FileStructure::XrefStream::kKeyColumns);
-									for(unsigned int i = 0; i < zInfo.total_out; i += (width + 1))
-									{
-										if(!i)
+										pdf1_7::FileStructure::Version version;
+										version.xrefSection_ = xrefSection;
+										version.trailer_ = trailer;
+										LOG_DEBUG(LOG_PREFIX << "add version\n");
+										fileStruct.versions_.insert(std::begin(fileStruct.versions_), version);
+										if(trailer.hasPrev())
 										{
-											//bytes.push_back(c[i]);
-											LOG_DEBUG(LOG_PREFIX << "offset=" << c[i + 1] << "\n");
-										}
-										else
-										{
-											//bytes.push_back(c[i] + c[i - width - 1]);
-											LOG_DEBUG(LOG_PREFIX << "offset=" << c[i + 1] + c[i - width] << "\n");
+											xrefOffset = trailer.prev();
 										}
 									}
-									
+								}
+								else
+								{
+									istream.clear();
+									istream.seekg(pos);
+									pdf1_7::IndirectObject indirectObject;
+									indirectObject.set<pdf1_7::FileStructure::XrefStream>();
+									if(istream >> indirectObject)
+									{
+										auto &xrefStream = indirectObject.get<pdf1_7::FileStructure::XrefStream>();
+										char c[1024];
+										memset(c, '\0', 1024);
+										z_stream zInfo;
+										zInfo.avail_in=  xrefStream.data().length();
+										zInfo.avail_out= 1024;
+										zInfo.next_in= (Bytef*)xrefStream.data().c_str();
+										zInfo.next_out= (Bytef *)c;
+										zInfo.zalloc = Z_NULL;
+										zInfo.zfree = Z_NULL;
+										if(inflateInit(&zInfo) != Z_OK)
+										{
+											LOG_ERROR(LOG_PREFIX << "inflateInit failed\n");
+										}
+										if(inflate(&zInfo, Z_FINISH) != Z_STREAM_END)
+										{
+											LOG_ERROR(LOG_PREFIX << "inflate failed\n");
+										}
+										if(inflateEnd(&zInfo) != Z_OK)
+										{
+											LOG_ERROR(LOG_PREFIX << "inflateEnd failed\n");
+										}
+										
+										//std::vector<char> bytes;
+										auto width = 
+											xrefStream.decodeParms().get<pdf1_7::Integer>(pdf1_7::FileStructure::XrefStream::kKeyColumns);
+										for(unsigned int i = 0; i < zInfo.total_out; i += (width + 1))
+										{
+											if(!i)
+											{
+												//bytes.push_back(c[i]);
+												LOG_DEBUG(LOG_PREFIX << "offset=" << c[i + 1] << "\n");
+											}
+											else
+											{
+												//bytes.push_back(c[i] + c[i - width - 1]);
+												LOG_DEBUG(LOG_PREFIX << "offset=" << c[i + 1] + c[i - width] << "\n");
+											}
+										}
+										
+									}
 								}
 							}
 						}

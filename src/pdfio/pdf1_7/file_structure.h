@@ -104,10 +104,12 @@ struct FileStructure
 			pdf1_0::FileStructure::Trailer::prepare4Reading();
 			insert<Dictionary>(kEncrypt);
 			insert<Array<HexString>>(kID);
+			insert<Integer>(kXrefStm);
 		}
 		
 	private:
 		const std::string kID = "ID";
+		const std::string kXrefStm = "XRefStm";
 	};
 	/*! \brief PDF Cross-Reference Stream.*/
 	class XrefStream: public Stream, public Trailer

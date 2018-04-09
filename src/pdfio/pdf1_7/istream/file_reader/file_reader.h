@@ -18,7 +18,7 @@ class FileReader
 {
 public:
 	bool loadFile(const std::string &fullFilePath);
-	bool documentCatalog(DocumentCatalog &docCatalog);
+	bool getDocumentCatalog(DocumentCatalog &docCatalog);
 	
 	template <typename T> bool getObject(Integer objectNumber, Integer generation, T &object)
 	{

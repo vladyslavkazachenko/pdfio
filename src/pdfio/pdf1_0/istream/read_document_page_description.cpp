@@ -3,9 +3,6 @@
 #include <vector>
 #include <sstream>
 
-#include "read_integer.h"
-#include "read_real.h"
-
 namespace pdf1_0 = pdfio::pdf1_0;
 
 namespace

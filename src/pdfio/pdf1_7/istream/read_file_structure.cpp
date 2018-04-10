@@ -6,13 +6,13 @@
 
 #include "zlib.h"
 #include "pdfio/log.h"
-#include "read_integer.h"
 #include "read_dictionary.h"
 #include "read_stream.h"
 #include "pdfio/pdf1_0/istream/read_file_structure.h"
 #include "pdfio/pdf1_7/istream/read_indirect_object.h"
 
 namespace pdf1_7 = pdfio::pdf1_7;
+namespace pdf1_0 = pdfio::pdf1_0;
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
 	":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \

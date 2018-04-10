@@ -70,8 +70,8 @@ public:
       return *object_;
    }
 private:
-   Integer objectNumber_;
-   Integer generationNumber_;
+   Integer objectNumber_ = Integer();
+   Integer generationNumber_= Integer();
    std::shared_ptr<GenericObject> object_;
 };
 

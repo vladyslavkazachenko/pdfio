@@ -1,6 +1,5 @@
 add_library(pdf1_0_istream OBJECT
    read_name.cpp
-   read_integer.cpp
    read_indirect_reference.cpp
    read_dictionary.cpp
    read_file_trailer.cpp
@@ -15,7 +14,6 @@ add_library(pdf1_0_istream OBJECT
    read_document_page.cpp
    read_document_page_description.cpp
    read_hexstring.cpp
-   read_real.cpp
    read_literalstring.cpp
    read_file_structure.cpp
 )

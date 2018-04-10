@@ -1,6 +1,5 @@
 #include "read_indirect_object.h"
 
-#include "read_integer.h"
 #include "pdfio/read_generic_object.h"
 #include "pdfio/log.h"
 

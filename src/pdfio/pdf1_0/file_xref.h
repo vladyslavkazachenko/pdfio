@@ -50,8 +50,8 @@ public:
 		}
 		
 	private:
-		Integer byteOffset_;
-		Integer generationNumber_;
+		Integer byteOffset_ = Integer();
+		Integer generationNumber_ = Integer();
 		bool isInUse_ = true;
 	};
 	/*! \brief PDF file cross reference table subsection.*/
@@ -80,7 +80,7 @@ public:
 		}
 		
 	private:
-		Integer objectNumber_;
+		Integer objectNumber_ = Integer();
 		std::vector<Entry> entries_;
 	};
 	/*! \brief PDF file cross reference table section.*/

@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "read_integer.h"
-
 namespace pdf1_0 = pdfio::pdf1_0;
 
 inline std::istream &operator>>(std::istream &istream, pdf1_0::FileXref::Entry &entry)

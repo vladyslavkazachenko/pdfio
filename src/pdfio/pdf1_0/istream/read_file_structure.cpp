@@ -1,7 +1,6 @@
 #include "read_file_structure.h"
 
 #include "pdfio/log.h"
-#include "read_integer.h"
 #include "read_dictionary.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;

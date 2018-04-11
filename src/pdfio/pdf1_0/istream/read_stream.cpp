@@ -1,7 +1,5 @@
 #include "read_stream.h"
 
-#include <sstream>
-
 #include "pdfio/log.h"
 #include "read_dictionary.h"
 

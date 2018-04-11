@@ -16,5 +16,6 @@ add_library(pdf1_0_istream OBJECT
    read_hexstring.cpp
    read_literalstring.cpp
    read_file_structure.cpp
+   read_outline_tree.cpp
 )
 add_dependencies(pdf1_0_istream pdf1_0)

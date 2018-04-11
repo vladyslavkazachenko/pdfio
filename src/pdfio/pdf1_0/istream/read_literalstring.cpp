@@ -56,6 +56,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::LiteralString &literalSt
       else
       {
          LOG_ERROR(LOG_PREFIX << "invalid 1st delimiter: " << static_cast<int>(ch) << "\n");
+			istream.setstate(std::ios_base::failbit);
       }
    }
    LOG_DEBUG(LOG_PREFIX << "leave\n");

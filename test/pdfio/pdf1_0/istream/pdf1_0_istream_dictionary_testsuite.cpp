@@ -177,3 +177,18 @@ TEST(DictionaryTestSuite, dictionaryWithUnknownKey2)
    EXPECT_TRUE(istream >> dictionary);
    EXPECT_TRUE(dictionary.keys().empty());
 }
+
+TEST(DictionaryTestSuite, dictionaryWithString)
+{
+   pdf1_0::Dictionary dictionary;
+	dictionary.insert<pdf1_0::String>(pdf1_0::Name("key1"));
+	dictionary.insert<pdf1_0::String>(pdf1_0::Name("key2"));
+   std::istringstream istream("<</key1(blabla)/key2<BABA12345>>>");
+   EXPECT_TRUE(istream >> dictionary);
+   EXPECT_EQ(pdf1_0::String::kLiteralString, 
+		dictionary.get<pdf1_0::String>(pdf1_0::Name("key1")).field_);
+	EXPECT_TRUE(dictionary.get<pdf1_0::String>(pdf1_0::Name("key1")).literalString_ == "blabla");
+	EXPECT_EQ(pdf1_0::String::kHexString, 
+		dictionary.get<pdf1_0::String>(pdf1_0::Name("key2")).field_);
+	EXPECT_TRUE(dictionary.get<pdf1_0::String>(pdf1_0::Name("key2")).hexString_ == "BABA12345");
+}

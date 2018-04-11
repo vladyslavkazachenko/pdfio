@@ -16,6 +16,7 @@ add_executable(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream_unittest_app.cpp
   pdf1_0_istream_document_page_testsuite.cpp
   pdf1_0_istream_hexstring_testsuite.cpp
   pdf1_0_istream_literalstring_testsuite.cpp
+  pdf1_0_istream_string_testsuite.cpp
   pdf1_0_istream_file_structure_testsuite.cpp
   pdf1_0_istream_outline_tree_testsuite.cpp
 )

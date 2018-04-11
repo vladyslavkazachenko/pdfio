@@ -9,6 +9,7 @@
 #include "read_document_page.h"
 #include "read_outline_tree.h"
 #include "read_literalstring.h"
+#include "read_string.h"
 #include "pdfio/read_generic_object.h"
 
 using namespace pdfio;
@@ -118,4 +119,10 @@ ReadHandlerRegistrator<LiteralString> literalStringRegistrator(
    [](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<LiteralString> &>(o).object_;
+   });
+	
+ReadHandlerRegistrator<String> stringRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<String> &>(o).object_;
    });

@@ -12,6 +12,7 @@
 #include "stream.h"
 #include "hexstring.h"
 #include "literalstring.h"
+#include "string.h"
 #include "real.h"
 #include "outline_tree.h"
 #include "pdfio/generic_object.h"
@@ -43,6 +44,7 @@ enum class GenericObjectType
 	kStream,
 	kHexString,
 	kLiteralString,
+	kString,
 	kOutlineTree,
 	kOutlineTreeEntry,
 	kReal,
@@ -67,6 +69,8 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Integer>>();
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>();
 /*! \brief Returns type id of LiteralString.*/
 template <> int GenericObject::TypeId<pdf1_0::LiteralString>();
+/*! \brief Returns type id of String.*/
+template <> int GenericObject::TypeId<pdf1_0::String>();
 /*! \brief Returns type id of Array<Real>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
 /*! \brief Returns type id of Array<Name>.*/

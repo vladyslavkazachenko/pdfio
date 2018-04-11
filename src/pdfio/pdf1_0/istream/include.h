@@ -7,6 +7,8 @@
 #include "read_document_catalog.h"
 #include "read_document_page_tree_root_node.h"
 #include "read_document_page.h"
+#include "read_outline_tree.h"
+#include "read_literalstring.h"
 #include "pdfio/read_generic_object.h"
 
 using namespace pdfio;
@@ -98,4 +100,22 @@ ReadHandlerRegistrator<DocumentPage> docPageRegistrator(
    [](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<DocumentPage> &>(o).object_;
+   });
+   
+ReadHandlerRegistrator<OutlineTree> outlineTreeRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<OutlineTree> &>(o).object_;
+   });
+   
+ReadHandlerRegistrator<OutlineTree::Entry> outlineTreeEntryRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<OutlineTree::Entry> &>(o).object_;
+   });
+   
+ReadHandlerRegistrator<LiteralString> literalStringRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<LiteralString> &>(o).object_;
    });

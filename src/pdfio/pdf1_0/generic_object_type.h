@@ -12,6 +12,7 @@
 #include "stream.h"
 #include "hexstring.h"
 #include "real.h"
+#include "outline_tree.h"
 #include "pdfio/generic_object.h"
 
 namespace pdfio
@@ -40,6 +41,8 @@ enum class GenericObjectType
   kDocumentPage,
   kStream,
   kHexString,
+  kOutlineTree,
+  kOutlineTreeEntry,
   kReal,
 };
 
@@ -78,6 +81,10 @@ template <> int GenericObject::TypeId<pdf1_0::DocumentPageTreeRootNode>();
 template <> int GenericObject::TypeId<pdf1_0::DocumentPage>();
 /*! \brief Returns type id of Stream.*/
 template <> int GenericObject::TypeId<pdf1_0::Stream>();
+/*! \brief Returns type id of OutlineTree.*/
+template <> int GenericObject::TypeId<pdf1_0::OutlineTree>();
+/*! \brief Returns type id of OutlineTree::Entry.*/
+template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>();
 /*! \brief Returns type id of Real.*/
 template <> int GenericObject::TypeId<pdf1_0::Real>();
   

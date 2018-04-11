@@ -88,6 +88,16 @@ template <> int GenericObject::TypeId<pdf1_0::Stream>()
   return static_cast<int>(pdf1_0::GenericObjectType::kStream);
 }
 
+template <> int GenericObject::TypeId<pdf1_0::OutlineTree>()
+{
+   return static_cast<int>(pdf1_0::GenericObjectType::kOutlineTree);
+}
+
+template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>()
+{
+   return static_cast<int>(pdf1_0::GenericObjectType::kOutlineTreeEntry);
+}
+
 template <> int GenericObject::TypeId<pdf1_0::Real>()
 {
   return static_cast<int>(pdf1_0::GenericObjectType::kReal);

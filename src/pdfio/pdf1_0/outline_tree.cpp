@@ -12,6 +12,9 @@ namespace
 const Name kKeyCount = Name("Count");
 const Name kKeyFirst = Name("First");
 const Name kKeyLast = Name("Last");
+const Name kKeyParent = Name("Parent");
+const Name kKeyTitle = Name("Title");
+const Name kKeyNext = Name("Next");
    
 }
    
@@ -77,6 +80,58 @@ void OutlineTree::prepare4Reading()
    insert<Integer>(kKeyCount);
    insert<IndirectReference>(kKeyFirst);
    insert<IndirectReference>(kKeyLast);
+}
+
+
+OutlineTree::Entry::Entry()
+{
+   insert<IndirectReference>(kKeyParent);
+   insert<LiteralString>(kKeyTitle);
+}
+
+const IndirectReference &OutlineTree::Entry::parent() const
+{
+   return get<IndirectReference>(kKeyParent);
+}
+
+IndirectReference &OutlineTree::Entry::parent()
+{
+   return get<IndirectReference>(kKeyParent);
+}
+
+const LiteralString &OutlineTree::Entry::title() const
+{
+   return get<LiteralString>(kKeyTitle);
+}
+
+LiteralString &OutlineTree::Entry::title()
+{
+   return get<LiteralString>(kKeyTitle);
+}
+
+bool OutlineTree::Entry::hasNext() const
+{
+   return contains(kKeyNext);
+}
+
+const IndirectReference &OutlineTree::Entry::next() const
+{
+   return get<IndirectReference>(kKeyNext);
+}
+
+IndirectReference &OutlineTree::Entry::next()
+{
+   if(!hasNext())
+   {
+      insert<IndirectReference>(kKeyNext);
+   }
+   return get<IndirectReference>(kKeyNext);
+}
+
+void OutlineTree::Entry::prepare4Reading()
+{
+   OutlineTree::prepare4Reading();
+   insert<IndirectReference>(kKeyNext);
 }
    
 }

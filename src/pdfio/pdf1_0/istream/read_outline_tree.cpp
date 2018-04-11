@@ -22,3 +22,21 @@ std::istream &operator>>(std::istream &istream, pdf1_0::OutlineTree &outlineTree
 }
 
 #undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+  ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+  "],outlineTreeEntry[" << reinterpret_cast<unsigned long>(&outlineTreeEntry) << "]:"
+
+std::istream &operator>>(std::istream &istream, pdf1_0::OutlineTree::Entry &outlineTreeEntry)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   outlineTreeEntry.prepare4Reading();
+   if(istream >> static_cast<pdf1_0::OutlineTree &>(outlineTreeEntry))
+   {
+      
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return istream;
+}
+
+#undef LOG_PREFIX

@@ -18,11 +18,6 @@ template <> int GenericObject::TypeId<pdf1_7::Array<pdf1_7::DocumentCatalog::Out
 	return static_cast<int>(pdf1_7::GenericObjectType::kOutputIntents);
 }
 
-template <> int GenericObject::TypeId<pdf1_7::LiteralString>()
-{
-	return static_cast<int>(pdf1_7::GenericObjectType::kLiteralString);
-}
-
 template <> int GenericObject::TypeId<pdf1_7::DocumentCatalog>()
 {
 	return static_cast<int>(pdf1_7::GenericObjectType::kDocumentCatalog);

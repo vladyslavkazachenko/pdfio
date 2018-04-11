@@ -15,7 +15,6 @@ enum class GenericObjectType
   kXrefStream = static_cast<int>(pdf1_0::GenericObjectType::kReal) + 1,
   kArrayDictionary,
   kOutputIntents,
-  kLiteralString,
   kDocumentCatalog,
 };
 
@@ -26,8 +25,6 @@ template <> int GenericObject::TypeId<pdf1_7::FileStructure::XrefStream>();
 template <> int GenericObject::TypeId<pdf1_7::Array<pdf1_7::Dictionary>>();
 /*! \brief Returns type id of OutputIntent.*/
 template <> int GenericObject::TypeId<pdf1_7::Array<pdf1_7::DocumentCatalog::OutputIntent>>();
-/*! \brief Returns type id of LiteralString.*/
-template <> int GenericObject::TypeId<pdf1_7::LiteralString>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<pdf1_7::DocumentCatalog>();
 

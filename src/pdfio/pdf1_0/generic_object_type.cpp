@@ -43,6 +43,11 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>()
   return static_cast<int>(pdf1_0::GenericObjectType::kArrayHexString);
 }
 
+template <> int GenericObject::TypeId<pdf1_0::LiteralString>()
+{
+	return static_cast<int>(pdf1_0::GenericObjectType::kLiteralString);
+}
+
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>()
 {
 	return static_cast<int>(pdf1_0::GenericObjectType::kArrayReal);

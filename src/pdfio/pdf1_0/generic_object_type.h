@@ -11,6 +11,7 @@
 #include "document_page_tree_root_node.h"
 #include "stream.h"
 #include "hexstring.h"
+#include "literalstring.h"
 #include "real.h"
 #include "outline_tree.h"
 #include "pdfio/generic_object.h"
@@ -23,27 +24,28 @@ namespace pdf1_0
   
 enum class GenericObjectType
 {
-  kName,
-  kInteger,
-  kIndirectReference,
-  kDictionary,
-  kIndirectObject,
-  kArrayIndirectReference,
-  kArrayInteger,
-  kArrayHexString,
-  kArrayReal,
-  kArrayName,
-  kDocumentPageResources,
-  kDocumentPageResourceDictionary,
-  kDocumentPageContents,
-  kDocumentCatalog,
-  kDocumentPageTreeRootNode,
-  kDocumentPage,
-  kStream,
-  kHexString,
-  kOutlineTree,
-  kOutlineTreeEntry,
-  kReal,
+	kName,
+	kInteger,
+	kIndirectReference,
+	kDictionary,
+	kIndirectObject,
+	kArrayIndirectReference,
+	kArrayInteger,
+	kArrayHexString,
+	kArrayReal,
+	kArrayName,
+	kDocumentPageResources,
+	kDocumentPageResourceDictionary,
+	kDocumentPageContents,
+	kDocumentCatalog,
+	kDocumentPageTreeRootNode,
+	kDocumentPage,
+	kStream,
+	kHexString,
+	kLiteralString,
+	kOutlineTree,
+	kOutlineTreeEntry,
+	kReal,
 };
 
 }
@@ -63,6 +65,8 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>(
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Integer>>();
 /*! \brief Returns type id of Array<HexString>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>();
+/*! \brief Returns type id of LiteralString.*/
+template <> int GenericObject::TypeId<pdf1_0::LiteralString>();
 /*! \brief Returns type id of Array<Real>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
 /*! \brief Returns type id of Array<Name>.*/

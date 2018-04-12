@@ -24,7 +24,7 @@ std::istream &operator>>(std::istream &istream, pdf1_0::LiteralString &literalSt
             ch = istream.get();
             if(istream)
             {
-               LOG_DEBUG(LOG_PREFIX << "character is " << static_cast<int>(ch) << "\n");
+               //LOG_DEBUG(LOG_PREFIX << "character is " << static_cast<int>(ch) << "\n");
                if(ch == ')')
                {
                   --counter;

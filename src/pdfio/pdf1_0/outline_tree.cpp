@@ -15,6 +15,7 @@ const Name kKeyLast = Name("Last");
 const Name kKeyParent = Name("Parent");
 const Name kKeyTitle = Name("Title");
 const Name kKeyNext = Name("Next");
+const Name kKeyPrev = Name("Prev");
    
 }
    
@@ -86,7 +87,7 @@ void OutlineTree::prepare4Reading()
 OutlineTree::Entry::Entry()
 {
    insert<IndirectReference>(kKeyParent);
-   insert<LiteralString>(kKeyTitle);
+   insert<String>(kKeyTitle);
 }
 
 const IndirectReference &OutlineTree::Entry::parent() const
@@ -99,14 +100,14 @@ IndirectReference &OutlineTree::Entry::parent()
    return get<IndirectReference>(kKeyParent);
 }
 
-const LiteralString &OutlineTree::Entry::title() const
+const String &OutlineTree::Entry::title() const
 {
-   return get<LiteralString>(kKeyTitle);
+   return get<String>(kKeyTitle);
 }
 
-LiteralString &OutlineTree::Entry::title()
+String &OutlineTree::Entry::title()
 {
-   return get<LiteralString>(kKeyTitle);
+   return get<String>(kKeyTitle);
 }
 
 bool OutlineTree::Entry::hasNext() const
@@ -128,10 +129,30 @@ IndirectReference &OutlineTree::Entry::next()
    return get<IndirectReference>(kKeyNext);
 }
 
+bool OutlineTree::Entry::hasPrev() const
+{
+	return contains(kKeyPrev);
+}
+
+const IndirectReference &OutlineTree::Entry::prev() const
+{
+	return get<IndirectReference>(kKeyPrev);
+}
+
+IndirectReference &OutlineTree::Entry::prev()
+{
+	if(!hasPrev())
+	{
+		insert<IndirectReference>(kKeyPrev);
+	}
+	return get<IndirectReference>(kKeyPrev);
+}
+
 void OutlineTree::Entry::prepare4Reading()
 {
    OutlineTree::prepare4Reading();
    insert<IndirectReference>(kKeyNext);
+	insert<IndirectReference>(kKeyPrev);
 }
    
 }

@@ -55,7 +55,8 @@ TEST(OutlineTreeTestSuite, entry_ok1)
    EXPECT_TRUE(istream >> entry);
    EXPECT_EQ(21, entry.parent().objectNumber());
    EXPECT_EQ(0, entry.parent().generationNumber());
-   EXPECT_TRUE(entry.title() == "Document");
+	EXPECT_EQ(pdf1_0::String::kLiteralString, entry.title().field_);
+   EXPECT_TRUE(entry.title().literalString_ == "Document");
    EXPECT_TRUE(entry.hasNext());
    EXPECT_EQ(29, entry.next().objectNumber());
    EXPECT_EQ(0, entry.next().generationNumber());

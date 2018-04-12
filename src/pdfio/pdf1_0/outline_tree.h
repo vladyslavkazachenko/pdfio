@@ -3,7 +3,7 @@
 #include "dictionary.h"
 #include "integer.h"
 #include "indirect_reference.h"
-#include "literalstring.h"
+#include "string.h"
 
 namespace pdfio
 {
@@ -39,12 +39,16 @@ public:
    const IndirectReference &parent() const;
    IndirectReference &parent();
       
-   const LiteralString &title() const;
-   LiteralString &title();
+   const String &title() const;
+   String &title();
       
    bool hasNext() const;
    const IndirectReference &next() const;
    IndirectReference &next();
+   
+   bool hasPrev() const;
+   const IndirectReference &prev() const;
+   IndirectReference &prev();
       
    void prepare4Reading();
 };

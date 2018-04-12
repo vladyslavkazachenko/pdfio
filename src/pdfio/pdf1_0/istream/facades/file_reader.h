@@ -1,17 +1,18 @@
 #pragma once
 
 #include <string>
-#include <fstream>
+#include <mutex>
 
-#include "pdfio/pdf1_7/file_structure.h"
-#include "pdfio/pdf1_7/document_catalog.h"
-#include "pdfio/pdf1_7/indirect_object.h"
-#include "pdfio/pdf1_7/istream/read_indirect_object.h"
+#include "istream_pool.h"
+#include "pdfio/pdf1_0/file_structure.h"
+#include "pdfio/pdf1_0/document_catalog.h"
+#include "pdfio/pdf1_0/indirect_object.h"
+#include "pdfio/pdf1_0/istream/read_indirect_object.h"
 
 namespace pdfio
 {
    
-namespace pdf1_7
+namespace pdf1_0
 {
    
 class FileReader
@@ -27,16 +28,21 @@ public:
       {
          return false;
       }
-      if(!stream_.seekg(pos))
+      auto &stream = streamPool_.acquireStream();
+      stream.clear();
+      if(!stream.seekg(pos))
       {
-         return false;	
+         streamPool_.releaseStream(stream);
+         return false;
       }
       IndirectObject indirectObject;
       indirectObject.set<T>();
-      if(!(stream_ >> indirectObject))
+      if(!(stream >> indirectObject))
       {
+         streamPool_.releaseStream(stream);
          return false;
       }
+      streamPool_.releaseStream(stream);
       object = indirectObject.get<T>();
       return true;
    }
@@ -44,7 +50,9 @@ public:
 private:
    std::streampos findObject(Integer objectNumber, Integer generation);
    
-   std::fstream stream_;
+   StreamPool streamPool_;
+   std::string file_;
+   std::mutex mutex_;
    FileStructure fileStruct_;
 };
    

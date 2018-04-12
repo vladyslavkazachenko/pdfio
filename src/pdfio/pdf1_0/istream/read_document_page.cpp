@@ -12,93 +12,93 @@ namespace pdf1_0 = pdfio::pdf1_0;
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage &page)
 {
-	page.prepare4Read();
-	if(istream >> static_cast<pdf1_0::Dictionary &>(page))
-	{
-		
-	}
-	return istream;
+   page.prepare4Read();
+   if(istream >> static_cast<pdf1_0::Dictionary &>(page))
+   {
+      
+   }
+   return istream;
 }
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::Resources &resources)
 {
-	resources.prepare4Read();
-	return istream >> static_cast<pdf1_0::Dictionary &>(resources);
+   resources.prepare4Read();
+   return istream >> static_cast<pdf1_0::Dictionary &>(resources);
 }
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::ResourceDictionary &resource)
 {
-	std::string buffer;
-	if(istream >> buffer)
-	{
-		if(buffer == "<<")
-		{
-			auto streamPosition = istream.tellg();
-			while(istream)
-			{
-				streamPosition = istream.tellg();
-				pdf1_0::Name name;
-				if(istream >> name)
-				{
-					pdf1_0::IndirectReference value;
-					if(istream >> value)
-					{
-						resource[name] = value;
-					}
-					else
-					{
-						std::cerr << __PRETTY_FUNCTION__ << ":failed to read value\n";
-					}
-				}
-				else
-				{
-					std::cerr << __PRETTY_FUNCTION__ << ":failed to read key\n";
-				}
-			}
-			istream.clear();
-			if(istream.seekg(streamPosition))
-			{
-				if(istream >> buffer)
-				{
-					if(buffer != ">>")
-					{
-						std::cerr << __PRETTY_FUNCTION__ << ":failed to read second delimiter\n";
-						istream.setstate(std::ios_base::failbit);
-					}
-				}
-			}
-		}
-		else
-		{
-			std::cerr << __PRETTY_FUNCTION__ << ":invalid first delimiter\n";
-			istream.setstate(std::ios_base::failbit);
-		}
-	}
-	return istream;
+   std::string buffer;
+   if(istream >> buffer)
+   {
+      if(buffer == "<<")
+      {
+         auto streamPosition = istream.tellg();
+         while(istream)
+         {
+            streamPosition = istream.tellg();
+            pdf1_0::Name name;
+            if(istream >> name)
+            {
+               pdf1_0::IndirectReference value;
+               if(istream >> value)
+               {
+                  resource[name] = value;
+               }
+               else
+               {
+                  std::cerr << __PRETTY_FUNCTION__ << ":failed to read value\n";
+               }
+            }
+            else
+            {
+               //std::cerr << __PRETTY_FUNCTION__ << ":failed to read key\n";
+            }
+         }
+         istream.clear();
+         if(istream.seekg(streamPosition))
+         {
+            if(istream >> buffer)
+            {
+               if(buffer != ">>")
+               {
+                  std::cerr << __PRETTY_FUNCTION__ << ":failed to read second delimiter\n";
+                  istream.setstate(std::ios_base::failbit);
+               }
+            }
+         }
+      }
+      else
+      {
+         //std::cerr << __PRETTY_FUNCTION__ << ":invalid first delimiter\n";
+         istream.setstate(std::ios_base::failbit);
+      }
+   }
+   return istream;
 }
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-	":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
-	"],contents[" << reinterpret_cast<unsigned long>(&contents) << "]:"
+   ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+   "],contents[" << reinterpret_cast<unsigned long>(&contents) << "]:"
 
 std::istream &operator>>(std::istream &istream, pdf1_0::DocumentPage::Contents &contents)
 {
-	LOG_DEBUG(LOG_PREFIX << "enter\n");
-	auto pos = istream.tellg();
-	pdf1_0::IndirectReference indirRef;
-	if(istream >> indirRef)
-	{
-		contents.resize(1);
-		contents[0] = indirRef;
-	}
-	else
-	{
-		istream.clear();
-		istream.seekg(pos);
-		istream >> static_cast<pdf1_0::Array<pdf1_0::IndirectReference> &>(contents);
-	}
-	LOG_DEBUG(LOG_PREFIX << "leave\n");
-	return istream;
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   auto pos = istream.tellg();
+   pdf1_0::IndirectReference indirRef;
+   if(istream >> indirRef)
+   {
+      contents.resize(1);
+      contents[0] = indirRef;
+   }
+   else
+   {
+      istream.clear();
+      istream.seekg(pos);
+      istream >> static_cast<pdf1_0::Array<pdf1_0::IndirectReference> &>(contents);
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return istream;
 }
 
 #undef LOG_PREFIX

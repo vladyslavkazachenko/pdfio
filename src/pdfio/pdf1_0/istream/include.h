@@ -5,12 +5,11 @@
 #include "read_array.h"
 #include "read_stream.h"
 #include "read_document_catalog.h"
-#include "read_document_page_tree_root_node.h"
-#include "read_document_page.h"
 #include "read_outline_tree.h"
 #include "read_literalstring.h"
 #include "read_string.h"
 #include "read_document_pages_tree.h"
+#include "pdfio/pdf1_0/real.h"
 #include "pdfio/read_generic_object.h"
 
 using namespace pdfio;
@@ -61,25 +60,9 @@ ReadHandlerRegistrator<DocumentCatalog> docCatalogRegistrator([](std::istream &i
       i >> static_cast<GenericObjectAdaptor<DocumentCatalog> &>(o).object_;
    });
    
-ReadHandlerRegistrator<DocumentPageTreeRootNode> docRootRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPageTreeRootNode> &>(o).object_;
-   });
-   
 ReadHandlerRegistrator<Array<IndirectReference>> arrIndirRefRegistrator([](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<Array<IndirectReference>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<DocumentPage::Resources> docPageResRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPage::Resources> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<DocumentPage::ResourceDictionary> docPageResDictRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPage::ResourceDictionary> &>(o).object_;
    });
    
 ReadHandlerRegistrator<Array<Real>> arrRealRegistrator([](std::istream &i, GenericObject &o)
@@ -87,21 +70,9 @@ ReadHandlerRegistrator<Array<Real>> arrRealRegistrator([](std::istream &i, Gener
       i >> static_cast<GenericObjectAdaptor<Array<Real>> &>(o).object_;
    });
    
-ReadHandlerRegistrator<DocumentPage::Contents> docPageContentsRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPage::Contents> &>(o).object_;
-   });
-   
 ReadHandlerRegistrator<Array<Name>> arrNameRegistrator([](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<Array<Name>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<DocumentPage> docPageRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPage> &>(o).object_;
    });
    
 ReadHandlerRegistrator<OutlineTree> outlineTreeRegistrator(

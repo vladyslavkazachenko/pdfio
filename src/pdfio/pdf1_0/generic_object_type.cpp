@@ -108,6 +108,11 @@ template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>()
    return static_cast<int>(pdf1_0::GenericObjectType::kOutlineTreeEntry);
 }
 
+template <> int GenericObject::TypeId<pdf1_0::DocumentPagesTree>()
+{
+   return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPagesTree);
+}
+
 template <> int GenericObject::TypeId<pdf1_0::Real>()
 {
   return static_cast<int>(pdf1_0::GenericObjectType::kReal);

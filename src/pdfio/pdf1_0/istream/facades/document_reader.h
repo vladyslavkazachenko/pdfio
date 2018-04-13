@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <map>
+#include <memory>
 
 #include "file_reader.h"
 #include "pdfio/pdf1_0/array.h"
@@ -25,36 +27,23 @@ public:
       kUseThumbs,
    };
    
-   class Page
-   {
-   public:
-      Page(const DocumentReader &parent, const IndirectReference &pageRef);
-      const Array<Real> &mediaBox() const;
-      
-   private:
-      const DocumentReader &parent_;
-      const IndirectReference pageRef_;
-      mutable bool hasCache_ = false;
-      mutable DocumentPage cachedValue_;
-   };
-   
    bool loadFile(const std::string &fullFilePath);
    template <typename T> bool getObject(Integer objectNumber, Integer generation, T &object) const
    {
       return fileReader_.getObject(objectNumber, generation, object);
    }
    
-   int pageMode();
-   const std::vector<Page> &pages() const;
+   bool getPageMode(int &pageMode) const;
+   bool getPageNumber(std::size_t &pageNumber) const;
+   bool getPageMediaBox(std::size_t index, Integer &x_ll, Integer &y_ll, Integer &x_ur, Integer &y_ur) const;
    
 private:
-   void visitPageTreeNode(const DocumentPageTreeNode &node) const;
-   std::vector<Page> children(const DocumentPageTreeNode &node) const;
+   bool buildPageTree(const IndirectReference &nodeRef, std::vector<IndirectReference> &pages) const;
    
    mutable FileReader fileReader_;
    DocumentCatalog catalog_;
    mutable bool hasCachedPages_ = false;
-   mutable std::vector<Page> pages_;
+   mutable std::vector<IndirectReference> pages_;
 };
    
 }

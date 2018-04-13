@@ -58,13 +58,17 @@ std::streampos FileReader::findObject(Integer objectNumber, Integer generation)
       for(size_t i = 0; i < xrefSection.subsections().size(); ++i)
       {
          const auto &subsection = xrefSection.subsections()[i];
-         for(size_t j = 0; j < subsection.entries_.size(); ++j)
+         auto objectIndex = objectNumber - subsection.firstObjectNumber_;
+         if((objectIndex >= 0) && (static_cast<size_t>(objectIndex) < subsection.entries_.size()))
          {
-            const auto &entry = subsection.entries_[j];
-            if((subsection.firstObjectNumber_ + static_cast<int>(j)) == objectNumber && 
-               (entry.generation_ == generation))
+            const auto &entry = subsection.entries_[static_cast<size_t>(objectIndex)];
+            if(entry.generation_ == generation)
             {
                return static_cast<std::streampos>(entry.offset_);
+            }
+            else
+            {
+               i = xrefSection.subsections().size();
             }
          }
       }

@@ -15,6 +15,7 @@
 #include "string.h"
 #include "real.h"
 #include "outline_tree.h"
+#include "document_pages_tree.h"
 #include "pdfio/generic_object.h"
 
 namespace pdfio
@@ -25,29 +26,30 @@ namespace pdf1_0
   
 enum class GenericObjectType
 {
-	kName,
-	kInteger,
-	kIndirectReference,
-	kDictionary,
-	kIndirectObject,
-	kArrayIndirectReference,
-	kArrayInteger,
-	kArrayHexString,
-	kArrayReal,
-	kArrayName,
-	kDocumentPageResources,
-	kDocumentPageResourceDictionary,
-	kDocumentPageContents,
-	kDocumentCatalog,
-	kDocumentPageTreeRootNode,
-	kDocumentPage,
-	kStream,
-	kHexString,
-	kLiteralString,
-	kString,
-	kOutlineTree,
-	kOutlineTreeEntry,
-	kReal,
+   kName,
+   kInteger,
+   kIndirectReference,
+   kDictionary,
+   kIndirectObject,
+   kArrayIndirectReference,
+   kArrayInteger,
+   kArrayHexString,
+   kArrayReal,
+   kArrayName,
+   kDocumentPageResources,
+   kDocumentPageResourceDictionary,
+   kDocumentPageContents,
+   kDocumentCatalog,
+   kDocumentPageTreeRootNode,
+   kDocumentPage,
+   kStream,
+   kHexString,
+   kLiteralString,
+   kString,
+   kOutlineTree,
+   kOutlineTreeEntry,
+   kDocumentPagesTree,
+   kReal,
 };
 
 }
@@ -93,6 +95,8 @@ template <> int GenericObject::TypeId<pdf1_0::Stream>();
 template <> int GenericObject::TypeId<pdf1_0::OutlineTree>();
 /*! \brief Returns type id of OutlineTree::Entry.*/
 template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>();
+/*! \brief Returns type id of DocumentPagesTree.*/
+template <> int GenericObject::TypeId<pdf1_0::DocumentPagesTree>();
 /*! \brief Returns type id of Real.*/
 template <> int GenericObject::TypeId<pdf1_0::Real>();
   

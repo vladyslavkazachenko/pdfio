@@ -3,6 +3,7 @@
 #include <future>
 
 #include "pdfio/pdf1_0/document_page_tree_root_node.h"
+#include "pdfio/pdf1_0/document_pages_tree.h"
 
 namespace pdfio
 {
@@ -38,102 +39,89 @@ bool DocumentReader::loadFile(const std::string &fullFilePath)
    {
       return false;
    }
+   if(!buildPageTree(catalog_.pages(), pages_))
+   {
+      return false;
+   }
    return true;
 }
 
-int DocumentReader::pageMode()
+bool DocumentReader::getPageMode(int &pageMode) const
 {
-   return PageMode2Int(catalog_.pageMode());
+   pageMode = PageMode2Int(catalog_.pageMode());
+   return true;
 }
 
-const std::vector<DocumentReader::Page> &DocumentReader::pages() const
+bool DocumentReader::getPageNumber(std::size_t &pageNumber) const
 {
-   if(!hasCachedPages_)
+   pageNumber = pages_.size();
+   return true;
+}
+
+bool DocumentReader::buildPageTree(const IndirectReference &nodeRef, std::vector<IndirectReference> &pages) const
+{
+   bool result = true;
+   DocumentPagesTree node;
+   if(!getObject(nodeRef.objectNumber(), nodeRef.generationNumber(), node))
    {
-      DocumentPageTreeRootNode root;
-      if(!getObject(catalog_.pages().objectNumber(), catalog_.pages().generationNumber(), root))
-      {
-         return pages_;
-      }
-      hasCachedPages_ = false;
-      visitPageTreeNode(root);
+      return false;
    }
-   return pages_;
-}
-
-void DocumentReader::visitPageTreeNode(const DocumentPageTreeNode &node) const
-{
-   if(node.get<Name>(Name("Type")) == "Pages")
+   if(node.isTree())
    {
-      auto &rootTreenode = static_cast<const DocumentPageTreeRootNode &>(node);
-      auto kids = rootTreenode.kids();
-      for(size_t i = 0; i < kids.size(); ++i)
-      {
-         DocumentPageTreeRootNode child;
-         if(getObject(kids[i].objectNumber(), kids[i].generationNumber(), child))
+      auto kids = node.kids();
+      std::vector<IndirectReference> pages1;
+      auto future1 = std::async(std::launch::async, [this, &kids, &pages1]()
          {
-            visitPageTreeNode(child);
-         }
-         else
-         {
-            Page page(*this, kids[i]);
-            pages_.push_back(page);
-         }
-      }
-   }
-}
-
-std::vector<DocumentReader::Page> DocumentReader::children(const DocumentPageTreeNode &node) const
-{
-   std::vector<Page> result;
-   if(node.get<Name>(Name("Type")) == "Pages")
-   {
-      auto &rootTreenode = static_cast<const DocumentPageTreeRootNode &>(node);
-      auto kids = rootTreenode.kids();
-      std::vector<std::future<std::vector<Page>>> futures;
-      for(size_t i = 0; i < kids.size(); ++i)
-      {
-         auto f = std::async(i < 2 ? std::launch::async : std::launch::deferred, [this, &kids, i]()
+            bool result = true;
+            for(size_t i = 0; i < kids.size() / 2; ++i)
             {
-               DocumentPageTreeRootNode child;
-               if(getObject(kids[i].objectNumber(), kids[i].generationNumber(), child))
-               {
-                  return children(child);
-               }
-               return std::vector<Page>({Page(*this, kids[i])});
-            });
-         futures.push_back(std::move(f));
-      }
-      for(auto &future : futures)
-      {
-         auto f = future.get();
-         for(auto a : f)
+               result = result && buildPageTree(kids[i], pages1);
+            }
+            return result;
+         });
+      std::vector<IndirectReference> pages2;
+      auto future2 = std::async(std::launch::async, [this, &kids, &pages2]()
          {
-            result.push_back(a);
+            bool result = true;
+            for(size_t i = kids.size() / 2; i < kids.size(); ++i)
+            {
+               result = result && buildPageTree(kids[i], pages2);
+            }
+            return result;
+         });
+      result = result && future1.get() && future2.get();
+      if(result)
+      {
+         for(auto i : pages1)
+         {
+            pages.push_back(i);
+         }
+         for(auto i : pages2)
+         {
+            pages.push_back(i);
          }
       }
+   }
+   else
+   {
+      pages.push_back(nodeRef);
    }
    return result;
 }
 
-DocumentReader::Page::Page(const DocumentReader &parent, const IndirectReference &pageRef)
-: parent_(parent)
-, pageRef_(pageRef)
+bool DocumentReader::getPageMediaBox(std::size_t index, 
+   Integer &x_ll, Integer &y_ll, Integer &x_ur, Integer &y_ur) const
 {
-   
-}
-
-const Array<Real> &DocumentReader::Page::mediaBox() const
-{
-   if(!hasCache_)
+   DocumentPagesTree node;
+   if(!getObject(pages_[index].objectNumber(), pages_[index].generationNumber(), node))
    {
-      if(!parent_.getObject(pageRef_.objectNumber(), pageRef_.generationNumber(), cachedValue_))
-      {
-         cachedValue_.mediaBox().resize(4);
-      }
-      hasCache_ = true;
+      return false;
    }
-   return cachedValue_.mediaBox();
+   x_ll = node.mediaBox()[0];
+   y_ll = node.mediaBox()[1];
+   x_ur = node.mediaBox()[2];
+   y_ur = node.mediaBox()[3];
+   return true;
 }
    
 }

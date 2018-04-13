@@ -4,6 +4,7 @@
 #include "pdfio/pdf1_0/generic_object_type.h"
 #include "pdfio/pdf1_0/file_structure.h"
 #include "pdfio/pdf1_0/outline_tree.h"
+#include "pdfio/pdf1_0/document_pages_tree.h"
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
@@ -209,6 +210,33 @@ TEST(IndirectObjectTestSuite, outlineTreeEntry)
       "/Last 28 0 R"
       "/Count 4"
       ">>"
+      "endobj");
+   EXPECT_TRUE(istream >> indirectObject);
+}
+
+TEST(IndirectObjectTestSuite, documentPagesTree1)
+{
+   pdf1_0::IndirectObject indirectObject;
+   indirectObject.set<pdf1_0::DocumentPagesTree>();
+   std::istringstream istream(
+      "21 0 obj"
+      "<<"
+      "/Type /Pages"
+      "/Kids [ 4 0 R 10 0 R 24 0 R ]"
+      "/Count 3"
+      "/Parent 25 0 R"
+      ">>"
+      "endobj");
+   EXPECT_TRUE(istream >> indirectObject);
+}
+
+TEST(IndirectObjectTestSuite, documentPagesTree2)
+{
+   pdf1_0::IndirectObject indirectObject;
+   indirectObject.set<pdf1_0::DocumentPagesTree>();
+   std::istringstream istream(
+      "21 0 obj"
+      "<</CropBox[0 0 531 666]/Annots[7882 0 R 7880 0 R 7883 0 R 7881 0 R 7876 0 R 7877 0 R 7878 0 R 7879 0 R]/Parent 109892 0 R/StructParents 4648/Contents 2027 0 R/Rotate 0/MediaBox[0 0 531 666]/Resources<</Font<</T1_0 3914 0 R/T1_1 3912 0 R/T1_2 3957 0 R/T1_3 3944 0 R/T1_4 3931 0 R/T1_5 4161 0 R/T1_6 4533 0 R>>/ProcSet[/PDF/Text]/ExtGState<</GS0 333283 0 R>>>>/Type/Page>>"
       "endobj");
    EXPECT_TRUE(istream >> indirectObject);
 }

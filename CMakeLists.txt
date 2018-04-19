@@ -15,7 +15,8 @@ if(DEFINED PDF_VERSION)
       add_subdirectory(test/pdfio/pdf1_0)
       add_subdirectory(src/pdfio/pdf1_0/istream)
       add_subdirectory(test/pdfio/pdf1_0/istream)
-      add_subdirectory(src/pdfio/pdf1_0/istream/facades)
+     # add_subdirectory(src/pdfio/pdf1_0/istream/facades)
+      add_subdirectory(src/pdfio/pdf1_0/istream/document_reader)
       add_subdirectory(src/pdfio/pdf1_7)
       add_subdirectory(test/pdfio/pdf1_7)
       add_subdirectory(src/pdfio/pdf1_7/istream)
@@ -25,7 +26,8 @@ if(DEFINED PDF_VERSION)
          #$<TARGET_OBJECTS:pdf1_7_istream_file_reader> 
          $<TARGET_OBJECTS:pdf1_7_istream> 
          $<TARGET_OBJECTS:pdf1_7>
-         $<TARGET_OBJECTS:pdf1_0_istream_facades>
+         #$<TARGET_OBJECTS:pdf1_0_istream_facades>
+         $<TARGET_OBJECTS:pdf1_0_istream_documentreader>
          $<TARGET_OBJECTS:pdf1_0_istream>
          $<TARGET_OBJECTS:pdf1_0>
          $<TARGET_OBJECTS:pdfio_common>

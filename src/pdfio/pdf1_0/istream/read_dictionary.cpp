@@ -1,9 +1,9 @@
 #include "read_dictionary.h"
 
+#include "pdfio/log.h"
 #include "read_name.h"
 #include "pdfio/pdf1_0/generic_object_type.h"
 #include "pdfio/read_generic_object.h"
-#include "pdfio/log.h"
 
 std::istream &skipUnknownValue(std::istream &, int levelCounter = 0);
 

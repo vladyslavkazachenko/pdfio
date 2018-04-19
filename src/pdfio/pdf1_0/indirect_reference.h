@@ -1,5 +1,7 @@
 #pragma once
 
+#include "integer.h"
+
 namespace pdfio
 {
 	
@@ -20,22 +22,22 @@ public:
 		
 	}
 	/*! \brief Returns object number as rvalue.*/
-	inline const int &objectNumber() const
+	inline const Integer &objectNumber() const
 	{
 		return objectNumber_;
 	}
 	/*! \brief Returns object number as lvalue.*/
-	inline int &objectNumber()
+	inline Integer &objectNumber()
 	{
 		return objectNumber_;
 	}
 	/*! \brief Returns generation number as rvalue.*/
-	inline const int &generationNumber() const
+	inline const Integer &generationNumber() const
 	{
 		return generationNumber_;
 	}
 	/*! \brief Returns generation number as lvalue.*/
-	inline int &generationNumber()
+	inline Integer &generationNumber()
 	{
 		return generationNumber_;
 	}
@@ -47,8 +49,8 @@ public:
 	}
 	
 private:
-	int objectNumber_ = 0;
-	int generationNumber_ = 0;
+	Integer objectNumber_ = 0;
+	Integer generationNumber_ = 0;
 };
 
 }

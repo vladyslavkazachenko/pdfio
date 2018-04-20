@@ -193,7 +193,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
    {
       if(istream.peek() == '\n' || istream.peek() == '\r')
       {
-         LOG_DEBUG(LOG_PREFIX << "skipping character " << istream.peek() << "\n");
          if(istream.seekg(-1, std::ios_base::cur))
          {
             if(istream.peek() == '\r')
@@ -215,7 +214,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
       {
          while(istream && istream.peek() != '\n' && istream.peek() != '\r')
          {
-            LOG_DEBUG(LOG_PREFIX << "skipping character " << istream.peek() << "\n");
             istream.seekg(-1, std::ios_base::cur);
          }
          if(istream)
@@ -224,7 +222,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
             std::string eofLine;
             if(istream >> eofLine)
             {
-               LOG_DEBUG(LOG_PREFIX << "eof line: " << eofLine << "\n");
                if(eofLine != "%%EOF")
                {
                   LOG_ERROR(LOG_PREFIX << "invalid eof line: " << eofLine << "\n");
@@ -241,7 +238,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
                assert(istream.seekg(pos));
                if(istream.peek() == '\n' || istream.peek() == '\r')
                {
-                  LOG_DEBUG(LOG_PREFIX << "skipping character " << istream.peek() << "\n");
                   if(istream.seekg(-1, std::ios_base::cur))
                   {
                      if(istream.peek() == '\r')
@@ -261,7 +257,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
                }
                while(istream && istream.peek() != '\n' && istream.peek() != '\r')
                {
-                  LOG_DEBUG(LOG_PREFIX << "skipping character " << istream.peek() << "\n");
                   istream.seekg(-1, std::ios_base::cur);
                }
                if(istream)
@@ -269,7 +264,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
                   pdf1_0::Integer lastXrefOffset;
                   if(istream >> lastXrefOffset)
                   {
-                     LOG_DEBUG(LOG_PREFIX << "last xref offset " << lastXrefOffset << "\n");
                      auto xrefOffset = lastXrefOffset;
                      while(xrefOffset != -1)
                      {
@@ -289,7 +283,6 @@ std::istream &operator>>(std::istream &istream, pdf1_0::FileStructure &fileStruc
                               pdf1_0::FileStructure::Version version;
                               version.xrefSection_ = xrefSection;
                               version.trailer_ = trailer;
-                              LOG_DEBUG(LOG_PREFIX << "add version\n");
                               fileStruct.versions_.insert(std::begin(fileStruct.versions_), version);
                               if(trailer.hasPrev())
                               {

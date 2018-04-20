@@ -21,8 +21,6 @@ std::istream &operator>>(std::istream &istream,
    std::string buffer;
    while(istream && std::isspace(istream.peek()))
    {
-      LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << 
-         std::showbase << istream.peek() << "\n");
       static_cast<void>(istream.get());
    }
    if(istream)
@@ -31,7 +29,6 @@ std::istream &operator>>(std::istream &istream,
       if(istream.read(tmp, 2))
       {
          buffer = tmp;
-         LOG_DEBUG(LOG_PREFIX << "1st delimiter is " << buffer << "\n");
          if(buffer == "<<")
          {
             auto streamPosition = istream.tellg();
@@ -67,7 +64,6 @@ std::istream &operator>>(std::istream &istream,
                }
                else
                {
-                  LOG_DEBUG(LOG_PREFIX << "token is not a name\n");
                   istream.clear();
                   break;
                }
@@ -78,9 +74,6 @@ std::istream &operator>>(std::istream &istream,
                {
                   while(istream && std::isspace(istream.peek()))
                   {
-                     LOG_DEBUG(LOG_PREFIX << 
-                        "skipping space character:" << std::hex << 
-                        std::showbase << istream.peek() << "\n");
                      static_cast<void>(istream.get());
                   }
                   if(istream)
@@ -89,8 +82,6 @@ std::istream &operator>>(std::istream &istream,
                      if(istream.read(tmp, 2))
                      {
                         buffer = tmp;
-                        LOG_DEBUG(LOG_PREFIX << "2nd delimiter is " << 
-                           buffer << "\n");
                         if(buffer != ">>")
                         {
                            LOG_ERROR(LOG_PREFIX << 

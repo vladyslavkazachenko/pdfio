@@ -33,13 +33,15 @@ public:
    template <typename T>
    inline const T &get(const Name &key) const
    {
-      return std::static_pointer_cast<GenericObjectAdaptor<T>>(entries_.at(key))->object_;
+      return std::static_pointer_cast<GenericObjectAdaptor<T>>(
+         entries_.at(key))->object_;
    }
    /*! \brief Returns value by the key.*/
    template <typename T>
    inline T &get(const Name &key)
    {
-      return std::static_pointer_cast<GenericObjectAdaptor<T>>(entries_[key])->object_;
+      return std::static_pointer_cast<GenericObjectAdaptor<T>>(
+         entries_[key])->object_;
    }
    /*! \brief Returns generic object by the key.*/
    inline GenericObject &get(const Name &key)

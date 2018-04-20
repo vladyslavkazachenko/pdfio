@@ -6,8 +6,8 @@ namespace pdf1_0 = pdfio::pdf1_0;
 
 static bool isDelimiter(char ch)
 {
-  return std::isspace(ch) || ch == '[' || ch == '<' || ch == '/' || 
-   ch == '>' || ch == ']' || ch == '(';
+   return std::isspace(ch) || ch == '[' || ch == '<' || ch == '/' || 
+      ch == '>' || ch == ']' || ch == '(';
 }
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \

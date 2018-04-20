@@ -58,6 +58,34 @@ bool DocumentReader::getPageTree(PageTree &pageTree) const
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
    ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],outlineTree[" << \
+   reinterpret_cast<unsigned long>(&outlineTree) << "]:"
+
+bool DocumentReader::getOutlineTree(OutlineTree &outlineTree, 
+   bool &hasOutlines) const
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   bool success = true;
+   if(catalog_.hasOutlines())
+   {
+      outlineTree.setRef(catalog_.outlines());
+      outlineTree.setFileReader(fileReader_);
+   }
+   else
+   {
+      LOG_DEBUG(LOG_PREFIX << 
+         "document catalog doesn't contain outlines\n");
+      hasOutlines = false;
+      success = false;
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return success;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
    reinterpret_cast<unsigned long>(this) << \
    "],root[" << reinterpret_cast<unsigned long>(&root) << "]:"
 
@@ -419,6 +447,168 @@ bool DocumentReader::Page::getMediaBox(MediaBox &mediaBox) const
    reinterpret_cast<unsigned long>(this) << "]:"
 
 bool DocumentReader::Page::checkImp() const
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   bool success = true;
+   if(!isImpReady_)
+   {
+      assert(fileReader_);
+      if(fileReader_->getObject(ref_.objectNumber(), 
+         ref_.generationNumber(), imp_))
+      {
+         isImpReady_ = true;
+      }
+      else
+      {
+         LOG_ERROR(LOG_PREFIX << "failed to get page\n");
+         success = false;
+      }
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return success;
+}
+
+#undef LOG_PREFIX
+
+void DocumentReader::OutlineTree::setRef(const IndirectReference &ref)
+{
+   ref_ = ref;
+}
+
+void DocumentReader::OutlineTree::setFileReader(FileReader &fileReader)
+{
+   fileReader_ = &fileReader;
+}
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+      reinterpret_cast<unsigned long>(this) << \
+   "],outline[" << reinterpret_cast<unsigned long>(&outline) << "]:"
+
+bool DocumentReader::OutlineTree::getFirstOutline(Outline &outline)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   bool success = true;
+   assert(fileReader_);
+   pdf1_0::OutlineTree root;
+   if(fileReader_->getObject(ref_.objectNumber(), 
+      ref_.generationNumber(), root))
+   {
+      if(root.hasFirst())
+      {
+         outline.setRef(root.first());
+         outline.setFileReader(*fileReader_);
+      }
+      else
+      {
+         LOG_ERROR(LOG_PREFIX << "outline tree root doesn't contain first child\n");
+         success = false;
+      }
+   }
+   else
+   {
+      LOG_ERROR(LOG_PREFIX << "failed to get outline tree root\n");
+      success = false;
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return success;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+      reinterpret_cast<unsigned long>(this) << \
+   "],ref[" << reinterpret_cast<unsigned long>(&ref) << "]:"
+
+void DocumentReader::Outline::setRef(const IndirectReference &ref)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   LOG_DEBUG(LOG_PREFIX << "parentRef=" << std::dec << 
+      ref.objectNumber() << " " << ref.generationNumber() << ")\n");
+   ref_ = ref;
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],fileReader[" << \
+   reinterpret_cast<unsigned long>(&fileReader) << "]:"
+
+void DocumentReader::Outline::setFileReader(FileReader &fileReader)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   fileReader_ = &fileReader;
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
+   "],title[" << reinterpret_cast<unsigned long>(&title) << "]:"
+
+bool DocumentReader::Outline::getTitle(std::string &title)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   bool success = true;
+   if(checkImp())
+   {
+      title = imp_.title().literalString_;
+   }
+   else
+   {
+      LOG_ERROR(LOG_PREFIX << "implementation checking failed\n");
+      success = false;
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return success;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
+   "],next[" << reinterpret_cast<unsigned long>(&next) << "]:"
+
+bool DocumentReader::Outline::getNext(Outline &next, bool &hasNext)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   bool success = true;
+   if(checkImp())
+   {
+      if(imp_.hasNext())
+      {
+         next.setRef(imp_.next());
+         next.setFileReader(*fileReader_);
+      }
+      else
+      {
+         LOG_DEBUG(LOG_PREFIX << "outline has no next item\n");
+         hasNext = false;
+         success = false;
+      }
+   }
+   else
+   {
+      LOG_ERROR(LOG_PREFIX << "implementation checking failed\n");
+      success = false;
+   }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return success;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "]:"
+
+bool DocumentReader::Outline::checkImp() const
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
    bool success = true;

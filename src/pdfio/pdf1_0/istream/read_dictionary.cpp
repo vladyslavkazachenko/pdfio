@@ -57,8 +57,8 @@ std::istream &operator>>(std::istream &istream,
                   }
                   else
                   {
-                     LOG_ERROR(LOG_PREFIX << "unknown key " << 
-                        std::string(name) << "\n");
+                     LOG_WARNING(LOG_PREFIX << "unknown key " << 
+                        std::string(name) << ", trying to skip the value\n");
                      skipUnknownValue(istream);
                   }
                }

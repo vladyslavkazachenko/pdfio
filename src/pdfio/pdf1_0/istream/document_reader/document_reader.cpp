@@ -12,8 +12,9 @@ namespace pdf1_0
 {
    
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
-   "],fullFilePath[" << reinterpret_cast<unsigned long>(&fullFilePath) << "]:"
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],fullFilePath[" << \
+   reinterpret_cast<unsigned long>(&fullFilePath) << "]:"
    
 bool DocumentReader::loadFile(const std::string &fullFilePath)
 {
@@ -29,7 +30,8 @@ bool DocumentReader::loadFile(const std::string &fullFilePath)
    }
    else
    {
-      LOG_ERROR(LOG_PREFIX << "failed to load file " << fullFilePath << "\n");
+      LOG_ERROR(LOG_PREFIX << "failed to load file " << fullFilePath << 
+         "\n");
       result = false;
    }
    LOG_DEBUG(LOG_PREFIX << "leave\n");
@@ -39,7 +41,8 @@ bool DocumentReader::loadFile(const std::string &fullFilePath)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],pageTree[" << reinterpret_cast<unsigned long>(&pageTree) << "]:"
 
 bool DocumentReader::getPageTree(PageTree &pageTree) const
@@ -54,13 +57,15 @@ bool DocumentReader::getPageTree(PageTree &pageTree) const
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],root[" << reinterpret_cast<unsigned long>(&root) << "]:"
 
 void DocumentReader::PageTree::setRoot(const IndirectReference &root)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
-   LOG_DEBUG(LOG_PREFIX << "root=(" << std::dec << root.objectNumber() << " " << root.generationNumber() << ")\n");
+   LOG_DEBUG(LOG_PREFIX << "root=(" << std::dec << 
+      root.objectNumber() << " " << root.generationNumber() << ")\n");
    root_ = root;
    LOG_DEBUG(LOG_PREFIX << "leave\n");
 }
@@ -68,8 +73,9 @@ void DocumentReader::PageTree::setRoot(const IndirectReference &root)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
-   "],fileReader[" << reinterpret_cast<unsigned long>(&fileReader) << "]:"
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],fileReader[" << \
+   reinterpret_cast<unsigned long>(&fileReader) << "]:"
 
 void DocumentReader::PageTree::setFileReader(FileReader &fileReader)
 {
@@ -81,15 +87,18 @@ void DocumentReader::PageTree::setFileReader(FileReader &fileReader)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   "this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
-   "],pageNumber[" << reinterpret_cast<unsigned long>(&pageNumber) << "]:"
+   "this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],pageNumber[" << \
+   reinterpret_cast<unsigned long>(&pageNumber) << "]:"
 
-bool DocumentReader::PageTree::getPageNumber(std::size_t &pageNumber) const
+bool DocumentReader::PageTree::getPageNumber(std::size_t &pageNumber) 
+   const
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
    bool success = true;
    DocumentPagesTree root;
-   if(fileReader_->getObject(root_.objectNumber(), root_.generationNumber(), root))
+   if(fileReader_->getObject(root_.objectNumber(), 
+      root_.generationNumber(), root))
    {
       if(root.isTree())
       {
@@ -99,7 +108,8 @@ bool DocumentReader::PageTree::getPageNumber(std::size_t &pageNumber) const
          }
          else
          {
-            LOG_ERROR(LOG_PREFIX << "catalog pages doesn't have count\n");
+            LOG_ERROR(LOG_PREFIX << 
+               "catalog pages doesn't have count\n");
             success = false;
          }
       }
@@ -121,7 +131,8 @@ bool DocumentReader::PageTree::getPageNumber(std::size_t &pageNumber) const
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   "this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   "this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],page[" << reinterpret_cast<unsigned long>(&page) << "]:"
 
 bool DocumentReader::PageTree::getFirstPage(Page &page)
@@ -135,17 +146,22 @@ bool DocumentReader::PageTree::getFirstPage(Page &page)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],nodeRef[" << reinterpret_cast<unsigned long>(&nodeRef) << \
    "],page[" << reinterpret_cast<unsigned long>(&page) << "]:"
 
-bool DocumentReader::PageTree::getFirstPage(const IndirectReference &nodeRef, Page &page)
+bool DocumentReader::PageTree::getFirstPage(
+   const IndirectReference &nodeRef, Page &page)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
-   LOG_DEBUG(LOG_PREFIX << "nodeRef=(" << std::dec << nodeRef.objectNumber() << " " << nodeRef.generationNumber() << ")\n");
+   LOG_DEBUG(LOG_PREFIX << "nodeRef=(" << std::dec << 
+      nodeRef.objectNumber() << " " << nodeRef.generationNumber() << 
+      ")\n");
    bool success = true;
    DocumentPagesTree node;
-   if(fileReader_->getObject(nodeRef.objectNumber(), nodeRef.generationNumber(), node))
+   if(fileReader_->getObject(nodeRef.objectNumber(), 
+      nodeRef.generationNumber(), node))
    {
       if(!node.isTree())
       {
@@ -185,14 +201,18 @@ bool DocumentReader::PageTree::getFirstPage(const IndirectReference &nodeRef, Pa
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],page[" << reinterpret_cast<unsigned long>(&page) << \
    "],nextPage[" << reinterpret_cast<unsigned long>(&nextPage) << "]:"
 
-bool DocumentReader::PageTree::getNextPage(const Page &page, Page &nextPage, bool &isLast)
+bool DocumentReader::PageTree::getNextPage(const Page &page, 
+   Page &nextPage, bool &isLast)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
-   LOG_DEBUG(LOG_PREFIX << "page=(ref=" << std::dec << page.ref().objectNumber() << " " << page.ref().generationNumber() << ")\n");
+   LOG_DEBUG(LOG_PREFIX << "page=(ref=" << std::dec << 
+      page.ref().objectNumber() << " " << 
+      page.ref().generationNumber() << ")\n");
    bool success = true;
    IndirectReference parentRef;
    if(page.getParent(parentRef))
@@ -211,24 +231,32 @@ bool DocumentReader::PageTree::getNextPage(const Page &page, Page &nextPage, boo
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],currentRef[" << reinterpret_cast<unsigned long>(&currentRef) << \
    "],parentRef[" << reinterpret_cast<unsigned long>(&parentRef) << \
    "],nextPage[" << reinterpret_cast<unsigned long>(&nextPage) << "]:"
 
-bool DocumentReader::PageTree::getNextPage(const IndirectReference &currentRef, const IndirectReference &parentRef, Page &nextPage, bool &isLast)
+bool DocumentReader::PageTree::getNextPage(
+   const IndirectReference &currentRef, 
+   const IndirectReference &parentRef, Page &nextPage, bool &isLast)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
-   LOG_DEBUG(LOG_PREFIX << "currentRef=(" << std::dec << currentRef.objectNumber() << " " << currentRef.generationNumber() << 
-      "),parentRef=" << parentRef.objectNumber() << " " << parentRef.generationNumber() << ")\n");
+   LOG_DEBUG(LOG_PREFIX << "currentRef=(" << std::dec << 
+      currentRef.objectNumber() << " " << 
+      currentRef.generationNumber() << "),parentRef=" << 
+      parentRef.objectNumber() << " " << parentRef.generationNumber() << 
+      ")\n");
    bool success = true;
    DocumentPagesTree parent;
-   if(fileReader_->getObject(parentRef.objectNumber(), parentRef.generationNumber(), parent))
+   if(fileReader_->getObject(parentRef.objectNumber(), 
+      parentRef.generationNumber(), parent))
    {
       if(parent.hasKids())
       {
          std::size_t i = 0;
-         for(; i < parent.kids().size() && !(parent.kids()[i] == currentRef); ++i);
+         for(; i < parent.kids().size() && 
+            !(parent.kids()[i] == currentRef); ++i);
          if(i < parent.kids().size())
          {
             ++i;
@@ -243,7 +271,8 @@ bool DocumentReader::PageTree::getNextPage(const IndirectReference &currentRef, 
             {
                if(parent.hasParent())
                {
-                  success = getNextPage(parentRef, parent.parent(), nextPage, isLast);
+                  success = getNextPage(parentRef, parent.parent(), 
+                     nextPage, isLast);
                }
                else
                {
@@ -254,7 +283,8 @@ bool DocumentReader::PageTree::getNextPage(const IndirectReference &currentRef, 
          }
          else
          {
-            LOG_ERROR(LOG_PREFIX << "page is not found among parent kids\n");
+            LOG_ERROR(LOG_PREFIX << 
+               "page is not found among parent kids\n");
             success = false;
          }
       }
@@ -276,13 +306,15 @@ bool DocumentReader::PageTree::getNextPage(const IndirectReference &currentRef, 
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+      reinterpret_cast<unsigned long>(this) << \
    "],ref[" << reinterpret_cast<unsigned long>(&ref) << "]:"
 
 void DocumentReader::Page::setRef(const IndirectReference &ref)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
-   LOG_DEBUG(LOG_PREFIX << "parentRef=" << std::dec << ref.objectNumber() << " " << ref.generationNumber() << ")\n");
+   LOG_DEBUG(LOG_PREFIX << "parentRef=" << std::dec << 
+      ref.objectNumber() << " " << ref.generationNumber() << ")\n");
    ref_ = ref;
    LOG_DEBUG(LOG_PREFIX << "leave\n");
 }
@@ -295,8 +327,9 @@ const IndirectReference &DocumentReader::Page::ref() const
 }
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
-   "],fileReader[" << reinterpret_cast<unsigned long>(&fileReader) << "]:"
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "],fileReader[" << \
+   reinterpret_cast<unsigned long>(&fileReader) << "]:"
 
 void DocumentReader::Page::setFileReader(FileReader &fileReader)
 {
@@ -308,7 +341,8 @@ void DocumentReader::Page::setFileReader(FileReader &fileReader)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],parent[" << reinterpret_cast<unsigned long>(&parent) << "]:"
 
 bool DocumentReader::Page::getParent(IndirectReference &parent) const
@@ -339,7 +373,8 @@ bool DocumentReader::Page::getParent(IndirectReference &parent) const
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << \
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << \
    "],mediaBox[" << reinterpret_cast<unsigned long>(&mediaBox) << "]:"
 
 bool DocumentReader::Page::getMediaBox(MediaBox &mediaBox) const
@@ -352,11 +387,13 @@ bool DocumentReader::Page::getMediaBox(MediaBox &mediaBox) const
       {
          if(imp_.mediaBox().size() == 4)
          {
-            mediaBox = std::tie(imp_.mediaBox()[0], imp_.mediaBox()[1], imp_.mediaBox()[2], imp_.mediaBox()[3]);
+            mediaBox = std::tie(imp_.mediaBox()[0], imp_.mediaBox()[1], 
+               imp_.mediaBox()[2], imp_.mediaBox()[3]);
          }
          else
          {
-            LOG_ERROR(LOG_PREFIX << "media box has " << imp_.mediaBox().size() << " components\n");
+            LOG_ERROR(LOG_PREFIX << "media box has " << 
+               imp_.mediaBox().size() << " components\n");
             success = false;
          }
       }
@@ -378,7 +415,8 @@ bool DocumentReader::Page::getMediaBox(MediaBox &mediaBox) const
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":this[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(this) << "]:"
+   ":this[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(this) << "]:"
 
 bool DocumentReader::Page::checkImp() const
 {
@@ -387,7 +425,8 @@ bool DocumentReader::Page::checkImp() const
    if(!isImpReady_)
    {
       assert(fileReader_);
-      if(fileReader_->getObject(ref_.objectNumber(), ref_.generationNumber(), imp_))
+      if(fileReader_->getObject(ref_.objectNumber(), 
+         ref_.generationNumber(), imp_))
       {
          isImpReady_ = true;
       }

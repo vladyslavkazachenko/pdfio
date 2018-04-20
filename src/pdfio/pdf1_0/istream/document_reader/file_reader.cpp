@@ -20,7 +20,8 @@ bool FileReader::loadFile(const std::string &fullFilePath)
    {
       stream.close();
    }
-   stream.open(file_.c_str(), std::ios_base::binary | std::ios_base::in);
+   stream.open(file_.c_str(), std::ios_base::binary | 
+      std::ios_base::in);
    if(!stream.is_open())
    {
       mutex_.unlock();
@@ -53,10 +54,12 @@ bool FileReader::getDocumentCatalog(DocumentCatalog &docCatalog)
       return false;
    }
    auto &trailer = fileStruct_.versions_[i].trailer_;
-   return getObject(trailer.root().objectNumber(), trailer.root().generationNumber(), docCatalog);
+   return getObject(trailer.root().objectNumber(), 
+      trailer.root().generationNumber(), docCatalog);
 }
 
-std::streampos FileReader::findObject(Integer objectNumber, Integer generation)
+std::streampos FileReader::findObject(Integer objectNumber, 
+   Integer generation)
 {
    for(auto version : fileStruct_.versions_)
    {
@@ -64,10 +67,13 @@ std::streampos FileReader::findObject(Integer objectNumber, Integer generation)
       for(size_t i = 0; i < xrefSection.subsections().size(); ++i)
       {
          const auto &subsection = xrefSection.subsections()[i];
-         auto objectIndex = objectNumber - subsection.firstObjectNumber_;
-         if((objectIndex >= 0) && (static_cast<size_t>(objectIndex) < subsection.entries_.size()))
+         auto objectIndex = 
+            objectNumber - subsection.firstObjectNumber_;
+         if((objectIndex >= 0) && (static_cast<size_t>(objectIndex) < 
+            subsection.entries_.size()))
          {
-            const auto &entry = subsection.entries_[static_cast<size_t>(objectIndex)];
+            const auto &entry = 
+               subsection.entries_[static_cast<size_t>(objectIndex)];
             if(entry.generation_ == generation)
             {
                return static_cast<std::streampos>(entry.offset_);

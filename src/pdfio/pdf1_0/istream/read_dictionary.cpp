@@ -10,16 +10,19 @@ std::istream &skipUnknownValue(std::istream &, int levelCounter = 0);
 namespace pdf1_0 = pdfio::pdf1_0;
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
-   "],dictionary[" << reinterpret_cast<unsigned long>(&dictionary) << "]:"
+   ":istream[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(&istream) << "],dictionary[" << \
+   reinterpret_cast<unsigned long>(&dictionary) << "]:"
 
-std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
+std::istream &operator>>(std::istream &istream, 
+   pdf1_0::Dictionary &dictionary)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
    std::string buffer;
    while(istream && std::isspace(istream.peek()))
    {
-      LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << istream.peek() << "\n");
+      LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << 
+         std::showbase << istream.peek() << "\n");
       static_cast<void>(istream.get());
    }
    if(istream)
@@ -39,7 +42,8 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
                pdf1_0::Name name;
                if(istream >> name)
                {
-                  LOG_DEBUG(LOG_PREFIX << "key is " << std::string(name) << "\n");
+                  LOG_DEBUG(LOG_PREFIX << "key is " << 
+                     std::string(name) << "\n");
                   if(dictionary.contains(name))
                   {
                      if(istream >> dictionary.get(name))
@@ -49,13 +53,15 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
                      }
                      else
                      {
-                        LOG_ERROR(LOG_PREFIX << "failed to read value for key " << 
+                        LOG_ERROR(LOG_PREFIX << 
+                           "failed to read value for key " << 
                            std::string(name) << "\n");
                      }
                   }
                   else
                   {
-                     LOG_ERROR(LOG_PREFIX << "unknown key " << std::string(name) << "\n");
+                     LOG_ERROR(LOG_PREFIX << "unknown key " << 
+                        std::string(name) << "\n");
                      skipUnknownValue(istream);
                   }
                }
@@ -72,7 +78,9 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
                {
                   while(istream && std::isspace(istream.peek()))
                   {
-                     LOG_DEBUG(LOG_PREFIX << "skipping space character:" << std::hex << std::showbase << istream.peek() << "\n");
+                     LOG_DEBUG(LOG_PREFIX << 
+                        "skipping space character:" << std::hex << 
+                        std::showbase << istream.peek() << "\n");
                      static_cast<void>(istream.get());
                   }
                   if(istream)
@@ -81,29 +89,35 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
                      if(istream.read(tmp, 2))
                      {
                         buffer = tmp;
-                        LOG_DEBUG(LOG_PREFIX << "2nd delimiter is " << buffer << "\n");
+                        LOG_DEBUG(LOG_PREFIX << "2nd delimiter is " << 
+                           buffer << "\n");
                         if(buffer != ">>")
                         {
-                           LOG_ERROR(LOG_PREFIX << "invalid 2nd delimiter: " << buffer << "\n");
+                           LOG_ERROR(LOG_PREFIX << 
+                              "invalid 2nd delimiter: " << buffer << 
+                              "\n");
                            istream.setstate(std::ios_base::failbit);
                         }
                         else
                         {
                            for(auto key : keys)
                            {
-                              LOG_DEBUG(LOG_PREFIX << "removing key " << std::string(key) << "\n");
+                              LOG_DEBUG(LOG_PREFIX << "removing key " << 
+                                 std::string(key) << "\n");
                               dictionary.remove(key);
                            }
                         }
                      }
                      else
                      {
-                        LOG_ERROR(LOG_PREFIX << "failed to read 2nd delimiter\n");
+                        LOG_ERROR(LOG_PREFIX << 
+                           "failed to read 2nd delimiter\n");
                      }
                   }
                   else
                   {
-                     LOG_ERROR(LOG_PREFIX << "cannot read 2nd delimiter, stream state is " << 
+                     LOG_ERROR(LOG_PREFIX << 
+                        "cannot read 2nd delimiter, stream state is " << 
                         istream.rdstate() << "\n");
                   }
                }
@@ -111,7 +125,8 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
          }
          else
          {
-            LOG_ERROR(LOG_PREFIX << "invalid 1st delimiter: " << buffer << "\n");
+            LOG_ERROR(LOG_PREFIX << "invalid 1st delimiter: " << 
+               buffer << "\n");
             istream.setstate(std::ios_base::failbit);
          }
       }
@@ -122,7 +137,9 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
    }
    else
    {
-      LOG_ERROR(LOG_PREFIX << "cannot read 1st delimiter, stream state is " << istream.rdstate() << "\n");
+      LOG_ERROR(LOG_PREFIX << 
+         "cannot read 1st delimiter, stream state is " << 
+         istream.rdstate() << "\n");
    }
    LOG_DEBUG(LOG_PREFIX << "leave\n");
    return istream;
@@ -131,13 +148,11 @@ std::istream &operator>>(std::istream &istream, pdf1_0::Dictionary &dictionary)
 #undef LOG_PREFIX
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
-   "]:"
+   ":istream[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(&istream) << "]:"
 
 std::istream &skipUnknownValue(std::istream &istream, int levelCounter)
 {
-   //LOG_DEBUG(LOG_PREFIX << "enter\n");
-   //if(istream){LOG_DEBUG(LOG_PREFIX << "level=" << levelCounter << "," << char(istream.peek()) << "\n");};
    if(istream && istream.peek() == '<')
    {
       static_cast<void>(istream.get());
@@ -155,20 +170,17 @@ std::istream &skipUnknownValue(std::istream &istream, int levelCounter)
          if(!levelCounter)
          {
             static_cast<void>(istream.unget());
-           // LOG_DEBUG(LOG_PREFIX << "leave\n");
             return istream;
          }
          else
          {
             static_cast<void>(istream.get());
-            //LOG_DEBUG(LOG_PREFIX << "leave\n");
             return istream;
          }
       }
    }
    if(istream && istream.peek() == '/' && !levelCounter)
    {
-     // LOG_DEBUG(LOG_PREFIX << "leave\n");
       return istream;
    }
    else
@@ -186,7 +198,6 @@ std::istream &skipUnknownValue(std::istream &istream, int levelCounter)
          }
       }
    }
-  // LOG_DEBUG(LOG_PREFIX << "leave\n");
    return istream;
 }
 

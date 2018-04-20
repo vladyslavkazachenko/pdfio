@@ -49,7 +49,9 @@ public:
       
    private:
       bool getFirstPage(const IndirectReference &node, Page &page);
-      bool getNextPage(const IndirectReference &currentRef, const IndirectReference &parentRef, Page &nextPage, bool &isLast);
+      bool getNextPage(const IndirectReference &currentRef, 
+         const IndirectReference &parentRef, Page &nextPage, 
+         bool &isLast);
       
       IndirectReference root_;
       FileReader *fileReader_ = nullptr;

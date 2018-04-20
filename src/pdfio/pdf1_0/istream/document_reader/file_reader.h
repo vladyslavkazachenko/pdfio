@@ -22,7 +22,8 @@ public:
    bool loadFile(const std::string &fullFilePath);
    bool getDocumentCatalog(DocumentCatalog &docCatalog);
    
-   template <typename T> bool getObject(Integer objectNumber, Integer generation, T &object)
+   template <typename T> bool getObject(Integer objectNumber, 
+      Integer generation, T &object)
    {
       cacheMutex_.lock();
       auto iter1 = mCachedObjects.find(objectNumber);
@@ -47,7 +48,8 @@ public:
       {
          stream.close();
       }
-      stream.open(file_.c_str(), std::ios_base::binary | std::ios_base::in);
+      stream.open(file_.c_str(), std::ios_base::binary | 
+         std::ios_base::in);
       if(!stream.is_open())
       {
          streamPool_.releaseStream(stream);
@@ -68,7 +70,8 @@ public:
       streamPool_.releaseStream(stream);
       object = indirectObject.get<T>();
       cacheMutex_.lock();
-      mCachedObjects[objectNumber][generation] = indirectObject.get<T>();
+      mCachedObjects[objectNumber][generation] = 
+         indirectObject.get<T>();
       cacheMutex_.unlock();
       return true;
    }

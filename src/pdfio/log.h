@@ -25,7 +25,8 @@ extern std::function<void(const std::string &msg)> gLogDebugHandler;
 
 #else
 
-#define LOG_DEBUG(msg)
 #define LOG_ERROR(msg)
+#define LOG_WARNING(msg)
+#define LOG_DEBUG(msg)
   
 #endif //PDF_LOG

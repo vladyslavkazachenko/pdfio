@@ -68,6 +68,11 @@ template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>()
   return static_cast<int>(pdf1_0::GenericObjectType::kDocumentCatalog);
 }
 
+template <> int GenericObject::TypeId<pdf1_0::Stream::Filter>()
+{
+   return static_cast<int>(pdf1_0::GenericObjectType::kStreamFilter);
+}
+
 template <> int GenericObject::TypeId<pdf1_0::Stream>()
 {
   return static_cast<int>(pdf1_0::GenericObjectType::kStream);

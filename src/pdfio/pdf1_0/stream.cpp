@@ -51,18 +51,18 @@ bool Stream::hasFilter() const
    return contains(kKeyFilter);
 }
 
-const Name &Stream::filter() const
+const Stream::Filter &Stream::filter() const
 {
-   return get<Name>(kKeyFilter);
+   return get<Filter>(kKeyFilter);
 }
 
-Name &Stream::filter()
+Stream::Filter &Stream::filter()
 {
-   if(!hasDecodeParms())
+   if(!hasFilter())
    {
-      insert<Name>(kKeyFilter);
+      insert<Filter>(kKeyFilter);
    }
-   return get<Name>(kKeyFilter);
+   return get<Filter>(kKeyFilter);
 }
 
 const std::string &Stream::data() const
@@ -81,7 +81,7 @@ void Stream::prepare4Reading()
    decodeParms.insert<Integer>(kKeyColumns);
    decodeParms.insert<Integer>(kKeyPredictor);
    insert(kKeyDecodeParms, decodeParms);
-   insert<Name>(kKeyFilter);
+   insert<Filter>(kKeyFilter);
 }
    
 }

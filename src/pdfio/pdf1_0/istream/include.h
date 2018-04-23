@@ -46,6 +46,11 @@ ReadHandlerRegistrator<Real> realRegistrator([](std::istream &i, GenericObject &
       i >> static_cast<GenericObjectAdaptor<Real> &>(o).object_;
    });
    
+ReadHandlerRegistrator<Stream::Filter> streamFilterRegistrator([](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<Stream::Filter> &>(o).object_;
+   });
+   
 ReadHandlerRegistrator<Stream> streamRegistrator([](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<Stream> &>(o).object_;

@@ -36,6 +36,7 @@ enum class GenericObjectType
    kArrayReal,
    kArrayName,
    kDocumentCatalog,
+   kStreamFilter,
    kStream,
    kHexString,
    kLiteralString,
@@ -74,6 +75,8 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>();
+/*! \brief Returns type id of Stream::Filter.*/
+template <> int GenericObject::TypeId<pdf1_0::Stream::Filter>();
 /*! \brief Returns type id of Stream.*/
 template <> int GenericObject::TypeId<pdf1_0::Stream>();
 /*! \brief Returns type id of OutlineTree.*/

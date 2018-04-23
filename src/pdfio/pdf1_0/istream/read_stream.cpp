@@ -2,6 +2,7 @@
 
 #include "pdfio/log.h"
 #include "read_dictionary.h"
+#include "read_name.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -121,6 +122,21 @@ std::istream &operator>>(std::istream &istream,
          istream.setstate(std::ios_base::failbit);
       }
    }
+   LOG_DEBUG(LOG_PREFIX << "leave\n");
+   return istream;
+}
+
+#undef LOG_PREFIX
+
+#define LOG_PREFIX __PRETTY_FUNCTION__ << \
+  ":istream[" << std::hex << std::showbase << \
+  reinterpret_cast<unsigned long>(&istream) << "],filter[" << \
+  reinterpret_cast<unsigned long>(&filter) << "]:"
+
+std::istream &operator>>(std::istream &istream, pdfio::pdf1_0::Stream::Filter &filter)
+{
+   LOG_DEBUG(LOG_PREFIX << "enter\n");
+   istream >> filter.name_;
    LOG_DEBUG(LOG_PREFIX << "leave\n");
    return istream;
 }

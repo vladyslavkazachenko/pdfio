@@ -6,7 +6,6 @@
 #include "dictionary.h"
 #include "indirect_object.h"
 #include "array.h"
-#include "document_page.h"
 #include "document_catalog.h"
 #include "document_page_tree_root_node.h"
 #include "stream.h"
@@ -37,12 +36,7 @@ enum class GenericObjectType
    kArrayHexString,
    kArrayReal,
    kArrayName,
-   kDocumentPageResources,
-   kDocumentPageResourceDictionary,
-   kDocumentPageContents,
    kDocumentCatalog,
-   kDocumentPageTreeRootNode,
-   kDocumentPage,
    kStream,
    kHexString,
    kLiteralString,
@@ -79,18 +73,10 @@ template <> int GenericObject::TypeId<pdf1_0::String>();
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
 /*! \brief Returns type id of Array<Name>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>();
-/*! \brief Returns type id of DocumentPage::Resources.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Resources>();
-/*! \brief Returns type id of DocumentPage::ResourceDictionary.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ResourceDictionary>();
-/*! \brief Returns type id of DocumentPage::Contents.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Contents>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>();
 /*! \brief Returns type id of DocumentPageTreeRootNode.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentPageTreeRootNode>();
-/*! \brief Returns type id of DocumentPage.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage>();
 /*! \brief Returns type id of Stream.*/
 template <> int GenericObject::TypeId<pdf1_0::Stream>();
 /*! \brief Returns type id of OutlineTree.*/

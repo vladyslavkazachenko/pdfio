@@ -63,34 +63,9 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>()
    return static_cast<int>(pdf1_0::GenericObjectType::kArrayName);
 }
 
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Resources>()
-{
-  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResources);
-}
-
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ResourceDictionary>()
-{
-  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageResourceDictionary);
-}
-
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Contents>()
-{
-   return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageContents);
-}
-
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>()
 {
   return static_cast<int>(pdf1_0::GenericObjectType::kDocumentCatalog);
-}
-
-template <> int GenericObject::TypeId<pdf1_0::DocumentPageTreeRootNode>()
-{
-  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageTreeRootNode);
-}
-
-template <> int GenericObject::TypeId<pdf1_0::DocumentPage>()
-{
-  return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPage);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::Stream>()

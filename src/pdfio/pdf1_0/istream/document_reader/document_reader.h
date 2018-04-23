@@ -4,7 +4,6 @@
 #include <functional>
 #include <map>
 
-#include "pdfio/pdf1_0/document_page.h"
 #include "pdfio/pdf1_0/document_catalog.h"
 #include "pdfio/pdf1_0/document_pages_tree.h"
 #include "pdfio/pdf1_0/outline_tree.h"

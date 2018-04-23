@@ -24,25 +24,23 @@ std::istream &operator>>(std::istream &istream,
             indirectObject.generationNumber() << "\n");
          while(istream && std::isspace(istream.peek()))
          {
-            LOG_DEBUG(LOG_PREFIX << "skipping space character:" << 
-               std::hex << std::showbase << istream.peek() << "\n");
             static_cast<void>(istream.get());
          }
          char tmp[4] = {'\0', '\0', '\0', '\0'};
          if(istream.read(tmp, 3))
          {
             std::string buffer(tmp);
-            LOG_DEBUG(LOG_PREFIX << "obj line is " << buffer << "\n");
             if(buffer == "obj")
             {
                if(istream >> indirectObject.get())
                {
                   if(istream >> buffer)
                   {
-                     LOG_DEBUG(LOG_PREFIX << "endobj line is " << 
-                        buffer << "\n");
                      if(buffer != "endobj")
                      {
+                        LOG_ERROR(LOG_PREFIX << 
+                           "\"endobj\" is expected but got:" << 
+                           buffer << "\n");
                         istream.setstate(std::ios_base::failbit);
                      }
                   }
@@ -56,6 +54,8 @@ std::istream &operator>>(std::istream &istream,
             }
             else
             {
+               LOG_ERROR(LOG_PREFIX << "\"obj\" is expected but got:" << 
+                  buffer << "\n");
                istream.setstate(std::ios_base::failbit);
             }
          }

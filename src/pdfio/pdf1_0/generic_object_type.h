@@ -7,7 +7,6 @@
 #include "indirect_object.h"
 #include "array.h"
 #include "document_catalog.h"
-#include "document_page_tree_root_node.h"
 #include "stream.h"
 #include "hexstring.h"
 #include "literalstring.h"
@@ -75,8 +74,6 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>();
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>();
 /*! \brief Returns type id of DocumentCatalog.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>();
-/*! \brief Returns type id of DocumentPageTreeRootNode.*/
-template <> int GenericObject::TypeId<pdf1_0::DocumentPageTreeRootNode>();
 /*! \brief Returns type id of Stream.*/
 template <> int GenericObject::TypeId<pdf1_0::Stream>();
 /*! \brief Returns type id of OutlineTree.*/

@@ -9,6 +9,7 @@
 #include "read_literalstring.h"
 #include "read_string.h"
 #include "read_document_pages_tree.h"
+#include "read_info.h"
 #include "pdfio/pdf1_0/real.h"
 #include "pdfio/read_generic_object.h"
 
@@ -102,4 +103,10 @@ ReadHandlerRegistrator<String> stringRegistrator(
 ReadHandlerRegistrator<DocumentPagesTree> docPagesTreeRegistrator([](std::istream &i, GenericObject &o)
    {
       i >> static_cast<GenericObjectAdaptor<DocumentPagesTree> &>(o).object_;
+   });
+
+ReadHandlerRegistrator<Info> infoRegistrator(
+   [](std::istream &i, GenericObject &o)
+   {
+      i >> static_cast<GenericObjectAdaptor<Info> &>(o).object_;
    });

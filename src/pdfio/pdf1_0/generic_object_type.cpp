@@ -45,22 +45,22 @@ template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::HexString>>()
 
 template <> int GenericObject::TypeId<pdf1_0::LiteralString>()
 {
-	return static_cast<int>(pdf1_0::GenericObjectType::kLiteralString);
+   return static_cast<int>(pdf1_0::GenericObjectType::kLiteralString);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::String>()
 {
-	return static_cast<int>(pdf1_0::GenericObjectType::kString);
+   return static_cast<int>(pdf1_0::GenericObjectType::kString);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Real>>()
 {
-	return static_cast<int>(pdf1_0::GenericObjectType::kArrayReal);
+   return static_cast<int>(pdf1_0::GenericObjectType::kArrayReal);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Name>>()
 {
-	return static_cast<int>(pdf1_0::GenericObjectType::kArrayName);
+   return static_cast<int>(pdf1_0::GenericObjectType::kArrayName);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Resources>()
@@ -75,7 +75,7 @@ template <> int GenericObject::TypeId<pdf1_0::DocumentPage::ResourceDictionary>(
 
 template <> int GenericObject::TypeId<pdf1_0::DocumentPage::Contents>()
 {
-	return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageContents);
+   return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPageContents);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::DocumentCatalog>()
@@ -111,6 +111,11 @@ template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>()
 template <> int GenericObject::TypeId<pdf1_0::DocumentPagesTree>()
 {
    return static_cast<int>(pdf1_0::GenericObjectType::kDocumentPagesTree);
+}
+
+template <> int GenericObject::TypeId<pdf1_0::Info>()
+{
+   return static_cast<int>(pdf1_0::GenericObjectType::kInfo);
 }
 
 template <> int GenericObject::TypeId<pdf1_0::Real>()

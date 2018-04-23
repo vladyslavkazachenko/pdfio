@@ -1,11 +1,12 @@
 #include <sstream>
 
+#include "gtest/gtest.h"
 #include "pdfio/pdf1_0/istream/read_indirect_object.h"
 #include "pdfio/pdf1_0/generic_object_type.h"
 #include "pdfio/pdf1_0/file_structure.h"
 #include "pdfio/pdf1_0/outline_tree.h"
 #include "pdfio/pdf1_0/document_pages_tree.h"
-#include "gtest/gtest.h"
+#include "pdfio/pdf1_0/info.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
 
@@ -101,10 +102,12 @@ TEST(IndirectObjectTestSuite, indirectReference)
    indirectObject2.set<pdf1_0::IndirectReference>();
    std::istringstream istream2("23 1 obj 543 3 R endobj");
    EXPECT_TRUE(istream2 >> indirectObject2);
-   EXPECT_TRUE(indirectObject2.objectNumber() == 23);
-   EXPECT_TRUE(indirectObject2.generationNumber() == 1);
-   EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().objectNumber() == 543);
-   EXPECT_TRUE(indirectObject2.get<pdf1_0::IndirectReference>().generationNumber() == 3);
+   EXPECT_EQ(23, indirectObject2.objectNumber());
+   EXPECT_EQ(1, indirectObject2.generationNumber());
+   EXPECT_EQ(543, 
+      indirectObject2.get<pdf1_0::IndirectReference>().objectNumber());
+   EXPECT_EQ(3, 
+      indirectObject2.get<pdf1_0::IndirectReference>().generationNumber());
 }
 
 TEST(IndirectObjectTestSuite, dictionary)
@@ -121,12 +124,14 @@ TEST(IndirectObjectTestSuite, dictionary)
    indirectObject2.set(dictionary2);
    std::istringstream istream2("23 1 obj << /key /value >> endobj");
    EXPECT_TRUE(istream2 >> indirectObject2);
-   EXPECT_TRUE(indirectObject2.objectNumber() == 23);
-   EXPECT_TRUE(indirectObject2.generationNumber() == 1);
-   EXPECT_TRUE(indirectObject2.get<pdf1_0::Dictionary>().get<pdf1_0::Name>(pdf1_0::Name("key")) == "value");
+   EXPECT_EQ(23, indirectObject2.objectNumber());
+   EXPECT_EQ(1, indirectObject2.generationNumber());
+   EXPECT_TRUE(
+      indirectObject2.get<pdf1_0::Dictionary>().get<pdf1_0::Name>(
+      pdf1_0::Name("key")) == "value");
 }
 
-TEST(IndirectObjectTestSuite, fileStructureXrefSection_ok)
+TEST(IndirectObjectTestSuite, DISABLED_fileStructureXrefSection_ok)
 {
    pdf1_0::IndirectObject indirectObject;
    indirectObject.set<pdf1_0::Stream>();
@@ -177,7 +182,7 @@ TEST(IndirectObjectTestSuite, fileStructureXrefSection_ok)
    };
    std::stringstream istream;
    istream.write(reinterpret_cast<char *>(xref), sizeof(xref));
-   //EXPECT_TRUE(istream >> indirectObject);
+   EXPECT_TRUE(istream >> indirectObject);
 }
 
 TEST(IndirectObjectTestSuite, outlineTree)
@@ -236,7 +241,29 @@ TEST(IndirectObjectTestSuite, documentPagesTree2)
    indirectObject.set<pdf1_0::DocumentPagesTree>();
    std::istringstream istream(
       "21 0 obj"
-      "<</CropBox[0 0 531 666]/Annots[7882 0 R 7880 0 R 7883 0 R 7881 0 R 7876 0 R 7877 0 R 7878 0 R 7879 0 R]/Parent 109892 0 R/StructParents 4648/Contents 2027 0 R/Rotate 0/MediaBox[0 0 531 666]/Resources<</Font<</T1_0 3914 0 R/T1_1 3912 0 R/T1_2 3957 0 R/T1_3 3944 0 R/T1_4 3931 0 R/T1_5 4161 0 R/T1_6 4533 0 R>>/ProcSet[/PDF/Text]/ExtGState<</GS0 333283 0 R>>>>/Type/Page>>"
+      "<</CropBox[0 0 531 666]/Annots[7882 0 R 7880 0 R 7883 0 R"
+      " 7881 0 R 7876 0 R 7877 0 R 7878 0 R 7879 0 R]/Parent 109892 0 R"
+      "/StructParents 4648/Contents 2027 0 R/Rotate 0"
+      "/MediaBox[0 0 531 666]/Resources<</Font<</T1_0 3914 0 R"
+      "/T1_1 3912 0 R/T1_2 3957 0 R/T1_3 3944 0 R/T1_4 3931 0 R"
+      "/T1_5 4161 0 R/T1_6 4533 0 R>>/ProcSet[/PDF/Text]"
+      "/ExtGState<</GS0 333283 0 R>>>>/Type/Page>>"
+      "endobj");
+   EXPECT_TRUE(istream >> indirectObject);
+}
+
+TEST(IndirectObjectTestSuite, info)
+{
+   pdf1_0::IndirectObject indirectObject;
+   indirectObject.set<pdf1_0::Info>();
+   std::istringstream istream(
+      "1 0 obj"
+      "<<"
+      "/Creator (Adobe Illustrator)"
+      "/CreationDate (Thursday Feb 04 08:06:03 1993)"
+      "/Author (Werner Heisenberg)"
+      "/Producer (Acrobat Network Distiller 1.0 for Macintosh)"
+      ">>"
       "endobj");
    EXPECT_TRUE(istream >> indirectObject);
 }

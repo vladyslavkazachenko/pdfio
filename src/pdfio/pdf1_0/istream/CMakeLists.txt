@@ -12,5 +12,6 @@ add_library(pdf1_0_istream OBJECT
    read_file_structure.cpp
    read_outline_tree.cpp
    read_document_pages_tree.cpp
+   read_info.cpp
 )
 add_dependencies(pdf1_0_istream pdf1_0)

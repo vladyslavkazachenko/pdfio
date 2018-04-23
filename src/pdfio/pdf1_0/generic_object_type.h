@@ -16,6 +16,7 @@
 #include "real.h"
 #include "outline_tree.h"
 #include "document_pages_tree.h"
+#include "info.h"
 #include "pdfio/generic_object.h"
 
 namespace pdfio
@@ -49,6 +50,7 @@ enum class GenericObjectType
    kOutlineTree,
    kOutlineTreeEntry,
    kDocumentPagesTree,
+   kInfo,
    kReal,
 };
 
@@ -97,6 +99,8 @@ template <> int GenericObject::TypeId<pdf1_0::OutlineTree>();
 template <> int GenericObject::TypeId<pdf1_0::OutlineTree::Entry>();
 /*! \brief Returns type id of DocumentPagesTree.*/
 template <> int GenericObject::TypeId<pdf1_0::DocumentPagesTree>();
+/*! \brief Returns type id of Info.*/
+template <> int GenericObject::TypeId<pdf1_0::Info>();
 /*! \brief Returns type id of Real.*/
 template <> int GenericObject::TypeId<pdf1_0::Real>();
   

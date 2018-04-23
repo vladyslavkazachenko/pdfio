@@ -56,13 +56,15 @@ public:
    template <typename T>
    inline const T &get() const
    {
-      return std::static_pointer_cast<GenericObjectAdaptor<T>>(object_)->object_;
+      return std::static_pointer_cast<GenericObjectAdaptor<T>>(
+         object_)->object_;
    }
    /*! \brief Returns the indirect object's object.*/
    template <typename T>
    inline T &get()
    {
-      return std::static_pointer_cast<GenericObjectAdaptor<T>>(object_)->object_;
+      return std::static_pointer_cast<GenericObjectAdaptor<T>>(
+         object_)->object_;
    }
    /*! \brief Returns the indirect object's generic object.*/
    inline GenericObject &get()

@@ -32,11 +32,11 @@ struct FileStructure
    class XrefSection
    {
    public:
-      const std::vector<XrefSubsection> &subsections() const
+      inline const std::vector<XrefSubsection> &subsections() const
       {
          return subsections_;
       }
-      bool add(const XrefSubsection &subsection)
+      inline bool add(const XrefSubsection &subsection)
       {
          subsections_.push_back(subsection);
          return true;
@@ -50,94 +50,41 @@ struct FileStructure
    class Trailer : public virtual Dictionary
    {
    public:
-      /*! \brief Constructs the Trailer by adding Integer value with key "Size"
-       *into the parent Dictionary.*/
-      Trailer()
-      {
-         insert<Integer>(kSize);
-      }
+      /*! \brief Constructs the Trailer by adding Integer value with key
+       *"Size" into the parent Dictionary.*/
+      Trailer();
       
-      Trailer &operator=(const Trailer &other)
-      {
-         static_cast<Dictionary &>(*this) = static_cast<const Dictionary &>(other);
-         return *this;
-      }
+      Trailer &operator=(const Trailer &other);
       /*! \brief Returns value by key "Size".*/
-      inline const Integer &size() const
-      {
-         return get<Integer>(kSize);
-      }
+      const Integer &size() const;
       /*! \brief Returns value by key "Size".*/
-      inline Integer &size()
-      {
-         return get<Integer>(kSize);
-      }
-      /*! \brief Checks whether parent Dictionary contains entry with key "Prev".*/
-      inline bool hasPrev() const
-      {
-         return contains(kPrev);
-      }
+      Integer &size();
+      /*! \brief Checks whether parent Dictionary contains entry with 
+       * key "Prev".
+       */
+      bool hasPrev() const;
       /*! \brief Returns value by key "Prev".*/
-      inline const Integer &prev() const
-      {
-         return get<Integer>(kPrev);
-      }
+      const Integer &prev() const;
       /*! \brief Returns value by key "Prev".*/
-      inline Integer &prev()
-      {
-         if(!hasPrev())
-         {
-            insert<Integer>(kPrev);
-         }
-         return get<Integer>(kPrev);
-      }
-      /*! \brief Checks whether parent Dictionary contains entry with key "Root".*/
-      inline bool hasRoot() const
-      {
-         return contains(kRoot);
-      }
+      Integer &prev();
+      /*! \brief Checks whether parent Dictionary contains entry with 
+       * key "Root".
+       */
+      bool hasRoot() const;
       /*! \brief Returns value by key "Root".*/
-      inline const IndirectReference &root() const
-      {
-         return get<IndirectReference>(kRoot);
-      }
+      const IndirectReference &root() const;
       /*! \brief Returns value by key "Root".*/
-      inline IndirectReference &root()
-      {
-         return get<IndirectReference>(kRoot);
-      }
-      /*! \brief Checks whether parent Dictionary contains entry with key "Info".*/
-      inline bool hasInfo() const
-      {
-         return contains(kInfo);
-      }
+      IndirectReference &root();
+      /*! \brief Checks whether parent Dictionary contains entry with 
+       * key "Info".
+       */
+      bool hasInfo() const;
       /*! \brief Returns value by key "Info".*/
-      inline const IndirectReference &info() const
-      {
-         return get<IndirectReference>(kInfo);
-      }
+      const IndirectReference &info() const;
       /*! \brief Returns value by key "Info".*/
-      inline IndirectReference &info()
-      {
-         if(!hasInfo())
-         {
-            insert<IndirectReference>(kInfo);
-         }
-         return get<IndirectReference>(kInfo);
-      }
+      IndirectReference &info();
       /*! \brief Adds optional entries into the parent Dictionary.*/
-      inline void prepare4Reading()
-      {
-         insert<Integer>(kPrev);
-         insert<IndirectReference>(kRoot);
-         insert<IndirectReference>(kInfo);
-      }
-      
-   private:
-      const std::string kSize = "Size";
-      const std::string kPrev = "Prev";
-      const std::string kRoot = "Root";
-      const std::string kInfo = "Info";
+      void prepare4Reading();
    };
    
    struct Version

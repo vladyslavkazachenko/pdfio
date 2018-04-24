@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 namespace pdf1_0 = pdfio::pdf1_0;
-#include <iostream>
+
 TEST(StreamTestSuite, ok1)
 {
    pdf1_0::Stream pdfStream;

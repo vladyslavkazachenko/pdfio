@@ -16,102 +16,29 @@
 using namespace pdfio;
 using namespace pdfio::pdf1_0;
 
-ReadHandlerRegistrator<Name> nameRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Name> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Integer> integerRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Integer> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<IndirectReference> indirectRefRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<IndirectReference> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Dictionary> dictionaryRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Dictionary> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Array<HexString>> arrHexStringRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Array<HexString>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Real> realRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Real> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Stream::Filter> streamFilterRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Stream::Filter> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Stream> streamRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Stream> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Array<Integer>> arrIntegerRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Array<Integer>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<DocumentCatalog> docCatalogRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentCatalog> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Array<IndirectReference>> arrIndirRefRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Array<IndirectReference>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Array<Real>> arrRealRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Array<Real>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<Array<Name>> arrNameRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Array<Name>> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<OutlineTree> outlineTreeRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<OutlineTree> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<OutlineTree::Entry> outlineTreeEntryRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<OutlineTree::Entry> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<LiteralString> literalStringRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<LiteralString> &>(o).object_;
-   });
-
-ReadHandlerRegistrator<String> stringRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<String> &>(o).object_;
-   });
-   
-ReadHandlerRegistrator<DocumentPagesTree> docPagesTreeRegistrator([](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<DocumentPagesTree> &>(o).object_;
-   });
-
-ReadHandlerRegistrator<Info> infoRegistrator(
-   [](std::istream &i, GenericObject &o)
-   {
-      i >> static_cast<GenericObjectAdaptor<Info> &>(o).object_;
-   });
+REGISTER_READ_HANDLER_FOR_TYPE(Name);
+REGISTER_READ_HANDLER_FOR_TYPE(Integer);
+REGISTER_READ_HANDLER_FOR_TYPE(IndirectReference);
+REGISTER_READ_HANDLER_FOR_TYPE(Dictionary);
+typedef Array<HexString> HexStringArray;
+REGISTER_READ_HANDLER_FOR_TYPE(HexStringArray);
+REGISTER_READ_HANDLER_FOR_TYPE(Real);
+typedef Stream::Filter StreamFilter;
+REGISTER_READ_HANDLER_FOR_TYPE(StreamFilter);
+REGISTER_READ_HANDLER_FOR_TYPE(Stream);
+typedef Array<Integer> IntegerArray;
+REGISTER_READ_HANDLER_FOR_TYPE(IntegerArray);
+REGISTER_READ_HANDLER_FOR_TYPE(DocumentCatalog);
+typedef Array<IndirectReference> IndirectReferenceArray;
+REGISTER_READ_HANDLER_FOR_TYPE(IndirectReferenceArray);
+typedef Array<Real> RealArray;
+REGISTER_READ_HANDLER_FOR_TYPE(RealArray);
+typedef Array<Name> NameArray;
+REGISTER_READ_HANDLER_FOR_TYPE(NameArray);
+REGISTER_READ_HANDLER_FOR_TYPE(OutlineTree);
+typedef OutlineTree::Entry OutlineTreeEntry;
+REGISTER_READ_HANDLER_FOR_TYPE(OutlineTreeEntry);
+REGISTER_READ_HANDLER_FOR_TYPE(LiteralString);
+REGISTER_READ_HANDLER_FOR_TYPE(String);
+REGISTER_READ_HANDLER_FOR_TYPE(DocumentPagesTree);
+REGISTER_READ_HANDLER_FOR_TYPE(Info);

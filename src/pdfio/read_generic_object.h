@@ -13,14 +13,18 @@ namespace pdfio
 {
 
 /*! \brief Registers handler for the type*/
-void RegisterReadHandler(int type, std::function<void(std::istream &, GenericObject &)>);
+void RegisterReadHandler(int type, 
+   std::function<void(std::istream &, GenericObject &)>);
 
 /*! \brief Nifty counter for registering read handler to the T*/
 template <typename T> class ReadHandlerRegistrator
 {
 public:
-   /*! \brief Constructs the ReadHandlerRegistrator registering the readHandler as read handle for the T*/
-   ReadHandlerRegistrator(std::function<void(std::istream &, GenericObject &)> readHandler)
+   /*! \brief Constructs the ReadHandlerRegistrator registering the readHandler 
+    * as read handle for the T
+    */
+   ReadHandlerRegistrator(
+      std::function<void(std::istream &, GenericObject &)> readHandler)
    {
       if(GetCounter() == 0)
       {
@@ -38,3 +42,16 @@ private:
 };
 
 }
+
+#define REGISTER_READ_HANDLER_FOR_TYPE(type) \
+   namespace pdfio \
+   { \
+      namespace type##ns \
+      { \
+         ReadHandlerRegistrator<type> typeRegistrator(\
+            [](std::istream &i, GenericObject &o) \
+            { \
+               i >> static_cast<GenericObjectAdaptor<type> &>(o).object_; \
+            }); \
+      } \
+   }

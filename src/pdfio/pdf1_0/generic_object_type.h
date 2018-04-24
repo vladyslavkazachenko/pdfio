@@ -60,7 +60,8 @@ template <> int GenericObject::TypeId<pdf1_0::Dictionary>();
 /*! \brief Returns type id of IndirectObject.*/
 template <> int GenericObject::TypeId<pdf1_0::IndirectObject>();
 /*! \brief Returns type id of Array<IndirectReference>.*/
-template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>();
+template <> 
+int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>();
 /*! \brief Returns type id of Array<Integer>.*/
 template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::Integer>>();
 /*! \brief Returns type id of Array<HexString>.*/

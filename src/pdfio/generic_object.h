@@ -5,9 +5,12 @@ namespace pdfio
    
 /*! \brief Identifies object type by the tipeId_.
  * 
- *  The struct GenericObject along with GenericObjectAdaptor represents "variant" concept.
- *  The constructor GenericObjectAdaptor<T>::GenericObjectAdaptor() calls GenericObject constructor 
- *  using GenericObject::TypeId<T>() as an argument. Since GenericObject::TypeId<T>() is not defined
+ *  The struct GenericObject along with GenericObjectAdaptor represents 
+ *  "variant" concept.
+ *  The constructor GenericObjectAdaptor<T>::GenericObjectAdaptor() calls 
+ *  GenericObject constructor 
+ *  using GenericObject::TypeId<T>() as an argument. 
+ *  Since GenericObject::TypeId<T>() is not defined
  *  it forces client to define GenericObject::TypeId for each particular type.
     @code
     class A{...};
@@ -20,19 +23,30 @@ namespace pdfio
     int GenericObject::TypeId<A>(){return Type::kA;}
     int GenericObject::TypeId<B>(){return Type::kB;}
     @endcode
- *  The primary use cases are the PDF Dictionary, PDF Array and PDF Indirect Object that might hold any PDF objects.
- *  Since GenericObject::typeId_ is initialized by GenericObject::TypeId<T>() for any T, client knows how to convert
- *  GenericObject to GenericObjectAdaptor<T>. GenericObject has virtual destructor.
+ *  The primary use cases are the PDF Dictionary, PDF Array and PDF Indirect 
+ *  Object that might hold any PDF objects.
+ *  Since GenericObject::typeId_ is initialized by GenericObject::TypeId<T>() 
+ *  for any T, client knows how to convert
+ *  GenericObject to GenericObjectAdaptor<T>. 
+ *  GenericObject has virtual destructor.
     @code
     A a;
     B b;
     std::vector<std::shared_ptr<pdfio::GenericObject>> objects;
-    objects.push_back(std::static_pointer_cast<pdfio::GenericObject>(std::make_shared<GenericObjectAdaptor<A>>(a)));
-    objects.push_back(std::static_pointer_cast<pdfio::GenericObject>(std::make_shared<GenericObjectAdaptor<B>>(b)));
+    objects.push_back(std::static_pointer_cast<pdfio::GenericObject>(
+      std::make_shared<GenericObjectAdaptor<A>>(a)));
+    objects.push_back(std::static_pointer_cast<pdfio::GenericObject>(
+      std::make_shared<GenericObjectAdaptor<B>>(b)));
     for(auto object : objects)
     {
-       if(object->typeId_ == Type::kA){static_pointer_cast<GenericObjectAdaptor<A>>(*object).object_....}
-       else{static_pointer_cast<GenericObjectAdaptor<B>>(*object).object_....}
+      if(object->typeId_ == Type::kA)
+      {
+         static_pointer_cast<GenericObjectAdaptor<A>>(*object).object_....
+      }
+      else
+      {
+         static_pointer_cast<GenericObjectAdaptor<B>>(*object).object_....
+      }
     }
     @endcode
  */

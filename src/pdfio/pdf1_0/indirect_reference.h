@@ -14,7 +14,9 @@ class IndirectReference
 public:
    /*! \brief Default constructor.*/
    IndirectReference() = default;
-   /*! \brief Initializes indirect reference by objectNumber and generationNumber.*/
+   /*! \brief Initializes indirect reference by objectNumber and 
+    * generationNumber.
+    */
    inline IndirectReference(int objectNumber, int generationNumber)
    : objectNumber_(objectNumber)
    , generationNumber_(generationNumber)

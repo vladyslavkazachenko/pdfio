@@ -22,19 +22,23 @@ public:
    {
       Name name_;
    };
-   /*! \brief Constructs the stream initializing base std::istream and base dictionary.*/
+   /*! \brief Constructs the stream initializing the base dictionary.*/
    Stream();
    /*! \brief Returns value by key "Length".*/
    const Integer &length() const;
    /*! \brief Returns value by key "Length".*/
    Integer &length();
-   /*! \brief Checks whether the parent Dictionary contains entry with key "DecodeParms".*/
+   /*! \brief Checks whether the parent Dictionary contains entry with key 
+    * "DecodeParms".
+    */
    bool hasDecodeParms() const;
    /*! \brief Returns value by key "DecodeParms".*/
    const Dictionary &decodeParms() const;
    /*! \brief Returns value by key "DecodeParms".*/
    Dictionary &decodeParms();
-   /*! \brief Checks whether the parent Dictionary contains entry with key "Filter".*/
+   /*! \brief Checks whether the parent Dictionary contains entry with key 
+    * "Filter".
+    */
    bool hasFilter() const;
    /*! \brief Returns value by key "Filter".*/
    const Filter &filter() const;

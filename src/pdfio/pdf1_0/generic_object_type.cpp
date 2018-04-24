@@ -28,7 +28,8 @@ template <> int GenericObject::TypeId<pdf1_0::IndirectObject>()
   return static_cast<int>(pdf1_0::GenericObjectType::kIndirectObject);
 }
 
-template <> int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>()
+template <> 
+int GenericObject::TypeId<pdf1_0::Array<pdf1_0::IndirectReference>>()
 {
   return static_cast<int>(pdf1_0::GenericObjectType::kArrayIndirectReference);
 }

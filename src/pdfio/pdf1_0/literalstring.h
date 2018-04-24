@@ -11,12 +11,14 @@ namespace pdf1_0
 class LiteralString
 {
 public:
-   /*! \brief Converts the LiteralString to std::string by returning the value_.*/
+   /*! \brief Converts the LiteralString to std::string by returning the value_.
+    */
    inline operator std::string() const
    {
       return value_;
    }
-   /*! \brief Converts the LiteralString to std::string by returning the value_.*/
+   /*! \brief Converts the LiteralString to std::string by returning the value_.
+    */
    inline operator std::string()
    {
       return value_;

@@ -41,7 +41,6 @@ std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure::XrefStrea
    xrefStream.prepare4Reading();
    if(istream >> static_cast<pdf1_7::Dictionary &>(xrefStream))
    {
-      LOG_DEBUG(LOG_PREFIX << "type is " << static_cast<std::string>(xrefStream.type()) << "\n");
       LOG_DEBUG(LOG_PREFIX << "size is " << xrefStream.size() << "\n");
       if(xrefStream.contains(pdf1_0::Name("Length")))
       {

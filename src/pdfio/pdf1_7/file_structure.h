@@ -18,16 +18,6 @@ namespace pdfio
    
 namespace pdf1_7
 {
-   
-namespace
-{
-   const std::string kSize = "Size";
-   const std::string kPrev = "Prev";
-   const std::string kRoot = "Root";
-   const std::string kEncrypt = "Encrypt";
-   const std::string kInfo = "Info";
-   const std::string kId = "ID";
-}
 
 /*! \brief PDF File Structure.*/
 struct FileStructure
@@ -68,116 +58,38 @@ struct FileStructure
    {
    public:
       /*! \brief Assigns the other to the Trailer.*/
-      Trailer &operator=(const Trailer &other)
-      {
-         dynamic_cast<Dictionary &>(*this) = dynamic_cast<const Dictionary &>(other);
-         return *this;
-      }
+      Trailer &operator=(const Trailer &other);
       /*! \brief Checks whether parent Dictionary contains entry with key "Encrypt".*/
-      inline bool hasEncrypt() const
-      {
-         return contains(kEncrypt);
-      }
+      bool hasEncrypt() const;
       /*! \brief Checks whether parent Dictionary contains entry with key "ID".*/
-      inline bool hasId() const
-      {
-         return contains(kId);
-      }
+      bool hasId() const;
       /*! \brief Returns value by key "ID".*/
-      inline const Array<HexString> &id() const
-      {
-         return get<pdf1_7::Array<pdf1_7::HexString>>(kId);
-      }
+      const Array<HexString> &id() const;
       /*! \brief Returns value by key "ID".*/
-      inline Array<HexString> &id()
-      {
-         if(!hasId())
-         {
-            pdf1_7::Array<pdf1_7::HexString> id(2);
-            insert<pdf1_7::Array<pdf1_7::HexString>>(kId, id);
-         }
-         return get<pdf1_7::Array<pdf1_7::HexString>>(kId);
-      }
+      Array<HexString> &id();
       /*! \brief Adds optional entries into the parent Dictionary.*/
-      inline void prepare4Reading()
-      {
-         pdf1_0::FileStructure::Trailer::prepare4Reading();
-         insert<IndirectReference>(kEncrypt);
-         insert<Array<HexString>>(kID);
-         insert<Integer>(kXrefStm);
-      }
-      
-   private:
-      const std::string kID = "ID";
-      const std::string kXrefStm = "XRefStm";
+      void prepare4Reading();
    };
+   
    /*! \brief PDF Cross-Reference Stream.*/
    class XrefStream: public Stream, public Trailer
    {
    public:
-      XrefStream()
-      : Dictionary()
-      , Stream()
-      , Trailer()
-      {
-         insert(kType, kXRef);
-         insert<Array<Integer>>(kW);
-      }
-      /*! \brief Returns value by key "Type".*/
-      inline const Name &type() const
-      {
-         return get<Name>(kType);
-      }
-      /*! \brief Returns value by key "Type".*/
-      inline Name &type()
-      {
-         return get<Name>(kType);
-      }
+      XrefStream();
       /*! \brief Checks whether the parent Dictionary contains entry with key "Index".*/
-      inline bool hasIndex() const
-      {
-         return contains(kIndex);
-      }
+      bool hasIndex() const;
       /*! \brief Returns value by key "Index".*/
-      inline const Array<Integer> &index() const
-      {
-         return get<Array<Integer>>(kIndex);
-      }
+      const Array<Integer> &index() const;
       /*! \brief Returns value by key "Index".*/
-      inline Array<Integer> &index()
-      {
-         if(!hasIndex())
-         {
-            insert<Array<Integer>>(kIndex);
-         }
-         return get<Array<Integer>>(kIndex);
-      }
+      Array<Integer> &index();
       /*! \brief Returns value by key "W".*/
-      inline const Array<Integer> &w() const
-      {
-         return get<Array<Integer>>(kW);
-      }
+      const Array<Integer> &w() const;
       /*! \brief Returns value by key "W".*/
-      inline Array<Integer> &w()
-      {
-         return get<Array<Integer>>(kW);
-      }
+      Array<Integer> &w();
       /*! \brief Adds optional entries into the parent Dictionary.*/
-      inline void prepare4Reading()
-      {
-         Stream::prepare4Reading();
-         Trailer::prepare4Reading();
-         insert<Array<Integer>>(kIndex);
-         insert<Integer>(kXRefStm);
-      }
+      void prepare4Reading();
       
-      const Name kXRef = Name("XRef");
-      
-   private:
-      const Name kType = Name("Type");
-      const Name kW = Name("W");
-      const Name kIndex = Name("Index");
-      const Name kXRefStm = Name("XRefStm");
+      static const Name kTypeValue;
    };
    /*! \brief PDF File Version.*/
    struct Version

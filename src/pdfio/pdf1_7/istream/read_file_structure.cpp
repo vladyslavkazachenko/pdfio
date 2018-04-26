@@ -15,10 +15,12 @@ namespace pdf1_7 = pdfio::pdf1_7;
 namespace pdf1_0 = pdfio::pdf1_0;
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":istream[" << std::hex << std::showbase << reinterpret_cast<unsigned long>(&istream) << \
+   ":istream[" << std::hex << std::showbase << \
+   reinterpret_cast<unsigned long>(&istream) << \
    "],trailer[" << reinterpret_cast<unsigned long>(&trailer) << "]:"
 
-std::istream &operator>>(std::istream &istream, pdf1_7::FileStructure::Trailer &trailer)
+std::istream &operator>>(std::istream &istream, 
+   pdf1_7::FileStructure::Trailer &trailer)
 {
    LOG_DEBUG(LOG_PREFIX << "enter\n");
    trailer.prepare4Reading();

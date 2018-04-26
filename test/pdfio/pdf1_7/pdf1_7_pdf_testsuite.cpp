@@ -3,5 +3,5 @@
 
 TEST(PdfTestSuite, version)
 {
-	EXPECT_EQ("1.7", pdfio::pdf1_7::kVersion);
+   EXPECT_EQ("1.7", pdfio::pdf1_7::kVersion);
 }

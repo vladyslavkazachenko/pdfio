@@ -7,51 +7,34 @@
 
 namespace pdf1_7 = pdfio::pdf1_7;
 
-TEST(FileStructureTestSuite, trailer_emptyStream)
+TEST(FileStructureTestSuite, trailer1)
 {
   pdf1_7::FileStructure::Trailer trailer;
-  std::istringstream istream;
-  EXPECT_FALSE(istream >> trailer);
-}
-
-TEST(FileStructureTestSuite, trailer_ok)
-{
-  pdf1_7::FileStructure::Trailer trailer1;
-  std::istringstream istream1(
+  std::istringstream istream(
     "trailer\n"
-    "<< /Size 22\n"
-    "/Root 2 0 R\n"
-    "/Info 1 0 R\n"
-    "/ID [ < 81b14aafa313db63dbd6f981e49f94f4 >\n"
-    "< 81b14aafa313db63dbd6f981e49f94f4 >\n"
-    "]\n"
-    ">>\n"
+    "<< /Size 22"
+    "/Root 2 0 R"
+    "/Info 1 0 R"
+    "/ID [ < 81b14aafa313db63dbd6f981e49f94f4 >"
+    "< 81b14aafa313db63dbd6f981e49f94f4 >"
+    "]"
+    ">>"
     "startxref\n"
     "18799\n"
     "%%EOF"
   );
-  EXPECT_TRUE(istream1 >> trailer1);
-  EXPECT_EQ(22, trailer1.size());
-  EXPECT_TRUE(trailer1.hasRoot());
-  EXPECT_EQ(2, trailer1.root().objectNumber());
-  EXPECT_EQ(0, trailer1.root().generationNumber());
-  EXPECT_TRUE(trailer1.hasInfo());
-  EXPECT_EQ(1, trailer1.info().objectNumber());
-  EXPECT_EQ(0, trailer1.info().generationNumber());
-  EXPECT_TRUE(trailer1.hasId());
-  EXPECT_EQ(2, trailer1.id().size());
-  EXPECT_TRUE(trailer1.id()[0] == "81b14aafa313db63dbd6f981e49f94f4");
-  EXPECT_TRUE(trailer1.id()[1] == "81b14aafa313db63dbd6f981e49f94f4");
-  
-  pdf1_7::FileStructure::Trailer trailer2;
-  std::istringstream istream2(
-    "trailer\n"
-    "<</Size 4963/Prev 1513589/Root 1047 0 R/Info 1045 0 R/ID[<B0DCFF11815D46D2A0723B8B6A07897C><CB01C436D5674A45A3942939551EB0ED>]>>\n"
-    "startxref\n"
-    "0\n"
-    "%%EOF"
-  );
-  EXPECT_TRUE(istream2 >> trailer2);
+  EXPECT_TRUE(istream >> trailer);
+  EXPECT_EQ(22, trailer.size());
+  EXPECT_TRUE(trailer.hasRoot());
+  EXPECT_EQ(2, trailer.root().objectNumber());
+  EXPECT_EQ(0, trailer.root().generationNumber());
+  EXPECT_TRUE(trailer.hasInfo());
+  EXPECT_EQ(1, trailer.info().objectNumber());
+  EXPECT_EQ(0, trailer.info().generationNumber());
+  EXPECT_TRUE(trailer.hasId());
+  EXPECT_EQ(2, trailer.id().size());
+  EXPECT_TRUE(trailer.id()[0] == "81b14aafa313db63dbd6f981e49f94f4");
+  EXPECT_TRUE(trailer.id()[1] == "81b14aafa313db63dbd6f981e49f94f4");
 }
 
 TEST(FileStructureTestSuite, xrefStream_ok)

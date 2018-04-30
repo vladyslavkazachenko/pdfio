@@ -2,6 +2,7 @@ add_executable(pdfio_pdf1_7_istream_unittest_app pdf1_7_istream_unittest_app.cpp
    pdf1_7_istream_file_structure_testsuite.cpp
    pdf1_7_istream_name_tree_testsuite.cpp
    pdf1_7_istream_document_catalog_testsuite.cpp
+   pdf1_7_istream_indirect_object_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_7_istream_unittest_app 
    pdfio_common pdf1_0 pdf1_0_istream pdf1_7 pdf1_7_istream

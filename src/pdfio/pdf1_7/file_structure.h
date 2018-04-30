@@ -26,7 +26,9 @@ struct FileStructure
    class Header
    {
    public:
-      /*! \brief Constructs the Header by initializing the version_ by the version.*/
+      /*! \brief Constructs the Header by initializing the version_ by the 
+       version.
+       */
       inline Header(const std::string &version = "")
       : version_(version)
       {
@@ -52,6 +54,27 @@ struct FileStructure
    private:
       std::string version_;
    };
+   typedef std::tuple<Integer, Integer, Integer> XrefEntryLayout;
+   /*! \brief PDF File Cross-Reference Subsection Entry.*/
+   enum class XrefEntryType: Integer
+   {
+      kFree = 0,
+      kUncompressed = 1,
+      kCompressed = 2,
+   };
+   typedef std::tuple<XrefEntryLayout, XrefEntryType, Integer, Integer> XrefEntry;
+   /*! \brief PDF File Cross-Reference Subsection.*/
+   struct XrefSubsection
+   {
+      Integer firstObjectNumber_ = 0;
+      std::vector<XrefEntry> entries_;
+   };
+   
+   /*! \brief PDF File Cross-Reference Section.*/
+   struct XrefSection
+   {
+      std::vector<XrefSubsection> subsections_;
+   };
 
    /*! \brief PDF File Trailer.*/
    class Trailer : public pdf1_0::FileStructure::Trailer
@@ -59,9 +82,12 @@ struct FileStructure
    public:
       /*! \brief Assigns the other to the Trailer.*/
       Trailer &operator=(const Trailer &other);
-      /*! \brief Checks whether parent Dictionary contains entry with key "Encrypt".*/
+      /*! \brief Checks whether parent Dictionary contains entry with key 
+       * "Encrypt".
+       */
       bool hasEncrypt() const;
-      /*! \brief Checks whether parent Dictionary contains entry with key "ID".*/
+      /*! \brief Checks whether parent Dictionary contains entry with key "ID".
+       */
       bool hasId() const;
       /*! \brief Returns value by key "ID".*/
       const Array<HexString> &id() const;
@@ -76,7 +102,9 @@ struct FileStructure
    {
    public:
       XrefStream();
-      /*! \brief Checks whether the parent Dictionary contains entry with key "Index".*/
+      /*! \brief Checks whether the parent Dictionary contains entry with key 
+       "Index".
+       */
       bool hasIndex() const;
       /*! \brief Returns value by key "Index".*/
       const Array<Integer> &index() const;

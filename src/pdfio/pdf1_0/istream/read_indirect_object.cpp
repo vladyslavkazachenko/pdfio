@@ -61,6 +61,12 @@ std::istream &operator>>(std::istream &istream,
          }
       }
    }
+   else
+   {
+      LOG_ERROR(LOG_PREFIX << 
+         "failed to read object number, stream state is " << 
+         istream.rdstate() << "\n");
+   }
    LOG_DEBUG(LOG_PREFIX << "leave\n");
    return istream;
 }

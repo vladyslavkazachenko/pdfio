@@ -5,7 +5,7 @@
 namespace pdfio
 {
    
-namespace pdf1_7
+namespace pdf1_4
 {
    
 using pdf1_0::Name;

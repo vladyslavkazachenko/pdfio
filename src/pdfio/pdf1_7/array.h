@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pdfio/pdf1_0/array.h"
+#include "pdfio/pdf1_4/array.h"
 
 namespace pdfio
 {
@@ -8,7 +8,7 @@ namespace pdfio
 namespace pdf1_7
 {
 
-using pdf1_0::Array;
+using pdf1_4::Array;
    
 }
    

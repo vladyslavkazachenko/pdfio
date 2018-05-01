@@ -14,6 +14,12 @@ namespace pdf1_4
 struct FileStructure
 {
 public:
+   /*! \brief PDF File Cross-Reference Subsection.*/
+   typedef pdf1_0::FileStructure::XrefSubsection XrefSubsection;
+   
+   /*! \brief PDF File Cross-Reference Section.*/
+   typedef pdf1_0::FileStructure::XrefSection XrefSection;
+   
    /*! \brief PDF File Trailer.*/
    class Trailer : public pdf1_0::FileStructure::Trailer
    {

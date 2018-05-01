@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "pdfio/pdf1_0/file_structure.h"
+#include "pdfio/pdf1_4/file_structure.h"
 #include "integer.h"
 #include "dictionary.h"
 #include "indirect_reference.h"
@@ -77,22 +77,11 @@ struct FileStructure
    };
 
    /*! \brief PDF File Trailer.*/
-   class Trailer : public pdf1_0::FileStructure::Trailer
+   class Trailer : public pdf1_4::FileStructure::Trailer
    {
    public:
       /*! \brief Assigns the other to the Trailer.*/
       Trailer &operator=(const Trailer &other);
-      /*! \brief Checks whether parent Dictionary contains entry with key 
-       * "Encrypt".
-       */
-      bool hasEncrypt() const;
-      /*! \brief Checks whether parent Dictionary contains entry with key "ID".
-       */
-      bool hasId() const;
-      /*! \brief Returns value by key "ID".*/
-      const Array<HexString> &id() const;
-      /*! \brief Returns value by key "ID".*/
-      Array<HexString> &id();
       /*! \brief Adds optional entries into the parent Dictionary.*/
       void prepare4Reading();
    };
@@ -122,7 +111,7 @@ struct FileStructure
    /*! \brief PDF File Version.*/
    struct Version
    {
-      pdf1_0::FileStructure::XrefSection xrefSection_;
+      pdf1_4::FileStructure::XrefSection xrefSection_;
       Trailer trailer_;
    };
 

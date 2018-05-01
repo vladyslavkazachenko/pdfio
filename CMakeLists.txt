@@ -36,12 +36,24 @@ if(DEFINED PDF_VERSION)
       add_library(pdfio
          $<TARGET_OBJECTS:pdf1_7_istream> 
          $<TARGET_OBJECTS:pdf1_7>
+         $<TARGET_OBJECTS:pdf1_4_istream> 
+         $<TARGET_OBJECTS:pdf1_4>
          $<TARGET_OBJECTS:pdf1_0_istream_documentreader>
          $<TARGET_OBJECTS:pdf1_0_istream>
          $<TARGET_OBJECTS:pdf1_0>
          $<TARGET_OBJECTS:pdfio_common>
       )
       add_dependencies(pdfio pdf1_7_istream pdf1_7 pdf1_0_istream pdf1_0 pdfio_common)
+   elseif(${PDF_VERSION} STREQUAL "1_4")
+      buildPdf1_4()
+      add_library(pdfio
+         $<TARGET_OBJECTS:pdf1_4_istream> 
+         $<TARGET_OBJECTS:pdf1_4>
+         $<TARGET_OBJECTS:pdf1_0_istream_documentreader>
+         $<TARGET_OBJECTS:pdf1_0_istream>
+         $<TARGET_OBJECTS:pdf1_0>
+         $<TARGET_OBJECTS:pdfio_common>
+      )
    elseif(${PDF_VERSION} STREQUAL "1_0")
       buildPdf1_0()
       add_library(pdfio 

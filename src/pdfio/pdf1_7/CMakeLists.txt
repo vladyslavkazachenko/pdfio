@@ -4,4 +4,4 @@ add_library(pdf1_7 OBJECT
    filters.cpp
    file_structure.cpp
 )
-add_dependencies(pdf1_7 pdf1_0)
+add_dependencies(pdf1_7 pdf1_4)

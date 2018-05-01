@@ -9,8 +9,6 @@ namespace pdf1_7
 namespace
 {
    const Name kKeySize = Name("Size");
-   const Name kKeyEncrypt = Name("Encrypt");
-   const Name kKeyId = Name("ID");
    const Name kKeyXrefStm = Name("XrefStm");
    const Name kKeyType = Name("Type");
    const Name kKeyW = Name("W");
@@ -24,36 +22,9 @@ FileStructure::Trailer &FileStructure::Trailer::operator=(const Trailer &other)
    return *this;
 }
 
-bool FileStructure::Trailer::hasEncrypt() const
-{
-   return contains(kKeyEncrypt);
-}
-
-bool FileStructure::Trailer::hasId() const
-{
-   return contains(kKeyId);
-}
-
-const Array<HexString> &FileStructure::Trailer::id() const
-{
-   return get<pdf1_7::Array<pdf1_7::HexString>>(kKeyId);
-}
-
-Array<HexString> &FileStructure::Trailer::id()
-{
-   if(!hasId())
-   {
-      Array<HexString> id(2);
-      insert(kKeyId, id);
-   }
-   return get<Array<HexString>>(kKeyId);
-}
-
 void FileStructure::Trailer::prepare4Reading()
 {
-   pdf1_0::FileStructure::Trailer::prepare4Reading();
-   insert<IndirectReference>(kKeyEncrypt);
-   insert<Array<HexString>>(kKeyId);
+   pdf1_4::FileStructure::Trailer::prepare4Reading();
    insert<Integer>(kKeyXrefStm);
 }
 

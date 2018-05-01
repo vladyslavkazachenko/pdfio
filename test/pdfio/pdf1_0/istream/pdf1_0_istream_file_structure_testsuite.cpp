@@ -111,12 +111,12 @@ TEST(FileStructureTestSuite, trailer_emptyStream)
 
 TEST(FileTrailerTestSuite, trailer_ok)
 {
-	pdf1_0::FileStructure::Trailer trailer;
-	std::istringstream istream("trailer << /Size 123 /Root 234 1 R >> startxref 456 %%EOF");
-	EXPECT_TRUE(istream >> trailer);
-	EXPECT_TRUE(trailer.size() == 123);
-	EXPECT_FALSE(trailer.hasPrev());
-	EXPECT_TRUE(trailer.root().objectNumber() == 234);
-	EXPECT_TRUE(trailer.root().generationNumber() == 1);
-	EXPECT_FALSE(trailer.hasInfo());
+   pdf1_0::FileStructure::Trailer trailer;
+   std::istringstream istream("trailer << /Size 123 /Root 234 1 R >> startxref 456 %%EOF");
+   EXPECT_TRUE(istream >> trailer);
+   EXPECT_TRUE(trailer.size() == 123);
+   EXPECT_FALSE(trailer.hasPrev());
+   EXPECT_TRUE(trailer.root().objectNumber() == 234);
+   EXPECT_TRUE(trailer.root().generationNumber() == 1);
+   EXPECT_FALSE(trailer.hasInfo());
 }

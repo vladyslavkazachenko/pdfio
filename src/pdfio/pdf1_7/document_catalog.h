@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pdfio/pdf1_0/document_catalog.h"
+#include "pdfio/pdf1_4/document_catalog.h"
 #include "array.h"
 #include "name.h"
 #include "indirect_reference.h"
@@ -12,7 +12,7 @@ namespace pdfio
 namespace pdf1_7
 {
    
-class DocumentCatalog: public pdf1_0::DocumentCatalog
+class DocumentCatalog: public pdf1_4::DocumentCatalog
 {
 public:
    class OutputIntent: public Dictionary

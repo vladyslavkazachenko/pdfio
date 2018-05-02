@@ -19,7 +19,7 @@ public:
    {
    public:
       OutputIntent()
-   {
+      {
          insert<IndirectReference>(Name("DestOutputProfile"));
          insert<Name>(Name("S"));
          insert<LiteralString>(Name("Info"));

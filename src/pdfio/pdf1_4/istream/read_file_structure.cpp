@@ -137,8 +137,7 @@ std::istream &operator>>(std::istream &istream,
                                  pdf1_4::FileVersion version;
                                  version.xrefSection_ = xrefSection;
                                  version.trailer_ = trailer;
-                                 fileStruct.versions_.insert(
-                                    std::begin(fileStruct.versions_), version);
+                                 fileStruct.versions_.push_back(version);
                                  if(trailer.hasPrev())
                                  {
                                     xrefOffset = trailer.prev();

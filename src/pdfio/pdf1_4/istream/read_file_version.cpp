@@ -17,10 +17,10 @@ std::istream &operator>>(std::istream &istream,
    LOG_DEBUG(LOG_PREFIX << "enter\n");
    if(istream >> header.data_)
    {
-      if(header.data_ != "%PDF−1.0" && header.data_ != "%PDF−1.1" &&
-         header.data_ != "%PDF−1.2" && header.data_ != "%PDF−1.3" &&
-         header.data_ != "%PDF−1.4")
-      {
+      if(header.data_ != "%PDF-1.0" && header.data_ != "%PDF-1.1" &&
+         header.data_ != "%PDF-1.2" && header.data_ != "%PDF-1.3" &&
+         header.data_ != "%PDF-1.4")
+      {for(auto ch : header.data_){LOG_ERROR(LOG_PREFIX << static_cast<int>(ch) << "\n");}
          LOG_ERROR(LOG_PREFIX << "header is invalid: " << header.data_ << "\n");
          istream.setstate(std::ios_base::failbit);
       }

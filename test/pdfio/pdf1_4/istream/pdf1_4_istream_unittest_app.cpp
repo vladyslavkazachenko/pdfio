@@ -4,11 +4,15 @@
 
 int main(int argc, char **argv)
 {
-   pdfio::gLogDebugHandler = [](const std::string &msg)
+   pdfio::gLogErrorHandler = [](const std::string &msg)
    {
       std::clog << "D\t" << msg;
    };
-   pdfio::gLogErrorHandler = [](const std::string &msg)
+   pdfio::gLogWarningHandler = [](const std::string &msg)
+   {
+      std::clog << "W\t" << msg;
+   };
+   pdfio::gLogDebugHandler = [](const std::string &msg)
    {
       std::clog << "D\t" << msg;
    };

@@ -3,6 +3,8 @@ add_executable(pdfio_pdf1_4_istream_unittest_app pdf1_4_istream_unittest_app.cpp
    pdf1_4_istream_file_version_testsuite.cpp
    pdf1_4_istream_document_catalog_testsuite.cpp
    pdf1_4_istream_action_testsuite.cpp
+   pdf1_4_istream_destination_testsuite.cpp
+   pdf1_4_istream_indirect_object_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_4_istream_unittest_app 
    pdf1_4_istream

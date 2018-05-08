@@ -5,6 +5,31 @@
 namespace pdfio
 {
    
+template <> int Variant::GetTypeId<pdf1_0::Destination::XYZ>()
+{
+   return static_cast<int>(pdf1_0::Destination::Type::kXYZ);
+}
+
+template <> int Variant::GetTypeId<pdf1_0::Destination::Fit>()
+{
+   return static_cast<int>(pdf1_0::Destination::Type::kFit);
+}
+
+template <> int Variant::GetTypeId<pdf1_0::Destination::FitH>()
+{
+   return static_cast<int>(pdf1_0::Destination::Type::kFitH);
+}
+
+template <> int Variant::GetTypeId<pdf1_0::Destination::FitV>()
+{
+   return static_cast<int>(pdf1_0::Destination::Type::kFitV);
+}
+
+template <> int Variant::GetTypeId<pdf1_0::Destination::FitR>()
+{
+   return static_cast<int>(pdf1_0::Destination::Type::kFitR);
+}
+   
 namespace pdf1_0
 {
  
@@ -33,31 +58,26 @@ Destination::Type Destination::type() const
 
 Destination::XYZ &Destination::xyz()
 {
-   assert(type() == Type::kXYZ);
    return value_.get<Destination::XYZ>();
 }
 
 Destination::Fit &Destination::fit()
 {
-   assert(type() == Type::kFit);
    return value_.get<Destination::Fit>();
 }
 
 Destination::FitH &Destination::fitH()
 {
-   assert(type() == Type::kFitH);
    return value_.get<Destination::FitH>();
 }
 
 Destination::FitV &Destination::fitV()
 {
-   assert(type() == Type::kFitV);
    return value_.get<Destination::FitV>();
 }
 
 Destination::FitR &Destination::fitR()
 {
-   assert(type() == Type::kFitR);
    return value_.get<Destination::FitR>();
 }
 

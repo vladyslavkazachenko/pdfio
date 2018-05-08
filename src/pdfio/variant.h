@@ -19,12 +19,16 @@ public:
    }
    template <typename T> T &get() 
    {
-      assert(value_);
+      if(!value_ || value_->type_ != GetTypeId<T>())
+      {
+         set(T());
+      }
       return std::static_pointer_cast<ValueAdaptor<T>>(value_)->value_;
    }
    template <typename T> void set(const T &value)
    {
-      value_ = std::static_pointer_cast<Value>(std::make_shared<ValueAdaptor<T>>(value));
+      value_ = std::static_pointer_cast<Value>(
+         std::make_shared<ValueAdaptor<T>>(value));
    }
    
    static const int KNull = -1;

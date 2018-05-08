@@ -14,6 +14,7 @@ add_executable(pdfio_pdf1_0_istream_unittest_app pdf1_0_istream_unittest_app.cpp
    pdf1_0_istream_outline_tree_testsuite.cpp
    pdf1_0_istream_document_pages_tree.cpp
    pdf1_0_istream_info_testsuite.cpp
+   pdf1_0_istream_destination_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_0_istream_unittest_app 
    pdfio_common pdf1_0 pdf1_0_istream

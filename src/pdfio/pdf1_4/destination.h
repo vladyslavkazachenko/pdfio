@@ -17,7 +17,15 @@ public:
    enum class Type
    {
       kInvalid,
+      kXYZ,
       kFit,
+      kFitH,
+      kFitV,
+      kFitR,
+      kFitB,
+      kFitBH,
+      kFitBV,
+      kNamed,
    };
    
    struct ExplicitDestination
@@ -98,9 +106,41 @@ public:
    {
       return type_;
    }
+   inline XYZ &xyz()
+   {
+      return value_.xyz_;
+   }
    inline Fit &fit()
    {
       return value_.fit_;
+   }
+   inline FitH &fitH()
+   {
+      return value_.fitH_;
+   }
+   inline FitV &fitV()
+   {
+      return value_.fitV_;
+   }
+   inline FitR &fitR()
+   {
+      return value_.fitR_;
+   }
+   inline FitB &fitB()
+   {
+      return value_.fitB_;
+   }
+   inline FitBH &fitBH()
+   {
+      return value_.fitBH_;
+   }
+   inline FitBV &fitBV()
+   {
+      return value_.fitBV_;
+   }
+   inline NamedDestination &named()
+   {
+      return value_.named_;
    }
    
 private:

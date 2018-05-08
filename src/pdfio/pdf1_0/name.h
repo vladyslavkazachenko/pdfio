@@ -51,6 +51,10 @@ public:
    {
       return value_;
    }
+   inline operator std::string() const
+   {
+      return value_;
+   }
 private:
    std::string value_;
 };

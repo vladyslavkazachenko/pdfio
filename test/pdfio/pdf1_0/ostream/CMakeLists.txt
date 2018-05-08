@@ -1,6 +1,7 @@
 add_executable(pdfio_pdf1_0_ostream_unittest_app 
    pdf1_0_ostream_unittest_app.cpp
    pdf1_0_ostream_name_testsuite.cpp
+   pdf1_0_ostream_indirect_reference_testsuite.cpp
 )
 add_dependencies(pdfio_pdf1_0_ostream_unittest_app 
    pdf1_0_ostream

@@ -4,16 +4,18 @@
 
 int main(int argc, char **argv)
 {
-#ifdef PDF_LOG
+   pdfio::gLogErrorHandler = [](const std::string &msg)
+   {
+      std::clog << "E\t" << msg;
+   };
+   pdfio::gLogWarningHandler = [](const std::string &msg)
+   {
+      std::clog << "W\t" << msg;
+   };
    pdfio::gLogDebugHandler = [](const std::string &msg)
    {
       std::clog << "D\t" << msg;
    };
-   pdfio::gLogErrorHandler = [](const std::string &msg)
-   {
-      std::clog << "D\t" << msg;
-   };
-#endif 
    testing::InitGoogleTest(&argc, argv);
    return RUN_ALL_TESTS();
 }

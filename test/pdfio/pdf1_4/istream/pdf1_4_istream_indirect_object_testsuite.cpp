@@ -10,7 +10,6 @@ TEST(IndirectObjectTestSuite, action1)
 {
    pdf1_4::IndirectObject indirectObject;
    indirectObject.set<pdf1_4::Action>();
-   //Spdf1_4::Destination destination;
    std::istringstream istream(
       "629 0 obj"
       "<<"

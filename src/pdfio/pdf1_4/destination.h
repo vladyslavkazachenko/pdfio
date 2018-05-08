@@ -2,6 +2,8 @@
 
 #include "indirect_reference.h"
 #include "integer.h"
+#include "name.h"
+#include "string.h"
 
 namespace pdfio
 {
@@ -68,6 +70,30 @@ public:
       Integer left_;
    };
    
+   struct NamedDestination
+   {
+      enum Type
+      {
+         kInvalid,
+         kName,
+         kString,
+      };
+      
+      struct InvalidValue
+      {
+         
+      };
+      
+      struct Value
+      {
+         InvalidValue invalid_;
+         Name name_;
+         String string_;
+      };
+      
+      Type type_ = kInvalid;
+   };
+   
    inline Type &type()
    {
       return type_;
@@ -91,6 +117,7 @@ private:
       FitB fitB_;
       FitBH fitBH_;
       FitBV fitBV_;
+      NamedDestination named_;
    };
    
    Type type_ = {Type::kInvalid};

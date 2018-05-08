@@ -44,6 +44,11 @@ public:
          entries_[key])->object_;
    }
    /*! \brief Returns generic object by the key.*/
+   inline const GenericObject &get(const Name &key) const
+   {
+      return *(entries_.at(key));
+   }
+   /*! \brief Returns generic object by the key.*/
    inline GenericObject &get(const Name &key)
    {
       return *(entries_[key]);

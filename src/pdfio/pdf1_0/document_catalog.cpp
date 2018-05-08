@@ -14,6 +14,7 @@ const Name DocumentCatalog::kKeyPageMode = Name("PageMode");
 
 DocumentCatalog::DocumentCatalog()
 {
+   insert(kKeyType, kValueType);
    insert<IndirectReference>(kKeyPages);
 }
 

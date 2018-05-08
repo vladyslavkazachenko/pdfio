@@ -5,7 +5,7 @@
 namespace pdf1_0 = pdfio::pdf1_0;
 
 #define LOG_PREFIX __PRETTY_FUNCTION__ << \
-   ":istream[" << std::hex << std::showbase << \
+   ":ostream[" << std::hex << std::showbase << \
    reinterpret_cast<unsigned long>(&ostream) << \
    "],indirRef[" << reinterpret_cast<unsigned long>(&indirRef) << "]:"
    

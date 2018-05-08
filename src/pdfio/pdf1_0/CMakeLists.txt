@@ -6,5 +6,6 @@ add_library(pdf1_0 OBJECT
    document_pages_tree.cpp
    info.cpp
    file_structure.cpp
+   destination.cpp
 )
 add_dependencies(pdf1_0 pdfio_common)

@@ -23,3 +23,16 @@ TEST(DocumentCatalogTestSuite, test2)
    EXPECT_TRUE(ostream.str() == "<</Pages 11 1 R/Type /Catalog>>");
 }
 
+TEST(DocumentCatalogTestSuite, test3)
+{
+   pdf1_0::DocumentCatalog catalog;
+   catalog.pages().objectNumber() = 2;
+   catalog.pages().generationNumber() = 0;
+   catalog.outlines().objectNumber() = 3;
+   catalog.outlines().generationNumber() = 0;
+   catalog.pageMode() = "UseOutlines";
+   std::ostringstream ostream;
+   EXPECT_TRUE(ostream << catalog);
+   EXPECT_TRUE(ostream.str() == 
+      "<</Outlines 3 0 R/PageMode /UseOutlines/Pages 2 0 R/Type /Catalog>>");
+}
